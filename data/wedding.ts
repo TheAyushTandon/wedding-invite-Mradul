@@ -1,0 +1,16 @@
+﻿export const WEDDING = {
+  groomName: "Mradul",
+  brideName: "Shreya",
+  coupleName: "Mradul & Shreya",
+  dates: "February 2 & 3",
+  year: 2027,
+  venue: "Taj Heritage",
+  venueShort: "Taj Heritage, Goa",
+  venueFull: "Taj Cidade de Goa Heritage",
+  venueAddress: "Vainguinim Beach, Dona Paula, Goa",
+  hashtag: "#MradulWedsShreya",
+  countdownTarget: new Date("2027-02-02T16:00:00+05:30"),
+  monogram: "/assets/shared/monogram-ms-crest.png",
+  music: "/assets/audio/background-music.mp3",
+  helpdesk: "helpdesk@mradulwedsshreya.com",
+};
