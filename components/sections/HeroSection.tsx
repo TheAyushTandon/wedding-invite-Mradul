@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { CalendarDays, MapPin, Heart } from "lucide-react";
@@ -17,7 +17,7 @@ export function HeroSection() {
     <section
       id="hero"
       className="section-bg relative"
-      style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center" }}
+      style={{ minHeight: "100svh", display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Image
         src="/assets/hero/couple-bg.png"

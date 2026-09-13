@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -42,7 +42,7 @@ export function GiftsSection() {
   };
 
   return (
-    <section id="gifts" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="gifts" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/gifts/drapery-giftbox-frame-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: revealed ? "rgba(250,240,210,0.90)" : "rgba(250,247,242,0.88)" }} />
 

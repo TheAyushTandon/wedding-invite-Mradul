@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, type UseFormReturn, type FieldErrors, type UseFormRegister } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "motion/react";
@@ -136,7 +136,7 @@ export function RSVPSection() {
     <section
       id="rsvp"
       className="section-bg"
-      style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image src="/assets/schedule/floral-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
@@ -276,7 +276,7 @@ function Step1Attendance({ onSelect }: { onSelect: (v: "accept" | "decline") => 
   );
 }
 
-function StepDetails({ form, onNext, errors }: { form: any; onNext: () => void; errors: any }) {
+function StepDetails({ form, onNext, errors }: { form: UseFormReturn<RSVPData>; onNext: () => void; errors: FieldErrors<RSVPData> }) {
   const { register, watch, setValue } = form;
   const countryCode = watch("countryCode");
 
@@ -417,7 +417,7 @@ function StepEvents({ guestCount, selectedEvents, onToggle, onNext }: {
 }
 
 function StepDietary({ selected, onToggle, showOther, register, onNext }: {
-  selected: string[]; onToggle: (d: string) => void; showOther: boolean; register: any; onNext: () => void;
+  selected: string[]; onToggle: (d: string) => void; showOther: boolean; register: UseFormRegister<RSVPData>; onNext: () => void;
 }) {
   return (
     <motion.div
@@ -456,7 +456,7 @@ function StepDietary({ selected, onToggle, showOther, register, onNext }: {
   );
 }
 
-function StepExtras({ register, onSubmit }: { register: any; onSubmit: () => void }) {
+function StepExtras({ register, onSubmit }: { register: UseFormRegister<RSVPData>; onSubmit: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}

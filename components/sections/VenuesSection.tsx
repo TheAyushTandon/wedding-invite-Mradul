@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useCallback } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export function VenuesSection() {
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   return (
-    <section id="venues" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="venues" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/venues/botanical-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -41,7 +41,7 @@ export function WishesSection() {
   const sorted = [...wishes].sort((a, b) => b.votes - a.votes);
 
   return (
-    <section id="wishes" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="wishes" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/countdown/floral-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
 
@@ -145,7 +145,7 @@ export function WishesSection() {
                   {wish.name}
                 </p>
                 <p className="font-serif-wd" style={{ fontSize: "0.9rem", color: "#4A2E2B", lineHeight: 1.6 }}>
-                  "{wish.wish}"
+                  &ldquo;{wish.wish}&rdquo;
                 </p>
               </div>
               <button

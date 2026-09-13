@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -51,15 +51,18 @@ export function Navigation() {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 z-30 flex items-center justify-between"
+        className="fixed top-0 left-0 right-0 mx-auto z-30 flex items-center justify-between"
         style={{
-          width: "min(100vw, 460px)",
+          width: "100%",
+          maxWidth: "460px",
           padding: "0.75rem 1.25rem",
-          background: scrolled ? "rgba(250,247,242,0.90)" : "transparent",
+          background: scrolled ? "rgba(250,247,242,0.92)" : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(140,75,39,0.12)" : "none",
-          transition: "all 0.3s ease",
+          borderBottom: "1px solid",
+          borderColor: scrolled ? "rgba(140,75,39,0.12)" : "transparent",
+          transition:
+            "background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease",
         }}
       >
         {/* Logo */}

@@ -1,4 +1,4 @@
-﻿export interface WeddingEvent {
+export interface WeddingEvent {
   id: string;
   day: 1 | 2;
   time: string;
@@ -14,6 +14,7 @@ export interface AttireOption {
   colors: string[];
   colorHex: string[];
   description: string;
+  image: string;
 }
 
 export interface Venue {

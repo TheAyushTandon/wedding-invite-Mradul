@@ -1,4 +1,4 @@
-﻿import { AttireOption } from "@/types";
+import { AttireOption } from "@/types";
 
 export const ATTIRE: AttireOption[] = [
   {
@@ -9,6 +9,7 @@ export const ATTIRE: AttireOption[] = [
     colorHex: ["#F4C430", "#FFD700", "#FFFFF0", "#B2C6A3"],
     description:
       "Embrace the spirit of the Haldi ceremony in vibrant yellows, cheerful florals, and earthy summer tones. Light fabrics and comfortable footwear are ideal for the outdoor beachfront lawn. Leave behind anything you wouldn\u2019t mind getting a little turmeric on!",
+    image: "/assets/attire/attire-haldi.png",
   },
   {
     event: "Sangeet",
@@ -18,6 +19,7 @@ export const ATTIRE: AttireOption[] = [
     colorHex: ["#50C878", "#0F52BA", "#9B111E", "#9966CC"],
     description:
       "Channel your inner Bollywood star for the Sangeet Night! Think sparkling lehengas, sequinned sarees, embellished sherwanis, and chic Indo-western ensembles in jewel-toned hues. This is a high-energy dance and performance night \u2014 dress to shine and move freely.",
+    image: "/assets/attire/attire-sangeet.png",
   },
   {
     event: "Pheras",
@@ -27,6 +29,7 @@ export const ATTIRE: AttireOption[] = [
     colorHex: ["#F4C2C2", "#98FF98", "#E6E6FA", "#FFDAB9"],
     description:
       "The sacred Vedic ceremony calls for elegant traditional wear in soft, reverent pastels. Beautiful silk sarees, kanjeevaram weaves, classic sherwanis, and heritage lehengas are warmly encouraged. This is a beachfront sunset ceremony \u2014 lighter fabrics and comfortable footwear will help you enjoy every moment.",
+    image: "/assets/attire/attire-pheras.png",
   },
   {
     event: "Gala Dinner",
@@ -36,5 +39,6 @@ export const ATTIRE: AttireOption[] = [
     colorHex: ["#1C1C1C", "#1B3A5C", "#F7E7CE", "#FFFFF0"],
     description:
       "The evening concludes with a grand Black Tie Gala Dinner under the stars. Gentlemen: tuxedos, classic suits, or elegant sherwanis. Ladies: cocktail gowns, evening sarees, or glamorous formal wear. This is the most formal event of the celebration \u2014 dress to the nines and celebrate in style.",
+    image: "/assets/attire/attire-gala.png",
   },
 ];

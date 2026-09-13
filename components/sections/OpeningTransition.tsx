@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 
@@ -125,17 +125,25 @@ export function OpeningTransition({
 
     strokeLines.forEach((line) => {
       if (line) {
-        const length = (line as unknown as { getTotalLength?: () => number }).getTotalLength?.() || 400;
         gsap.set(line, {
-          strokeDasharray: length,
-          strokeDashoffset: length,
-          opacity: 1,
+          strokeDasharray: 2000,
+          strokeDashoffset: 2000,
+          opacity: 0,
         });
       }
     });
 
-    // Animate stroke writing sequentially
-    strokeLines.forEach((line) => {
+    // Animate stroke writing sequentially - each line becomes visible ONLY when its drawing starts
+    strokeLines.forEach((line, index) => {
+      tl.to(
+        line,
+        {
+          opacity: 1,
+          duration: 0.15,
+          ease: "none",
+        },
+        index === 0 ? "+=0.1" : "-=0.3"
+      );
       tl.to(
         line,
         {
@@ -143,7 +151,7 @@ export function OpeningTransition({
           duration: 1.1,
           ease: "power1.inOut",
         },
-        "-=0.4"
+        "<"
       );
     });
 
@@ -184,7 +192,7 @@ export function OpeningTransition({
       {/* Mobile-proportioned Card Frame with background texture */}
       <div 
         ref={cardFrameRef}
-        className="w-full max-w-[440px] h-[100dvh] relative overflow-hidden bg-cover bg-center bg-no-repeat bg-[#FAF7F2] select-none cursor-pointer shadow-2xl"
+        className="w-full max-w-[440px] h-[100svh] relative overflow-hidden bg-cover bg-center bg-no-repeat bg-[#FAF7F2] select-none cursor-pointer shadow-2xl"
         style={{
           backgroundImage: "url('/image copy.png'), url('/image-copy.png'), url('/assets/opening/parchment-bg.png')",
         }}
@@ -247,6 +255,7 @@ export function OpeningTransition({
                   textAnchor="middle"
                   fontSize="28"
                   className="cursive-stroke-text"
+                  style={{ opacity: 0 }}
                 >
                   You are cordially invited
                 </text>
@@ -259,6 +268,7 @@ export function OpeningTransition({
                   textAnchor="middle"
                   fontSize="28"
                   className="cursive-stroke-text"
+                  style={{ opacity: 0 }}
                 >
                   to celebrate the wedding of
                 </text>
@@ -271,6 +281,7 @@ export function OpeningTransition({
                   textAnchor="middle"
                   fontSize="52"
                   className="cursive-stroke-text"
+                  style={{ opacity: 0 }}
                 >
                   Mradul &amp;
                 </text>
@@ -283,6 +294,7 @@ export function OpeningTransition({
                   textAnchor="middle"
                   fontSize="54"
                   className="cursive-stroke-text"
+                  style={{ opacity: 0 }}
                 >
                   Shreya
                 </text>

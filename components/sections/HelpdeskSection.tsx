@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
@@ -10,7 +10,7 @@ import { Phone, Mail } from "lucide-react";
 
 export function HelpdeskSection() {
   return (
-    <section id="helpdesk" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="helpdesk" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/venues/botanical-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
 

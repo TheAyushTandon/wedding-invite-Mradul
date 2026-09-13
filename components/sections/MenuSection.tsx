@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { MENU } from "@/data/menu";
@@ -7,7 +7,7 @@ export function MenuSection() {
   return (
     <section
       id="menu"
-      className="relative w-full min-h-[100dvh] px-4 sm:px-6 bg-[#FAF7F2] text-[#4A2E2B] flex flex-col items-center justify-between select-none overflow-hidden"
+      className="relative w-full min-h-[100svh] px-4 sm:px-6 bg-[#FAF7F2] text-[#4A2E2B] flex flex-col items-center justify-between select-none overflow-hidden"
       style={{
         paddingTop: "135px",
         paddingBottom: "95px",

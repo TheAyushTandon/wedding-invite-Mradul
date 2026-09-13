@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -95,7 +95,7 @@ export function CountdownSection() {
     <section
       id="countdown"
       className="section-bg"
-      style={{ minHeight: "100dvh", display: "flex", alignItems: "center" }}
+      style={{ minHeight: "100svh", display: "flex", alignItems: "center" }}
     >
       <Image
         src="/assets/countdown/floral-arch-bg.png"

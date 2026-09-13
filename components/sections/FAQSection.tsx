@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ export function FAQSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="faq" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/accommodations/lantern-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
 

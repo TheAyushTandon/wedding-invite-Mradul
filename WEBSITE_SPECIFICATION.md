@@ -1,4 +1,4 @@
-﻿# Wedding Website — Complete Rebuild Specification
+# Wedding Website — Complete Rebuild Specification
 ## Mradul & Shreya • Taj Heritage, Goa • February 2 & 3
 
 ---
@@ -8,7 +8,7 @@
 This is a single-page, mobile-first digital wedding invitation for **Mradul & Shreya**.
 The website is designed as a luxury phone-frame experience: a vertical portrait-oriented layout
 ~430-460 px wide on desktop, centered on screen with a dark outer background (#141414).
-Each section fills the full viewport height (100dvh), creating a full-screen paging/scrolling experience.
+Each section fills the full viewport height (100svh), creating a full-screen paging/scrolling experience without mobile toolbar jump artifacts.
 The site has 20 distinct sections (chapters) experienced in sequence by vertical scrolling.
 
 Couple: Mradul & Shreya

@@ -1,5 +1,5 @@
-﻿"use client";
-import { useState } from "react";
+"use client";
+import { useState, Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
@@ -66,7 +66,7 @@ export function ScheduleSection() {
     <section
       id="schedule"
       className="section-bg"
-      style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image src="/assets/schedule/floral-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
@@ -81,12 +81,11 @@ export function ScheduleSection() {
         {/* Day switcher */}
         <div className="flex items-center justify-center gap-0 mb-8">
           {[1, 2].map((day, i) => (
-            <>
+            <Fragment key={day}>
               {i === 1 && (
                 <span style={{ color: "#8C4B27", margin: "0 0.75rem", fontSize: "0.5rem" }}>✦</span>
               )}
               <button
-                key={day}
                 onClick={() => setActiveDay(day as 1 | 2)}
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
@@ -106,7 +105,7 @@ export function ScheduleSection() {
               >
                 {day === 1 ? "DAY 1 • HALDI & SANGEET" : "DAY 2 • PHERAS & GALA"}
               </button>
-            </>
+            </Fragment>
           ))}
         </div>
 
@@ -121,10 +120,10 @@ export function ScheduleSection() {
             className="flex flex-col gap-4"
           >
             {events.map((event, i) => (
-              <>
-                <EventCard key={event.id} event={event} delay={i * 0.08} />
-                {i < events.length - 1 && <HairlineDivider key={`div-${event.id}`} />}
-              </>
+              <Fragment key={event.id}>
+                <EventCard event={event} delay={i * 0.08} />
+                {i < events.length - 1 && <HairlineDivider />}
+              </Fragment>
             ))}
           </motion.div>
         </AnimatePresence>

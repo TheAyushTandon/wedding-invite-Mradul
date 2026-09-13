@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -11,7 +11,7 @@ export function AttireSection() {
   const tabs = ["Haldi", "Sangeet", "Pheras", "Gala"];
 
   return (
-    <section id="attire" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="attire" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/attire/coastal-terrace-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
 
@@ -105,13 +105,15 @@ export function AttireSection() {
             </div>
 
             {/* Clothing illustration */}
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2">
               <Image
-                src="/assets/attire/clothing-illustration.png"
-                alt="Attire illustration"
-                width={220}
-                height={220}
-                style={{ objectFit: "contain", opacity: 0.90 }}
+                src={current.image}
+                alt={`${current.event} attire illustration`}
+                width={380}
+                height={240}
+                className="w-full max-w-[380px] h-auto object-contain drop-shadow-md"
+                style={{ opacity: 0.95 }}
+                priority={activeTab === 0}
               />
             </div>
           </motion.div>

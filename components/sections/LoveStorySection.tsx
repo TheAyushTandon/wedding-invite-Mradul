@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
@@ -32,7 +32,7 @@ export function LoveStorySection() {
   const current = STORY[activeIndex];
 
   return (
-    <section id="story" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
+    <section id="story" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
       <Image src="/assets/story/romantic-rose-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center" }} />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
 

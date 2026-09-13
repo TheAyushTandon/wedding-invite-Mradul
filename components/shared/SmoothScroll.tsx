@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect } from "react";
 import Lenis from "lenis";
 
@@ -10,24 +10,38 @@ export function SmoothScroll() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.5,
-    });
+    // Avoid hijacking touch gestures on mobile devices.
+    // Mobile browsers (iOS Safari & Android Chrome) have hardware-accelerated 120Hz momentum scrolling,
+    // and JS touch interception breaks toolbar collapse/expand, causing severe screen jitter.
+    const isTouchDevice =
+      "ontouchstart" in window ||
+      (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0) ||
+      window.matchMedia("(pointer: coarse)").matches;
 
-    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+    let lenis: Lenis | null = null;
+    let rafId: number | null = null;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    if (!isTouchDevice) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 0,
+        syncTouch: false,
+      });
+
+      (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
+      function raf(time: number) {
+        lenis?.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
     }
-
-    const rafId = requestAnimationFrame(raf);
 
     // Global anchor handler for ultra-smooth internal navigation
     const handleAnchorClick = (e: MouseEvent) => {
@@ -39,11 +53,15 @@ export function SmoothScroll() {
         const targetElement = document.querySelector(href);
         if (targetElement) {
           e.preventDefault();
-          lenis.scrollTo(href, {
-            offset: -20,
-            duration: 1.3,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
+          if (lenis) {
+            lenis.scrollTo(href, {
+              offset: -20,
+              duration: 1.3,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
+          } else {
+            targetElement.scrollIntoView({ behavior: "smooth" });
+          }
         }
       }
     };
@@ -51,10 +69,12 @@ export function SmoothScroll() {
     document.addEventListener("click", handleAnchorClick, { passive: false });
 
     return () => {
-      cancelAnimationFrame(rafId);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       document.removeEventListener("click", handleAnchorClick);
-      lenis.destroy();
-      delete (window as unknown as { __lenis?: Lenis }).__lenis;
+      if (lenis) {
+        lenis.destroy();
+        delete (window as unknown as { __lenis?: Lenis }).__lenis;
+      }
     };
   }, []);
 
