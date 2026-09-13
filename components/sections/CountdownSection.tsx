@@ -116,16 +116,15 @@ export function CountdownSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-5"
         >
-          <motion.div whileHover={{ scale: 1.07 }} transition={{ duration: 0.2 }}>
+          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="w-36 sm:w-44 flex justify-center">
             <Image
               src={WEDDING.monogram}
               alt="M&S Monogram"
-              width={90}
+              width={180}
               height={90}
-              className="rounded-full"
-              style={{ boxShadow: "0 4px 20px rgba(60,30,20,0.18)" }}
+              className="w-full h-auto object-contain pointer-events-none select-none"
             />
           </motion.div>
         </motion.div>
@@ -203,3 +202,4 @@ export function CountdownSection() {
     </section>
   );
 }
+

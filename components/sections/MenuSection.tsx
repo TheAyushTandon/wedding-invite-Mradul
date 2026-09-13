@@ -1,88 +1,118 @@
 ﻿"use client";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { SectionHeader } from "@/components/shared/SectionHeader";
-import { HairlineDivider } from "@/components/shared/HairlineDivider";
 import { MENU } from "@/data/menu";
-import { Leaf } from "lucide-react";
 
 export function MenuSection() {
   return (
-    <section id="menu" className="section-bg" style={{ minHeight: "100dvh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/menu/ribbon-lily-frame-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+    <section
+      id="menu"
+      className="relative w-full min-h-[100dvh] px-4 sm:px-6 bg-[#FAF7F2] text-[#4A2E2B] flex flex-col items-center justify-between select-none overflow-hidden"
+      style={{
+        paddingTop: "135px",
+        paddingBottom: "95px",
+      }}
+    >
+      {/* Background Illustrated Satin Ribbon & Lily Frame */}
+      <Image
+        src="/assets/menu/ribbon-lily-frame-bg.png"
+        alt="Ribbon & Lily Menu Frame"
+        fill
+        priority
+        className="object-cover object-top pointer-events-none select-none z-0"
+      />
 
-      <div className="section-content section-pad w-full py-16">
-        <SectionHeader
-          eyebrow="✦ DINING ✦"
-          heading="The Banquet Menu"
-          quote="A four-course feast celebrating coastal delicacies and fine wine pairings."
-        />
+      {/* Subtle Warm Parchment Blend Overlay */}
+      <div className="absolute inset-0 bg-[#FAF7F2]/10 pointer-events-none z-0" />
 
-        <div className="glass-card p-6">
-          {MENU.map((course, ci) => (
+      {/* Main Content Layout fitted inside the card frame */}
+      <div className="relative z-10 w-full max-w-[330px] sm:max-w-[360px] mx-auto flex-1 flex flex-col justify-between items-center text-center">
+        {/* 1. Top Editorial Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="w-full flex flex-col items-center mb-3"
+        >
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <span className="text-[#8C4B27]/50 text-[9px]">✦</span>
+            <span
+              className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.32em] text-[#8C4B27]"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              Dining
+            </span>
+            <span className="text-[#8C4B27]/50 text-[9px]">✦</span>
+          </div>
+
+          {/* Cursive Calligraphy Title */}
+          <h2
+            className="text-3xl sm:text-4xl font-normal text-[#8C4B27] text-center mb-1 tracking-wide leading-tight"
+            style={{ fontFamily: "var(--font-cursive)" }}
+          >
+            The Banquet Menu
+          </h2>
+
+          {/* Romantic Italic Quote */}
+          <p
+            className="text-[11px] sm:text-[12px] text-[#6E4141] max-w-[270px] sm:max-w-xs text-center font-serif italic leading-relaxed"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
+            &ldquo;A four-course feast celebrating coastal delicacies and fine wine pairings.&rdquo;
+          </p>
+        </motion.div>
+
+        {/* 2. Open Editorial Menu Items (No enclosing card box) */}
+        <div className="w-full flex flex-col items-center flex-1 justify-around py-1">
+          {MENU.map((course, idx) => (
             <motion.div
               key={course.course}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: ci * 0.1 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="w-full flex flex-col items-center my-2"
             >
-              {ci > 0 && <HairlineDivider className="my-7" />}
-
-              {/* Course heading */}
-              <div className="flex items-center gap-3 mb-5">
-                <div style={{ flex: 1, height: 1, background: "rgba(140,75,39,0.25)" }} />
-                <p
-                  style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.6rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.3em",
-                    textTransform: "uppercase",
-                    color: "#8C4B27",
-                    whiteSpace: "nowrap",
-                  }}
+              {/* Course Header with delicate hairlines */}
+              <div className="flex items-center justify-center gap-3 w-full mb-2">
+                <div className="flex-1 max-w-[42px] h-[1px] bg-[#8C4B27]/25" />
+                <span
+                  className="text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.24em] text-[#8C4B27]"
+                  style={{ fontFamily: "var(--font-sans)" }}
                 >
                   {course.course}
-                </p>
-                <div style={{ flex: 1, height: 1, background: "rgba(140,75,39,0.25)" }} />
+                </span>
+                <div className="flex-1 max-w-[42px] h-[1px] bg-[#8C4B27]/25" />
               </div>
 
-              {/* Dishes */}
-              <div className="flex flex-col gap-5">
+              {/* Course Dishes List */}
+              <div className="w-full flex flex-col items-center gap-2">
                 {course.items.map((item, ii) => (
-                  <div key={ii}>
-                    <div className="flex items-start gap-2 mb-1">
-                      <h4
-                        className="font-serif-wd"
-                        style={{ fontSize: "1.05rem", fontWeight: 700, color: "#3D2522", flex: 1, lineHeight: 1.3 }}
+                  <div key={ii} className="w-full flex flex-col items-center text-center">
+                    {/* Dish Name */}
+                    <div className="flex items-center justify-center gap-1.5 flex-wrap">
+                      <h3
+                        className="text-[14px] sm:text-[15.5px] font-serif font-medium text-[#4A2E2B] leading-snug"
+                        style={{ fontFamily: "var(--font-serif)" }}
                       >
                         {item.name}
-                      </h4>
+                      </h3>
                       {item.dietary && (
                         <span
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "0.2rem",
-                            background: "rgba(34,197,94,0.12)",
-                            color: "#15803D",
-                            fontSize: "0.6rem",
-                            fontWeight: 700,
-                            padding: "0.2rem 0.5rem",
-                            borderRadius: "9999px",
-                            flexShrink: 0,
-                          }}
+                          className="inline-flex items-center gap-0.5 text-[9px] font-bold text-[#15803D] bg-[#22C55E]/15 px-1.5 py-0.5 rounded-full"
+                          style={{ fontFamily: "var(--font-sans)" }}
                         >
-                          <Leaf size={10} />
-                          V
+                          🌱 V
                         </span>
                       )}
                     </div>
+
+                    {/* Dish Description */}
                     <p
-                      className="font-serif-wd"
-                      style={{ fontSize: "0.88rem", color: "#6E4141", lineHeight: 1.65, fontStyle: "italic" }}
+                      className="text-[10.5px] sm:text-[11px] text-[#6E4141] font-light italic leading-relaxed max-w-[270px] sm:max-w-[295px] mt-0.5"
+                      style={{ fontFamily: "var(--font-serif)" }}
                     >
                       {item.description}
                     </p>
@@ -91,14 +121,26 @@ export function MenuSection() {
               </div>
             </motion.div>
           ))}
+        </div>
 
-          {/* Footnote */}
-          <HairlineDivider className="mt-7 mb-4" />
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.78rem", color: "#9B9B9B", fontStyle: "italic", textAlign: "center" }}>
+        {/* 3. Bottom Dietary Footnote */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="w-full flex flex-col items-center pt-2"
+        >
+          <p
+            className="text-[9.5px] sm:text-[10px] text-[#8C4B27]/80 font-serif italic max-w-[270px] text-center leading-snug"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
             * Dietary preferences and allergies accommodated via RSVP
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
+export default MenuSection;

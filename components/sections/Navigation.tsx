@@ -71,9 +71,9 @@ export function Navigation() {
           <Image
             src={WEDDING.monogram}
             alt="M&S"
-            width={38}
-            height={38}
-            className="rounded-full"
+            width={48}
+            height={28}
+            className="object-contain"
             style={{ opacity: scrolled ? 1 : 0.85 }}
           />
         </button>
@@ -216,4 +216,5 @@ export function Navigation() {
     </>
   );
 }
+
 

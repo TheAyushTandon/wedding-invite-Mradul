@@ -70,14 +70,15 @@ export function Footer() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="w-20 h-20 rounded-full overflow-hidden mb-6 shadow-sm hover:scale-105 transition-transform duration-300 mx-auto"
+        className="w-36 sm:w-44 mx-auto mb-4 hover:scale-105 transition-transform duration-300 flex justify-center"
       >
         <Image
           src={WEDDING.monogram}
           alt="Mradul & Shreya Monogram"
-          width={80}
-          height={80}
-          className="w-full h-full object-cover pointer-events-none select-none"
+          width={180}
+          height={90}
+          className="w-full h-auto object-contain pointer-events-none select-none"
+          priority
         />
       </motion.div>
 
@@ -191,4 +192,5 @@ export function Footer() {
     </footer>
   );
 }
+
 
