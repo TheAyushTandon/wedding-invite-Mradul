@@ -60,39 +60,43 @@ function WeddingContent() {
       {/* Hidden audio player */}
       <AudioPlayer ref={audioRef} src={WEDDING.music} />
 
-      {/* Opening transition */}
+      {/* Main site */}
+      <div
+        id="wedding-site"
+        data-lang={lang}
+        className={`transition-opacity duration-700 ease-out ${
+          showOpening ? "opacity-0 pointer-events-none select-none h-screen overflow-hidden" : "opacity-100"
+        }`}
+      >
+        <Navigation />
+        <MusicToggle playing={musicPlaying} onToggle={toggleMusic} />
+
+        <main>
+          <HeroSection />
+          <CountdownSection />
+          <ScheduleSection />
+          <AttireSection />
+          <TravelSection />
+          <FamiliesSection />
+          <AccommodationsSection />
+          <ImportantNotesSection />
+          <MenuSection />
+          <GallerySection />
+          <WishesSection />
+          <FAQSection />
+          <HelpdeskSection />
+          <RSVPSection />
+        </main>
+
+        <Footer />
+      </div>
+
+      {/* Opening transition modal overlay */}
       {showOpening && (
         <OpeningTransition
           onComplete={handleOpeningComplete}
           onMusicStart={handleMusicStart}
         />
-      )}
-
-      {/* Main site */}
-      {!showOpening && (
-        <div id="wedding-site" data-lang={lang}>
-          <Navigation />
-          <MusicToggle playing={musicPlaying} onToggle={toggleMusic} />
-
-          <main>
-            <HeroSection />
-            <CountdownSection />
-            <ScheduleSection />
-            <AttireSection />
-            <TravelSection />
-            <FamiliesSection />
-            <AccommodationsSection />
-            <ImportantNotesSection />
-            <MenuSection />
-            <GallerySection />
-            <WishesSection />
-            <FAQSection />
-            <HelpdeskSection />
-            <RSVPSection />
-          </main>
-
-          <Footer />
-        </div>
       )}
     </>
   );

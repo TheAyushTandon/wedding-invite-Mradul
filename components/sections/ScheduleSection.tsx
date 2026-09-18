@@ -180,7 +180,7 @@ export function ScheduleSection() {
               )}
               <button
                 onClick={() => setActiveDay(day as 1 | 2)}
-                className="flex-1 text-center"
+                className="relative flex-1 text-center py-2 px-1 rounded-t-lg transition-colors duration-200 cursor-pointer border-none"
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "0.68rem",
@@ -189,20 +189,17 @@ export function ScheduleSection() {
                   textTransform: "uppercase",
                   color: activeDay === day ? "#8C4B27" : "#8A7D78",
                   background: activeDay === day ? "rgba(140,75,39,0.08)" : "transparent",
-                  border: "none",
-                  borderBottom:
-                    activeDay === day
-                      ? "2px solid #8C4B27"
-                      : "2px solid transparent",
-                  padding: "0.45rem 0.35rem",
-                  borderRadius: "0.4rem 0.4rem 0 0",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  whiteSpace: "normal",
                   lineHeight: 1.25,
                 }}
               >
                 {day === 1 ? t.day1 : t.day2}
+                {activeDay === day && (
+                  <motion.div
+                    layoutId="activeScheduleDayBorder"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#8C4B27]"
+                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  />
+                )}
               </button>
             </Fragment>
           ))}

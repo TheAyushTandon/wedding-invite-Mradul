@@ -136,9 +136,10 @@ export function WishesSection() {
           {sorted.map((wish, i) => (
             <motion.div
               key={wish.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
+              layout
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ layout: { type: "spring", stiffness: 350, damping: 30 }, duration: 0.35, delay: i * 0.04 }}
               className="glass-card flex items-start gap-3 p-4"
             >
               <div style={{ flex: 1, minWidth: 0 }}>

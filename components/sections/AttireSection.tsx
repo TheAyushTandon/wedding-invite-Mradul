@@ -51,37 +51,36 @@ export function AttireSection() {
 
         {/* 4-tab selector with translated event names */}
         <div
-          className="flex rounded-full overflow-hidden mb-8 p-1"
+          className="flex rounded-full overflow-hidden mb-8 p-1 relative"
           style={{
             border: "1.5px solid rgba(140,75,39,0.25)",
             background: "rgba(255,255,255,0.70)",
           }}
         >
           {tabs.map((tab, i) => (
-            <motion.button
+            <button
               key={tab}
-              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveTab(i)}
+              className="relative flex-1 py-2 px-1 text-center border-none cursor-pointer z-10 transition-colors duration-200 bg-transparent"
               style={{
-                flex: 1,
-                padding: "0.6rem 0.25rem",
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: "0.68rem",
                 fontWeight: 700,
                 letterSpacing: "0.04em",
                 textTransform: "uppercase",
-                background: activeTab === i ? "#8C4B27" : "transparent",
-                color: activeTab === i ? "white" : "#6E4141",
-                border: "none",
-                cursor: "pointer",
-                transition: "background-color 0.25s ease, color 0.25s ease",
-                borderRadius: activeTab === i ? "9999px" : "9999px",
-                boxShadow: activeTab === i ? "0 2px 8px rgba(140,75,39,0.25)" : "none",
+                color: activeTab === i ? "#FFFFFF" : "#6E4141",
               }}
               aria-pressed={activeTab === i}
             >
+              {activeTab === i && (
+                <motion.div
+                  layoutId="activeAttirePill"
+                  className="absolute inset-0 rounded-full bg-[#8C4B27] shadow-[0_2px_8px_rgba(140,75,39,0.3)] -z-10"
+                  transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                />
+              )}
               {tab}
-            </motion.button>
+            </button>
           ))}
         </div>
 
