@@ -112,22 +112,26 @@ export function LoveStorySection() {
           </div>
 
           {/* Arrows */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={scrollPrev}
             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center rounded-full"
             style={{ width: "2.2rem", height: "2.2rem", background: "rgba(250,247,242,0.90)", border: "1px solid rgba(140,75,39,0.25)", boxShadow: "0 2px 10px rgba(0,0,0,0.12)" }}
             aria-label="Previous milestone"
           >
             <ChevronLeft size={16} color="#8C4B27" />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={scrollNext}
             className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center rounded-full"
             style={{ width: "2.2rem", height: "2.2rem", background: "rgba(250,247,242,0.90)", border: "1px solid rgba(140,75,39,0.25)", boxShadow: "0 2px 10px rgba(0,0,0,0.12)" }}
             aria-label="Next milestone"
           >
             <ChevronRight size={16} color="#8C4B27" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Current milestone info */}

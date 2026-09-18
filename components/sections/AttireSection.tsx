@@ -51,15 +51,16 @@ export function AttireSection() {
 
         {/* 4-tab selector with translated event names */}
         <div
-          className="flex rounded-full overflow-hidden mb-8"
+          className="flex rounded-full overflow-hidden mb-8 p-1"
           style={{
             border: "1.5px solid rgba(140,75,39,0.25)",
-            background: "rgba(255,255,255,0.60)",
+            background: "rgba(255,255,255,0.70)",
           }}
         >
           {tabs.map((tab, i) => (
-            <button
+            <motion.button
               key={tab}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setActiveTab(i)}
               style={{
                 flex: 1,
@@ -73,13 +74,14 @@ export function AttireSection() {
                 color: activeTab === i ? "white" : "#6E4141",
                 border: "none",
                 cursor: "pointer",
-                transition: "all 0.2s ease",
-                borderRadius: activeTab === i ? "9999px" : 0,
+                transition: "background-color 0.25s ease, color 0.25s ease",
+                borderRadius: activeTab === i ? "9999px" : "9999px",
+                boxShadow: activeTab === i ? "0 2px 8px rgba(140,75,39,0.25)" : "none",
               }}
               aria-pressed={activeTab === i}
             >
               {tab}
-            </button>
+            </motion.button>
           ))}
         </div>
 

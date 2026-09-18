@@ -110,8 +110,10 @@ export function Navigation() {
             }}
           >
             {languages.map((l) => (
-              <button
+              <motion.button
                 key={l.code}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setLang(l.code)}
                 style={{
                   background: lang === l.code ? "#8C4B27" : "transparent",
@@ -122,17 +124,19 @@ export function Navigation() {
                   fontSize: "0.62rem",
                   fontWeight: lang === l.code ? 700 : 500,
                   cursor: "pointer",
-                  transition: "all 0.2s ease",
+                  transition: "background-color 0.2s ease, color 0.2s ease",
                 }}
                 aria-label={`Change language to ${l.label}`}
               >
                 {l.label}
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* Menu button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(!isOpen)}
             style={{
               background: "rgba(140,75,39,0.12)",
@@ -154,7 +158,7 @@ export function Navigation() {
             ) : (
               <Menu size={16} color="#8C4B27" />
             )}
-          </button>
+          </motion.button>
         </div>
       </motion.header>
 
@@ -257,8 +261,10 @@ export function Navigation() {
                   </div>
                   <div className="grid grid-cols-3 gap-1">
                     {languages.map((l) => (
-                      <button
+                      <motion.button
                         key={l.code}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.96 }}
                         onClick={() => setLang(l.code)}
                         style={{
                           background: lang === l.code ? "#8C4B27" : "rgba(255,255,255,0.8)",
@@ -273,7 +279,7 @@ export function Navigation() {
                         }}
                       >
                         {l.label}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 </div>

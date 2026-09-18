@@ -58,7 +58,7 @@ export function FAQSection() {
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : i)}
-                  className="w-full flex items-center gap-3.5 p-4 text-left cursor-pointer"
+                  className="w-full flex items-center gap-3.5 p-4 text-left cursor-pointer transition-colors duration-200 hover:bg-[#8C4B27]/[0.02]"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${i}`}
                 >

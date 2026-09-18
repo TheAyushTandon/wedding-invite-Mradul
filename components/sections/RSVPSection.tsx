@@ -15,7 +15,7 @@ import {
   AlertTriangle, WineOff
 } from "lucide-react";
 
-import { Language } from "@/lib/translations";
+import { Language, TranslationSchema } from "@/lib/translations";
 
 const COUNTRY_CODES = [
   { code: "+91", country: "India", flag: "🇮🇳" },
@@ -396,12 +396,12 @@ function Step1Attendance({
       transition={{ duration: 0.3 }}
       className="flex flex-col gap-4"
     >
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02, y: -2 }}
+        whileTap={{ scale: 0.98 }}
         onClick={() => onSelect("accept")}
         className="glass-card p-5 flex items-center gap-4 w-full text-left"
-        style={{ border: "2px solid transparent", transition: "all 0.2s", cursor: "pointer" }}
-        onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#8C4B27")}
-        onMouseLeave={(e) => (e.currentTarget.style.borderColor = "transparent")}
+        style={{ border: "2px solid rgba(37,211,102,0.30)", transition: "border-color 0.2s ease, box-shadow 0.2s ease", cursor: "pointer" }}
       >
         <div style={{ width: "3rem", height: "3rem", borderRadius: "50%", background: "rgba(37,211,102,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
           <CheckCircle2 size={24} color="#15803D" />
@@ -415,14 +415,14 @@ function Step1Attendance({
           </p>
         </div>
         <ChevronRight size={16} color="#8C4B27" style={{ marginLeft: "auto", flexShrink: 0 }} />
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02, y: -2 }}
+        whileTap={{ scale: 0.98 }}
         onClick={() => onSelect("decline")}
         className="glass-card p-5 flex items-center gap-4 w-full text-left"
-        style={{ border: "2px solid transparent", transition: "all 0.2s", cursor: "pointer" }}
-        onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(194,65,55,0.40)")}
-        onMouseLeave={(e) => (e.currentTarget.style.borderColor = "transparent")}
+        style={{ border: "2px solid rgba(194,65,55,0.25)", transition: "border-color 0.2s ease, box-shadow 0.2s ease", cursor: "pointer" }}
       >
         <div style={{ width: "3rem", height: "3rem", borderRadius: "50%", background: "rgba(194,65,55,0.10)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
           <XCircle size={24} color="#C24137" />
@@ -436,7 +436,7 @@ function Step1Attendance({
           </p>
         </div>
         <ChevronRight size={16} color="#9B9B9B" style={{ marginLeft: "auto", flexShrink: 0 }} />
-      </button>
+      </motion.button>
     </motion.div>
   );
 }
@@ -450,7 +450,7 @@ function StepDetails({
   form: UseFormReturn<RSVPData>;
   onNext: () => void;
   errors: FieldErrors<RSVPData>;
-  t: import("@/lib/translations").TranslationSchema;
+  t: TranslationSchema;
 }) {
   const { register, watch, setValue } = form;
   const countryCode = watch("countryCode");
@@ -516,9 +516,11 @@ function StepDetails({
       <FieldWrap label={t.guestsCountLabel} error={errors.guestCount?.message}>
         <div className="flex gap-2 flex-wrap">
           {[1, 2, 3, 4, 5, 6].map((n) => (
-            <button
+            <motion.button
               key={n}
               type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
               onClick={() => setValue("guestCount", n)}
               style={{
                 width: "2.6rem",
@@ -535,7 +537,7 @@ function StepDetails({
               }}
             >
               {n}
-            </button>
+            </motion.button>
           ))}
         </div>
       </FieldWrap>
@@ -558,7 +560,7 @@ function StepEvents({
   selectedEvents: string[];
   onToggle: (id: string) => void;
   onNext: () => void;
-  t: import("@/lib/translations").TranslationSchema;
+  t: TranslationSchema;
 }) {
   const eventsList = t.eventsList || EVENTS;
 
@@ -577,8 +579,10 @@ function StepEvents({
       {eventsList.map((event) => {
         const selected = selectedEvents.includes(event.id);
         return (
-          <button
+          <motion.button
             key={event.id}
+            whileHover={{ scale: 1.015 }}
+            whileTap={{ scale: 0.985 }}
             onClick={() => onToggle(event.id)}
             className={`event-tile ${selected ? "selected" : ""}`}
             style={{
@@ -616,7 +620,7 @@ function StepEvents({
                 {selected && <Check size={12} color="white" />}
               </div>
             </div>
-          </button>
+          </motion.button>
         );
       })}
 
@@ -641,7 +645,7 @@ function StepDietary({
   showOther: boolean;
   register: UseFormRegister<RSVPData>;
   onNext: () => void;
-  t: import("@/lib/translations").TranslationSchema;
+  t: TranslationSchema;
   lang: Language;
 }) {
   const options = DIETARY_OPTIONS_BY_LANG[lang] || DIETARY_OPTIONS_BY_LANG.en;
@@ -674,8 +678,10 @@ function StepDietary({
 
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
-          <button
+          <motion.button
             key={opt.id}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => onToggle(opt.id)}
             className={`chip ${selected.includes(opt.id) ? "selected" : ""}`}
             style={{
@@ -692,7 +698,7 @@ function StepDietary({
           >
             {selected.includes(opt.id) && <Check size={11} className="inline mr-1" />}
             {opt.label}
-          </button>
+          </motion.button>
         ))}
       </div>
 
@@ -727,7 +733,7 @@ function StepExtras({
 }: {
   register: UseFormRegister<RSVPData>;
   onSubmit: () => void;
-  t: import("@/lib/translations").TranslationSchema;
+  t: TranslationSchema;
 }) {
   return (
     <motion.div
@@ -793,7 +799,7 @@ function StepDeclineDetails({
   form: UseFormReturn<RSVPData>;
   onSubmit: () => void;
   errors: FieldErrors<RSVPData>;
-  t: import("@/lib/translations").TranslationSchema;
+  t: TranslationSchema;
 }) {
   const { register, watch, setValue } = form;
   const countryCode = watch("countryCode");
@@ -934,7 +940,7 @@ function StepDeclineDetails({
   );
 }
 
-function StepDone({ accepted, t }: { accepted: boolean; t: import("@/lib/translations").TranslationSchema }) {
+function StepDone({ accepted, t }: { accepted: boolean; t: TranslationSchema }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.93 }}

@@ -41,8 +41,10 @@ export function TravelSection() {
         {/* Airport selector */}
         <div className="flex gap-2 mb-6">
           {airports.map((a, i) => (
-            <button
+            <motion.button
               key={a.id}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveAirport(i)}
               className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full transition-all`}
               style={{
@@ -55,13 +57,14 @@ export function TravelSection() {
                 background: activeAirport === i ? "#8C4B27" : "rgba(255,255,255,0.70)",
                 color: activeAirport === i ? "white" : "#6E4141",
                 cursor: "pointer",
+                boxShadow: activeAirport === i ? "0 4px 12px rgba(140,75,39,0.25)" : "none",
               }}
               aria-pressed={activeAirport === i}
             >
               <Plane size={12} />
               {a.code}
               {a.preferred ? ` • ${t.preferredTabLabel}` : ""}
-            </button>
+            </motion.button>
           ))}
         </div>
 

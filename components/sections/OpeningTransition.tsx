@@ -277,7 +277,7 @@ export function OpeningTransition({
               e.stopPropagation();
               setLang(l);
             }}
-            className={`px-2.5 py-1 text-[11px] font-semibold tracking-wider rounded-full transition-all cursor-pointer ${
+            className={`px-2.5 py-1 text-[11px] font-semibold tracking-wider rounded-full transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 ${
               lang === l
                 ? "bg-[#8C4B27] text-white shadow-sm"
                 : "text-[#D4AF37]/80 hover:text-white"

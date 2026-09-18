@@ -20,7 +20,9 @@ function CircleBtn({
 }) {
   const size = small ? 24 : 34;
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       onClick={(e) => {
         e.stopPropagation();
         onClick();
@@ -53,7 +55,7 @@ function CircleBtn({
       ) : (
         <ChevronRight size={small ? 14 : 18} />
       )}
-    </button>
+    </motion.button>
   );
 }
 
