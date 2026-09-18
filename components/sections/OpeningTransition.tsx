@@ -140,12 +140,14 @@ export function OpeningTransition({
         position: "fixed",
         top: 0,
         left: "50%",
+        right: "auto",
+        bottom: "auto",
         xPercent: -50,
         x: 0,
         y: 0,
-        width: "100%",
+        width: "100vw",
         maxWidth: "460px",
-        height: "100%",
+        height: "100svh",
         borderRadius: "0px",
         boxShadow: "0 0 0 rgba(0,0,0,0)",
         duration: 0.65,
@@ -312,7 +314,7 @@ export function OpeningTransition({
       >
         {/* INTERACTIVE ENVELOPE CONTAINER */}
         <div
-          className="relative flex items-center justify-center cursor-pointer"
+          className="relative w-[320px] sm:w-[380px] h-[215px] sm:h-[250px] cursor-pointer"
           onClick={handleTap}
           role="button"
           tabIndex={0}
@@ -322,7 +324,7 @@ export function OpeningTransition({
           {/* 1. ENVELOPE BACK (z-10) */}
           <div
             ref={envelopeBackRef}
-            className="relative w-[320px] sm:w-[380px] h-[215px] sm:h-[250px] rounded-[4px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_10px_25px_rgba(40,15,5,0.4),0_0_0_1px_rgba(212,175,55,0.35)] overflow-hidden z-10 pointer-events-none"
+            className="absolute inset-0 rounded-[4px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_10px_25px_rgba(40,15,5,0.4),0_0_0_1px_rgba(212,175,55,0.35)] overflow-hidden z-10 pointer-events-none"
             style={{
               background: "linear-gradient(175deg, #FAF6EE 0%, #F5EEDF 60%, #EDE2CF 100%)",
               boxShadow: "inset 0 0 35px -5px #CBB493",
@@ -334,7 +336,7 @@ export function OpeningTransition({
           {/* 2. WEDDING INVITATION CARD (z-20) */}
           <div
             ref={cardRef}
-            className="absolute z-20 w-[295px] sm:w-[350px] h-[195px] sm:h-[230px] rounded-xl bg-[#FAF7F2] bg-cover bg-center bg-no-repeat shadow-2xl flex flex-col items-center justify-center overflow-hidden pointer-events-none"
+            className="absolute inset-x-3 top-2.5 bottom-2.5 z-20 rounded-xl bg-[#FAF7F2] bg-cover bg-center bg-no-repeat shadow-2xl flex flex-col items-center justify-center overflow-hidden pointer-events-none"
             style={{
               backgroundImage:
                 "url('/image copy.png'), url('/image-copy.png'), url('/assets/opening/parchment-bg.png')",
@@ -476,7 +478,7 @@ export function OpeningTransition({
           {/* 3. ENVELOPE FRONT POCKET & FLAP (z-30 / z-40) */}
           <div
             ref={envelopeFrontRef}
-            className={`custom-envelope z-30 pointer-events-none absolute inset-0 ${
+            className={`custom-envelope z-30 pointer-events-none ${
               isFlapOpened ? "opened" : ""
             }`}
             style={{ background: "transparent", boxShadow: "none" }}
