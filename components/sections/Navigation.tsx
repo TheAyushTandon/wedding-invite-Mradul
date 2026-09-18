@@ -60,9 +60,9 @@ export function Navigation() {
         className="fixed top-0 left-0 right-0 mx-auto z-30 flex items-center justify-between"
         style={{
           width: "100%",
-          maxWidth: "480px",
-          padding: "0.75rem 1.25rem",
-          background: scrolled ? "rgba(250,247,242,0.95)" : "rgba(250,247,242,0.65)",
+          maxWidth: "460px",
+          padding: "0.65rem 0.85rem",
+          background: scrolled ? "rgba(250,247,242,0.95)" : "rgba(250,247,242,0.75)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
           borderBottom: "1px solid",
@@ -74,14 +74,14 @@ export function Navigation() {
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 0, flexShrink: 0 }}
           aria-label="Back to top"
         >
           <Image
             src={WEDDING.monogram}
             alt="M&S"
-            width={44}
-            height={26}
+            width={38}
+            height={22}
             className="object-contain"
             style={{ opacity: 0.95 }}
           />
@@ -89,9 +89,9 @@ export function Navigation() {
 
         {/* Center title */}
         <p
-          className="font-calligraphy"
+          className="font-calligraphy truncate px-1"
           style={{
-            fontSize: "1.2rem",
+            fontSize: "1.1rem",
             color: "#3D2522",
             letterSpacing: "0.02em",
           }}
@@ -100,7 +100,7 @@ export function Navigation() {
         </p>
 
         {/* Right side controls: Language Pill + Menu button */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 flex-shrink-0">
           {/* Quick Lang Switcher Pill */}
           <div
             className="flex items-center rounded-full p-0.5"

@@ -250,8 +250,8 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     itineraryEyebrow: "✦ ITINERARY ✦",
     scheduleHeading: "Celebration Schedule",
     scheduleQuote: "Two unforgettable days of love, laughter, and cherished moments.",
-    day1: "DAY 1 • HALDI & SANGEET",
-    day2: "DAY 2 • PHERAS & GALA",
+    day1: "Day 1 • Haldi & Sangeet",
+    day2: "Day 2 • Pheras & Gala",
     eventsList: [
       {
         id: "haldi",
@@ -754,8 +754,8 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     itineraryEyebrow: "✦ कार्यक्रम पत्रिका ✦",
     scheduleHeading: "सोहळ्याची रूपरेषा",
     scheduleQuote: "आनंद, प्रेम आणि पारंपरिक सोहळ्याचे दोन अविस्मरणीय दिवस.",
-    day1: "दिवस 1 • हळद आणि संगीत सोहळा",
-    day2: "दिवस 2 • शुभविवाह (फेरे) आणि गाला डिनर",
+    day1: "दिवस 1 • हळद व संगीत",
+    day2: "दिवस 2 • लग्न व रिसेप्शन",
     eventsList: [
       {
         id: "haldi",

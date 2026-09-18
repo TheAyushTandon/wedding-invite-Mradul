@@ -162,15 +162,17 @@ export function ScheduleSection() {
         />
 
         {/* Day Switcher */}
-        <div className="flex items-center justify-center gap-2 mb-10">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-10 w-full max-w-[420px] mx-auto px-1">
           {[1, 2].map((day, i) => (
             <Fragment key={day}>
               {i === 1 && (
                 <span
                   style={{
                     color: "#8C4B27",
-                    margin: "0 0.5rem",
-                    fontSize: "0.6rem",
+                    margin: "0 0.25rem",
+                    fontSize: "0.55rem",
+                    opacity: 0.6,
+                    flexShrink: 0,
                   }}
                 >
                   ✦
@@ -178,11 +180,12 @@ export function ScheduleSection() {
               )}
               <button
                 onClick={() => setActiveDay(day as 1 | 2)}
+                className="flex-1 text-center"
                 style={{
                   fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.72rem",
+                  fontSize: "0.68rem",
                   fontWeight: 700,
-                  letterSpacing: "0.12em",
+                  letterSpacing: "0.05em",
                   textTransform: "uppercase",
                   color: activeDay === day ? "#8C4B27" : "#8A7D78",
                   background: activeDay === day ? "rgba(140,75,39,0.08)" : "transparent",
@@ -191,11 +194,12 @@ export function ScheduleSection() {
                     activeDay === day
                       ? "2px solid #8C4B27"
                       : "2px solid transparent",
-                  padding: "0.4rem 0.8rem",
+                  padding: "0.45rem 0.35rem",
                   borderRadius: "0.4rem 0.4rem 0 0",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
-                  whiteSpace: "nowrap",
+                  whiteSpace: "normal",
+                  lineHeight: 1.25,
                 }}
               >
                 {day === 1 ? t.day1 : t.day2}
