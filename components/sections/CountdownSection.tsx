@@ -52,6 +52,7 @@ function CountBlock({ value, label }: { value: number; label: string }) {
         <span
           className="font-serif-wd"
           style={{ fontSize: "2rem", fontWeight: 600, color: "#3D2522" }}
+          suppressHydrationWarning
         >
           {String(value).padStart(2, "0")}
         </span>
@@ -72,11 +73,21 @@ function CountBlock({ value, label }: { value: number; label: string }) {
   );
 }
 
+const DEFAULT_TIME: TimeLeft = {
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+};
+
 export function CountdownSection() {
-  const [time, setTime] = useState<TimeLeft>(() => getTimeLeft(WEDDING.countdownTarget));
+  const [time, setTime] = useState<TimeLeft>(DEFAULT_TIME);
+  const [isMounted, setIsMounted] = useState(false);
   const { t } = useLanguage();
 
   useEffect(() => {
+    setIsMounted(true);
+    setTime(getTimeLeft(WEDDING.countdownTarget));
     const interval = setInterval(() => {
       setTime(getTimeLeft(WEDDING.countdownTarget));
     }, 1000);
