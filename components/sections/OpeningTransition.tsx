@@ -355,10 +355,10 @@ export function OpeningTransition({
             {/* Card Content */}
             <div
               ref={cardContentRef}
-              className="relative z-30 w-full h-full flex flex-col items-center justify-between py-6 sm:py-8 px-4 text-center opacity-0 overflow-hidden"
+              className="relative z-30 w-full h-full flex flex-col items-center justify-center py-6 px-4 text-center opacity-0 overflow-hidden"
             >
               {/* Monogram Seal Top Watermark */}
-              <div className="w-11 h-11 sm:w-13 sm:h-13 pt-1 flex-shrink-0 opacity-90 drop-shadow-sm">
+              <div className="w-11 h-11 sm:w-13 sm:h-13 mb-3 sm:mb-4 flex-shrink-0 opacity-90 drop-shadow-sm">
                 <Image
                   src={stampImage}
                   alt="M&S Monogram"
@@ -369,7 +369,7 @@ export function OpeningTransition({
               </div>
 
               {/* SVG Handwriting Stroke Reveal & Details (Centered) */}
-              <div className="w-full max-w-[360px] sm:max-w-[390px] flex flex-col items-center my-auto">
+              <div className="w-full max-w-[360px] sm:max-w-[390px] flex flex-col items-center">
                 <svg
                   viewBox="0 0 380 260"
                   className="w-full h-auto overflow-visible drop-shadow-sm max-w-[350px] sm:max-w-[380px]"
@@ -469,7 +469,7 @@ export function OpeningTransition({
               </div>
 
               {/* ENTER BUTTON */}
-              <div className="w-full flex justify-center pb-2 sm:pb-3 flex-shrink-0">
+              <div className="w-full flex justify-center mt-5 sm:mt-6 flex-shrink-0">
                 <button
                   ref={enterBtnRef}
                   onClick={handleEnterClick}
