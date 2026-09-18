@@ -118,49 +118,45 @@ export function OpeningTransition({
       setIsFlapOpened(true);
     }, "+=0.05");
 
-    // 3. CARD COMES OUT OF THE POCKET PROMPTLY (0.6s)
+    // 3. CARD SLIDES UP OUT OF THE POCKET (0.6s)
     tl.to(
       cardRef.current,
       {
-        y: -170,
+        yPercent: -115,
         zIndex: 50,
         duration: 0.65,
         ease: "power2.out",
       },
-      "+=0.4"
+      "+=0.35"
     );
 
-    // 4. ENVELOPE DROPS DOWN QUICKLY (0.45s)
+    // 4. ENVELOPE DROPS DOWN WHILE CARD EXTENDS SMOOTHLY UP & DOWN INTO FULL SCREEN
     tl.to(
       [envelopeFrontRef.current, envelopeBackRef.current],
       {
-        y: 350,
+        y: 400,
         opacity: 0,
-        duration: 0.45,
+        duration: 0.5,
         ease: "power2.inOut",
       },
       "+=0.05"
     );
 
-    // Card smoothly expands to 100% full screen width & height
+    // Card smoothly expands vertically and horizontally from the center
     tl.to(
       cardRef.current,
       {
-        position: "fixed",
-        top: 0,
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
+        yPercent: -50,
         xPercent: -50,
-        x: 0,
-        y: 0,
+        left: "50%",
+        top: "50%",
         width: "100vw",
         maxWidth: "460px",
         height: "100svh",
         borderRadius: "0px",
         boxShadow: "0 0 0 rgba(0,0,0,0)",
         duration: 0.65,
-        ease: "expo.out",
+        ease: "power2.inOut",
       },
       "<"
     );
@@ -345,8 +341,10 @@ export function OpeningTransition({
           {/* 2. WEDDING INVITATION CARD (z-20) */}
           <div
             ref={cardRef}
-            className="absolute inset-x-3 top-2.5 bottom-2.5 z-20 rounded-xl bg-[#FAF7F2] bg-cover bg-center bg-no-repeat shadow-2xl flex flex-col items-center justify-center overflow-hidden pointer-events-none"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-xl bg-[#FAF7F2] bg-cover bg-center bg-no-repeat shadow-2xl flex flex-col items-center justify-center overflow-hidden pointer-events-none"
             style={{
+              width: "calc(100% - 24px)",
+              height: "calc(100% - 20px)",
               backgroundImage:
                 "url('/image copy.png'), url('/image-copy.png'), url('/assets/opening/parchment-bg.png')",
             }}
