@@ -182,8 +182,9 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.28, ease: "easeInOut" }}
-              className="fixed top-0 right-0 z-50 h-full flex flex-col"
+              className="fixed top-0 z-50 h-full flex flex-col"
               style={{
+                right: "max(0px, calc((100vw - 460px) / 2))",
                 width: "min(85vw, 300px)",
                 background: "#FAF7F2",
                 boxShadow: "-8px 0 32px rgba(0,0,0,0.18)",

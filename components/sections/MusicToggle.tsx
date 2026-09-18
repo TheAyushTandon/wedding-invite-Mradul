@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 
@@ -19,7 +19,7 @@ export function MusicToggle({ playing, onToggle }: MusicToggleProps) {
       className="fixed z-40 flex items-center justify-center rounded-full"
       style={{
         bottom: "1.25rem",
-        right: "1.25rem",
+        right: "max(1.25rem, calc((100vw - 460px) / 2 + 1.25rem))",
         width: "2.75rem",
         height: "2.75rem",
         background: "rgba(20,20,20,0.80)",
