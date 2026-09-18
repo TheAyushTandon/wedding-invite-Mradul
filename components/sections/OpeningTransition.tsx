@@ -74,6 +74,9 @@ export function OpeningTransition({
       });
       return () => {
         tween.kill();
+        if (envelopeSceneRef.current) {
+          gsap.set(envelopeSceneRef.current, { clearProps: "transform" });
+        }
       };
     }
   }, [hasTapped]);
@@ -82,6 +85,12 @@ export function OpeningTransition({
     if (hasTapped) return;
     setHasTapped(true);
     handleStartMusic();
+
+    // Kill idle float tween immediately and clear any transform on envelopeSceneRef
+    if (envelopeSceneRef.current) {
+      gsap.killTweensOf(envelopeSceneRef.current);
+      gsap.set(envelopeSceneRef.current, { clearProps: "transform", y: 0, x: 0 });
+    }
 
     const tl = gsap.timeline();
 
