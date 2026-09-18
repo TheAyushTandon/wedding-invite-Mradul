@@ -116,7 +116,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
           className="font-serif-wd"
-          style={{ fontSize: "1.25rem", color: "#F7EEDB", fontStyle: "italic", fontWeight: 500, marginBottom: "0.5rem" }}
+          style={{ fontSize: "1.25rem", color: "#F7EEDB", fontStyle: "italic", fontWeight: 500, marginBottom: "0.5rem", letterSpacing: "0.05em" }}
         >
           {t.dates}
         </motion.p>
@@ -135,6 +135,7 @@ export function HeroSection() {
               fontSize: "1.05rem",
               color: "rgba(255,255,255,0.92)",
               fontStyle: "italic",
+              letterSpacing: "0.04em",
             }}
           >
             {t.venueHero}

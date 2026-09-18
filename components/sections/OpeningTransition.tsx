@@ -151,7 +151,7 @@ export function OpeningTransition({
         left: "50%",
         top: "50%",
         width: "100vw",
-        maxWidth: "460px",
+        maxWidth: "480px",
         height: "100svh",
         borderRadius: "0px",
         boxShadow: "0 0 0 rgba(0,0,0,0)",
@@ -292,7 +292,7 @@ export function OpeningTransition({
       {/* Language Switcher Bar on Top Right */}
       <div
         className="absolute top-4 z-50 flex items-center gap-1 bg-black/40 backdrop-blur-md p-1 rounded-full border border-[#D4AF37]/30"
-        style={{ right: "max(1rem, calc((100vw - 460px) / 2 + 1rem))" }}
+        style={{ right: "max(1rem, calc((100vw - 480px) / 2 + 1rem))" }}
       >
         {(["en", "hi", "mr"] as const).map((l) => (
           <button
@@ -351,28 +351,30 @@ export function OpeningTransition({
           >
             {/* Card Gold Borders */}
             <div className="absolute inset-2.5 sm:inset-4 border border-[#D4AF37]/45 rounded-sm sm:rounded-lg pointer-events-none" />
+            <div className="absolute inset-3.5 sm:inset-5 border border-[#D4AF37]/25 rounded-[2px] sm:rounded-md pointer-events-none" />
 
             {/* Card Content */}
             <div
               ref={cardContentRef}
-              className="relative z-30 w-full h-full flex flex-col items-center justify-center py-6 px-4 text-center opacity-0 overflow-hidden"
+              className="relative z-30 w-full h-full flex flex-col items-center justify-between py-8 px-4 sm:py-9 sm:px-6 text-center opacity-0 overflow-hidden"
             >
               {/* Monogram Seal Top Watermark */}
-              <div className="w-11 h-11 sm:w-13 sm:h-13 mb-3 sm:mb-4 flex-shrink-0 opacity-90 drop-shadow-sm">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 mt-5 sm:mt-7 flex-shrink-0 opacity-100 drop-shadow-md">
                 <Image
                   src={stampImage}
                   alt="M&S Monogram"
-                  width={52}
-                  height={52}
+                  width={96}
+                  height={96}
+                  priority
                   className="w-full h-full object-contain"
                 />
               </div>
 
               {/* SVG Handwriting Stroke Reveal & Details (Centered) */}
-              <div className="w-full max-w-[360px] sm:max-w-[390px] flex flex-col items-center">
+              <div className="w-full max-w-[420px] sm:max-w-[450px] flex flex-col items-center flex-grow justify-center my-auto px-1">
                 <svg
-                  viewBox="0 0 380 260"
-                  className="w-full h-auto overflow-visible drop-shadow-sm max-w-[350px] sm:max-w-[380px]"
+                  viewBox="0 0 380 340"
+                  className="w-full h-auto overflow-visible drop-shadow-sm max-w-[380px] sm:max-w-[420px]"
                 >
                   <g
                     style={{
@@ -384,9 +386,10 @@ export function OpeningTransition({
                     <text
                       ref={line1Ref}
                       x="190"
-                      y={isDevanagari ? "36" : "40"}
+                      y={isDevanagari ? "40" : "44"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "20" : "28"}
+                      fontSize={isDevanagari ? "25" : "36"}
+                      letterSpacing={isDevanagari ? "0.03em" : "0.05em"}
                       className="cursive-stroke-text"
                       style={{ opacity: 0 }}
                     >
@@ -396,9 +399,10 @@ export function OpeningTransition({
                     <text
                       ref={line2Ref}
                       x="190"
-                      y={isDevanagari ? "70" : "78"}
+                      y={isDevanagari ? "88" : "96"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "20" : "26"}
+                      fontSize={isDevanagari ? "25" : "34"}
+                      letterSpacing={isDevanagari ? "0.03em" : "0.05em"}
                       className="cursive-stroke-text"
                       style={{ opacity: 0 }}
                     >
@@ -408,9 +412,10 @@ export function OpeningTransition({
                     <text
                       ref={name1Ref}
                       x="190"
-                      y={isDevanagari ? "136" : "146"}
+                      y={isDevanagari ? "165" : "178"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "36" : "52"}
+                      fontSize={isDevanagari ? "46" : "66"}
+                      letterSpacing={isDevanagari ? "0.04em" : "0.04em"}
                       className="cursive-stroke-text"
                       style={{ opacity: 0, fontWeight: 600 }}
                     >
@@ -420,9 +425,10 @@ export function OpeningTransition({
                     <text
                       ref={name2Ref}
                       x="190"
-                      y={isDevanagari ? "198" : "208"}
+                      y={isDevanagari ? "242" : "256"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "40" : "55"}
+                      fontSize={isDevanagari ? "50" : "72"}
+                      letterSpacing={isDevanagari ? "0.04em" : "0.04em"}
                       className="cursive-stroke-text"
                       style={{ opacity: 0, fontWeight: 600 }}
                     >
@@ -433,47 +439,47 @@ export function OpeningTransition({
                   {/* Exquisite Calligraphic Flourish Divider */}
                   <path
                     ref={dividerPathRef}
-                    d="M 55 240 C 100 240, 125 234, 150 242 C 165 247, 178 242, 190 240 C 202 242, 215 247, 230 242 C 255 234, 280 240, 325 240 M 165 240 C 172 234, 181 232, 190 232 C 199 232, 208 234, 215 240 M 178 240 C 184 236, 190 234, 190 234 C 190 234, 196 236, 202 240"
+                    d="M 55 304 C 100 304, 125 298, 150 306 C 165 311, 178 306, 190 304 C 202 306, 215 311, 230 306 C 255 298, 280 304, 325 304 M 165 304 C 172 298, 181 296, 190 296 C 199 296, 208 298, 215 304 M 178 304 C 184 300, 190 298, 190 298 C 190 298, 196 300, 202 304"
                     fill="none"
                     stroke="#D4AF37"
-                    strokeWidth="1.5"
+                    strokeWidth="1.6"
                     strokeLinecap="round"
                     style={{ opacity: 0 }}
                   />
-                  <circle cx="190" cy="240" r="3.5" fill="#D4AF37" />
-                  <circle cx="150" cy="242" r="1.8" fill="#D4AF37" />
-                  <circle cx="230" cy="242" r="1.8" fill="#D4AF37" />
+                  <circle cx="190" cy="304" r="3.5" fill="#D4AF37" />
+                  <circle cx="150" cy="306" r="1.8" fill="#D4AF37" />
+                  <circle cx="230" cy="306" r="1.8" fill="#D4AF37" />
                 </svg>
 
                 {/* EVENT DETAILS */}
                 <div
                   ref={detailsRef}
-                  className="mt-2.5 flex flex-col items-center text-center text-[#4A2E2B] opacity-0"
+                  className="mt-3 sm:mt-4 flex flex-col items-center text-center text-[#4A2E2B] opacity-0"
                   style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-serif)" }}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="h-[1px] w-7 bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                    <p className="text-base sm:text-lg font-semibold tracking-wide text-[#3D2522]">
+                  <div className="flex items-center gap-3">
+                    <span className="h-[1px] w-8 sm:w-10 bg-gradient-to-r from-transparent to-[#D4AF37]" />
+                    <p className="text-lg sm:text-xl font-bold tracking-[0.16em] uppercase text-[#3D2522]">
                       {t.dates}
                     </p>
-                    <span className="h-[1px] w-7 bg-gradient-to-l from-transparent to-[#D4AF37]" />
+                    <span className="h-[1px] w-8 sm:w-10 bg-gradient-to-l from-transparent to-[#D4AF37]" />
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#8C4B27] font-semibold mt-0.5 tracking-wider">
+                  <p className="text-sm sm:text-base text-[#8C4B27] font-bold mt-1 tracking-[0.14em] uppercase">
                     {t.venueHero}
                   </p>
-                  <p className="text-[11px] sm:text-xs text-[#6E4141] tracking-normal mt-0.5 italic">
+                  <p className="text-xs sm:text-sm text-[#6E4141] tracking-[0.06em] mt-0.5 italic">
                     Vainguinim Beach, Dona Paula, Goa
                   </p>
                 </div>
               </div>
 
               {/* ENTER BUTTON */}
-              <div className="w-full flex justify-center mt-5 sm:mt-6 flex-shrink-0">
+              <div className="w-full flex justify-center mt-3 mb-1 sm:mt-4 sm:mb-0 flex-shrink-0">
                 <button
                   ref={enterBtnRef}
                   onClick={handleEnterClick}
-                  className="px-8 py-3 rounded-full bg-[#8C4B27] hover:bg-[#6D3519] text-white text-xs font-semibold tracking-[0.12em] uppercase shadow-[0_6px_20px_rgba(140,75,39,0.35),0_0_0_1px_rgba(212,175,55,0.45)] hover:shadow-[0_8px_25px_rgba(140,75,39,0.5),0_0_0_1.5px_rgba(212,175,55,0.7)] transition-all duration-300 opacity-0 cursor-pointer pointer-events-auto transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="px-9 sm:px-10 py-3.5 sm:py-4 rounded-full bg-[#8C4B27] hover:bg-[#6D3519] text-white text-xs sm:text-sm font-bold tracking-[0.2em] uppercase shadow-[0_6px_20px_rgba(140,75,39,0.35),0_0_0_1px_rgba(212,175,55,0.45)] hover:shadow-[0_8px_25px_rgba(140,75,39,0.5),0_0_0_1.5px_rgba(212,175,55,0.7)] transition-all duration-300 opacity-0 cursor-pointer pointer-events-auto transform hover:-translate-y-0.5 active:translate-y-0"
                   style={{ fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)" }}
                 >
                   {t.enterCelebration}
