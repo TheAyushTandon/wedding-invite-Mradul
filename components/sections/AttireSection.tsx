@@ -3,23 +3,39 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { ATTIRE } from "@/data/attire";
+import { ATTIRE_BY_LANG, ATTIRE_TABS_BY_LANG } from "@/data/attire";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function AttireSection() {
   const [activeTab, setActiveTab] = useState(0);
-  const current = ATTIRE[activeTab];
-  const tabs = ["Haldi", "Sangeet", "Pheras", "Gala"];
+  const { t, lang } = useLanguage();
+  const attireList = (lang && ATTIRE_BY_LANG && ATTIRE_BY_LANG[lang]) || ATTIRE_BY_LANG?.en || [];
+  const current = attireList[activeTab] || attireList[0] || {};
+  const tabs = (lang && ATTIRE_TABS_BY_LANG && ATTIRE_TABS_BY_LANG[lang]) || ATTIRE_TABS_BY_LANG?.en || [];
 
   return (
-    <section id="attire" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/attire/coastal-terrace-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
+    <section
+      id="attire"
+      className="section-bg"
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+    >
+      <Image
+        src="/assets/attire/coastal-terrace-bg.png"
+        alt=""
+        fill
+        className="section-bg-img"
+        style={{ objectPosition: "center top" }}
+      />
+      <div
+        className="section-overlay"
+        style={{ background: "rgba(250,247,242,0.90)" }}
+      />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ DRESS CODE ✦"
-          heading="Attire & Dress Code"
-          quote="Dress as you feel — elegant, festive, and celebratory."
+          eyebrow={t.attireEyebrow}
+          heading={t.attireHeading}
+          quote={t.attireQuote}
         />
 
         {/* Floral crest */}
@@ -33,8 +49,14 @@ export function AttireSection() {
           />
         </div>
 
-        {/* 4-tab selector */}
-        <div className="flex rounded-full overflow-hidden mb-8" style={{ border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.60)" }}>
+        {/* 4-tab selector with translated event names */}
+        <div
+          className="flex rounded-full overflow-hidden mb-8"
+          style={{
+            border: "1.5px solid rgba(140,75,39,0.25)",
+            background: "rgba(255,255,255,0.60)",
+          }}
+        >
           {tabs.map((tab, i) => (
             <button
               key={tab}
@@ -43,9 +65,9 @@ export function AttireSection() {
                 flex: 1,
                 padding: "0.6rem 0.25rem",
                 fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.62rem",
-                fontWeight: 600,
-                letterSpacing: "0.06em",
+                fontSize: "0.68rem",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
                 textTransform: "uppercase",
                 background: activeTab === i ? "#8C4B27" : "transparent",
                 color: activeTab === i ? "white" : "#6E4141",
@@ -63,7 +85,7 @@ export function AttireSection() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
+            key={`${lang}-${activeTab}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -71,10 +93,23 @@ export function AttireSection() {
           >
             <div className="glass-card p-5 mb-4">
               {/* Event label */}
-              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8C4B27", fontWeight: 600, marginBottom: "0.35rem" }}>
+              <p
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#8C4B27",
+                  fontWeight: 700,
+                  marginBottom: "0.35rem",
+                }}
+              >
                 {current.day}
               </p>
-              <h3 className="heading-calligraphy" style={{ fontSize: "1.9rem", marginBottom: "0.75rem" }}>
+              <h3
+                className="heading-calligraphy"
+                style={{ fontSize: "1.9rem", marginBottom: "0.75rem", color: "#3D2522" }}
+              >
                 {current.dressCode}
               </h3>
 
@@ -92,14 +127,29 @@ export function AttireSection() {
                         boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
                       }}
                     />
-                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.5rem", color: "#6E4141", fontWeight: 500 }}>
-                      {current.colors[i]}
+                    <span
+                      style={{
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontSize: "0.58rem",
+                        color: "#6E4141",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {current.colors[i] || ""}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <p className="font-serif-wd" style={{ fontSize: "0.92rem", color: "#4A2E2B", lineHeight: 1.7, fontStyle: "italic" }}>
+              <p
+                className="font-serif-wd"
+                style={{
+                  fontSize: "0.95rem",
+                  color: "#4A2E2B",
+                  lineHeight: 1.75,
+                  fontStyle: "italic",
+                }}
+              >
                 {current.description}
               </p>
             </div>
@@ -122,3 +172,5 @@ export function AttireSection() {
     </section>
   );
 }
+
+export default AttireSection;

@@ -4,37 +4,55 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CopyButton } from "@/components/shared/CopyButton";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
-import { CONTACTS } from "@/data/helpdesk";
+import { CONTACTS_BY_LANG } from "@/data/helpdesk";
 import { WEDDING } from "@/data/wedding";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, Sparkles } from "lucide-react";
+import { HairlineDivider } from "@/components/shared/HairlineDivider";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function HelpdeskSection() {
+  const { t, lang } = useLanguage();
+  const contacts = (lang && CONTACTS_BY_LANG && CONTACTS_BY_LANG[lang]) || CONTACTS_BY_LANG?.en || [];
+
   return (
-    <section id="helpdesk" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/venues/botanical-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+    <section
+      id="helpdesk"
+      className="section-bg"
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+    >
+      <Image
+        src="/assets/venues/botanical-arch-bg.png"
+        alt=""
+        fill
+        className="section-bg-img"
+        style={{ objectPosition: "center top" }}
+      />
+      <div
+        className="section-overlay"
+        style={{ background: "rgba(250,247,242,0.92)" }}
+      />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ 24/7 SUPPORT ✦"
-          heading="Wedding Helpdesk"
-          quote="Our dedicated hospitality team is available round-the-clock to assist you with anything in Goa."
+          eyebrow={t.helpdeskEyebrow}
+          heading={t.helpdeskHeading}
+          quote={t.helpdeskQuote}
         />
 
-        <div className="flex flex-col gap-5 mb-6">
-          {CONTACTS.map((contact, i) => (
+        <div className="w-full max-w-[420px] mx-auto flex flex-col gap-6 mb-6">
+          {contacts.map((contact, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+              key={`${lang}-${i}`}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="glass-card p-5"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="w-full flex flex-col items-start py-2"
             >
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 w-full justify-between">
                 <h3
                   className="font-serif-wd"
-                  style={{ fontSize: "1rem", fontWeight: 700, color: "#3D2522", flex: 1 }}
+                  style={{ fontSize: "1.15rem", fontWeight: 700, color: "#3D2522" }}
                 >
                   {contact.title}
                 </h3>
@@ -51,57 +69,99 @@ export function HelpdeskSection() {
                     borderRadius: "9999px",
                   }}
                 >
-                  Available
+                  {t.activeConcierge}
                 </span>
               </div>
 
-              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "#4A2E2B", marginBottom: "0.2rem" }}>
+              <p
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: "0.85rem",
+                  fontWeight: 600,
+                  color: "#4A2E2B",
+                  marginBottom: "0.15rem",
+                }}
+              >
                 {contact.name}
               </p>
-              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.68rem", color: "#6E4141", marginBottom: "0.75rem" }}>
+              <p
+                className="font-serif-wd"
+                style={{
+                  fontSize: "0.95rem",
+                  color: "#6E4141",
+                  fontStyle: "italic",
+                  marginBottom: "0.85rem",
+                }}
+              >
                 {contact.role}
               </p>
 
               {/* Phone row */}
-              <div className="flex items-center gap-2 mb-4 p-2.5 rounded-xl" style={{ background: "rgba(140,75,39,0.06)" }}>
-                <Phone size={14} color="#8C4B27" />
-                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.85rem", fontWeight: 600, color: "#3D2522", flex: 1 }}>
+              <div
+                className="flex items-center gap-2 mb-3 p-3 rounded-xl w-full"
+                style={{
+                  background: "rgba(140,75,39,0.06)",
+                  border: "1px solid rgba(140,75,39,0.15)",
+                }}
+              >
+                <Phone size={15} color="#8C4B27" />
+                <span
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.9rem",
+                    fontWeight: 700,
+                    color: "#3D2522",
+                    flex: 1,
+                  }}
+                >
                   {contact.phone}
                 </span>
                 <CopyButton value={contact.phone} label="Number" />
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-2">
+              {/* WhatsApp CTA */}
+              <div className="w-full">
                 <WhatsAppButton
                   phone={contact.phone}
                   message={contact.whatsappMessage}
-                  className="flex-1"
+                  className="w-full"
                 />
               </div>
+
+              {i < contacts.length - 1 && (
+                <div className="w-full mt-6">
+                  <HairlineDivider />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Email row */}
+        {/* Email concierge */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="flex items-center justify-between px-4 py-3 rounded-xl glass-card"
+          className="w-full max-w-[420px] mx-auto flex items-center justify-between p-3.5 rounded-xl mt-4"
+          style={{
+            background: "rgba(255,255,255,0.75)",
+            border: "1px solid rgba(140,75,39,0.15)",
+          }}
         >
           <div className="flex items-center gap-2">
             <Mail size={14} color="#8C4B27" />
-            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.72rem", color: "#4A2E2B" }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.75rem", color: "#4A2E2B", fontWeight: 500 }}>
               {WEDDING.helpdesk}
             </span>
           </div>
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 600, color: "#8C4B27", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-            Taj Helpdesk
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, color: "#8C4B27", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            {t.tajConcierge}
           </span>
         </motion.div>
       </div>
     </section>
   );
 }
+
+export default HelpdeskSection;

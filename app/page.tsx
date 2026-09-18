@@ -1,22 +1,21 @@
-﻿"use client";
+"use client";
 import { useState, useRef, useCallback } from "react";
 import { OpeningTransition } from "@/components/sections/OpeningTransition";
 import { Navigation } from "@/components/sections/Navigation";
 import { MusicToggle } from "@/components/sections/MusicToggle";
 import { AudioPlayer, type AudioPlayerHandle } from "@/components/shared/AudioPlayer";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
+import { ServiceWorkerRegister } from "@/components/shared/ServiceWorkerRegister";
+import { LanguageProvider, useLanguage } from "@/components/shared/LanguageContext";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CountdownSection } from "@/components/sections/CountdownSection";
 import { ScheduleSection } from "@/components/sections/ScheduleSection";
 import { AttireSection } from "@/components/sections/AttireSection";
-import { VenuesSection } from "@/components/sections/VenuesSection";
 import { TravelSection } from "@/components/sections/TravelSection";
-import { LoveStorySection } from "@/components/sections/LoveStorySection";
 import { FamiliesSection } from "@/components/sections/FamiliesSection";
 import { AccommodationsSection } from "@/components/sections/AccommodationsSection";
 import { ImportantNotesSection } from "@/components/sections/ImportantNotesSection";
 import { MenuSection } from "@/components/sections/MenuSection";
-import { GiftsSection } from "@/components/sections/GiftsSection";
 import { GallerySection } from "@/components/sections/GallerySection";
 import { WishesSection } from "@/components/sections/WishesSection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -25,10 +24,11 @@ import { RSVPSection } from "@/components/sections/RSVPSection";
 import { Footer } from "@/components/sections/Footer";
 import { WEDDING } from "@/data/wedding";
 
-export default function WeddingPage() {
+function WeddingContent() {
   const [showOpening, setShowOpening] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioRef = useRef<AudioPlayerHandle>(null);
+  const { lang } = useLanguage();
 
   const handleOpeningComplete = useCallback(() => {
     setShowOpening(false);
@@ -54,6 +54,9 @@ export default function WeddingPage() {
       {/* Global smooth momentum scrolling */}
       <SmoothScroll />
 
+      {/* Offline Service Worker Cache */}
+      <ServiceWorkerRegister />
+
       {/* Hidden audio player */}
       <AudioPlayer ref={audioRef} src={WEDDING.music} />
 
@@ -67,7 +70,7 @@ export default function WeddingPage() {
 
       {/* Main site */}
       {!showOpening && (
-        <div id="wedding-site">
+        <div id="wedding-site" data-lang={lang}>
           <Navigation />
           <MusicToggle playing={musicPlaying} onToggle={toggleMusic} />
 
@@ -76,14 +79,11 @@ export default function WeddingPage() {
             <CountdownSection />
             <ScheduleSection />
             <AttireSection />
-            <VenuesSection />
             <TravelSection />
-            <LoveStorySection />
             <FamiliesSection />
             <AccommodationsSection />
             <ImportantNotesSection />
             <MenuSection />
-            <GiftsSection />
             <GallerySection />
             <WishesSection />
             <FAQSection />
@@ -95,5 +95,13 @@ export default function WeddingPage() {
         </div>
       )}
     </>
+  );
+}
+
+export default function WeddingPage() {
+  return (
+    <LanguageProvider>
+      <WeddingContent />
+    </LanguageProvider>
   );
 }

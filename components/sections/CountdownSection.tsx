@@ -5,6 +5,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CalendarDays, MapPin, Heart } from "lucide-react";
 import { WEDDING } from "@/data/wedding";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 interface TimeLeft {
   days: number;
@@ -58,8 +59,8 @@ function CountBlock({ value, label }: { value: number; label: string }) {
       <span
         style={{
           fontFamily: "'Montserrat', sans-serif",
-          fontSize: "0.55rem",
-          letterSpacing: "0.25em",
+          fontSize: "0.62rem",
+          letterSpacing: "0.1em",
           textTransform: "uppercase",
           color: "#6E4141",
           fontWeight: 600,
@@ -73,6 +74,7 @@ function CountBlock({ value, label }: { value: number; label: string }) {
 
 export function CountdownSection() {
   const [time, setTime] = useState<TimeLeft>(() => getTimeLeft(WEDDING.countdownTarget));
+  const { t } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,10 +85,10 @@ export function CountdownSection() {
 
   const handleAddToCalendar = () => {
     const title = encodeURIComponent("Mradul & Shreya Wedding");
-    const details = encodeURIComponent("Join us for the wedding of Mradul & Shreya at Taj Heritage, Goa");
+    const details = encodeURIComponent("Join us for the wedding celebration of Mradul & Shreya at Taj Heritage, Goa");
     const location = encodeURIComponent("Taj Cidade de Goa Heritage, Vainguinim Beach, Dona Paula, Goa");
-    const start = "20270202T103000Z";
-    const end = "20270203T180000Z";
+    const start = "20260202T103000Z";
+    const end = "20260203T180000Z";
     const url = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
     window.open(url, "_blank");
   };
@@ -130,16 +132,16 @@ export function CountdownSection() {
         </motion.div>
 
         <SectionHeader
-          eyebrow="✦ COUNTING DOWN ✦"
-          heading={'Until We Say "I Do"'}
-          quote="Two souls, one destiny. Every second brings us closer to our Goa celebration."
+          eyebrow={t.countdownEyebrow}
+          heading={t.countdownHeading}
+          quote={t.countdownQuote}
         />
 
         <div className="flex justify-center mb-6">
           <Heart size={16} fill="#C24137" color="#C24137" />
         </div>
 
-        {/* Countdown blocks */}
+        {/* Countdown blocks - English digits with translated unit labels */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -147,10 +149,10 @@ export function CountdownSection() {
           transition={{ duration: 0.6 }}
           className="flex justify-center gap-3 mb-8"
         >
-          <CountBlock value={time.days} label="Days" />
-          <CountBlock value={time.hours} label="Hours" />
-          <CountBlock value={time.minutes} label="Mins" />
-          <CountBlock value={time.seconds} label="Secs" />
+          <CountBlock value={time.days} label={t.days} />
+          <CountBlock value={time.hours} label={t.hours} />
+          <CountBlock value={time.minutes} label={t.minutes} />
+          <CountBlock value={time.seconds} label={t.seconds} />
         </motion.div>
 
         {/* Date summary */}
@@ -165,9 +167,9 @@ export function CountdownSection() {
             <CalendarDays size={14} color="#8C4B27" />
             <span
               className="font-serif-wd"
-              style={{ fontSize: "0.9rem", color: "#4A2E2B", fontStyle: "italic" }}
+              style={{ fontSize: "0.95rem", color: "#4A2E2B", fontStyle: "italic" }}
             >
-              February 2 & 3 • 4 Grand Festivities
+              {t.festivitiesCount}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -175,12 +177,12 @@ export function CountdownSection() {
             <span
               style={{
                 fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.72rem",
+                fontSize: "0.75rem",
                 color: "#6E4141",
-                letterSpacing: "0.05em",
+                letterSpacing: "0.03em",
               }}
             >
-              Taj Heritage, Vainguinim Beach, Goa
+              {t.venueFullAddress}
             </span>
           </div>
         </motion.div>
@@ -195,7 +197,7 @@ export function CountdownSection() {
         >
           <button onClick={handleAddToCalendar} className="btn-primary">
             <CalendarDays size={15} />
-            ADD TO CALENDAR
+            {t.addToCalendar}
           </button>
         </motion.div>
       </div>
@@ -203,3 +205,4 @@ export function CountdownSection() {
   );
 }
 
+export default CountdownSection;

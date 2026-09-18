@@ -3,30 +3,30 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { WEDDING } from "@/data/wedding";
-import { Menu, X } from "lucide-react";
-
-const NAV_ITEMS = [
-  { href: "#countdown", label: "Countdown" },
-  { href: "#schedule", label: "Schedule" },
-  { href: "#attire", label: "Attire" },
-  { href: "#venues", label: "Venues" },
-  { href: "#travel", label: "Travel" },
-  { href: "#story", label: "Love Story" },
-  { href: "#families", label: "Families" },
-  { href: "#accommodations", label: "Stay" },
-  { href: "#notes", label: "Notes" },
-  { href: "#menu", label: "Menu" },
-  { href: "#gifts", label: "Gifts" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#wishes", label: "Wish Wall" },
-  { href: "#faq", label: "FAQs" },
-  { href: "#helpdesk", label: "Helpdesk" },
-  { href: "#rsvp", label: "RSVP" },
-];
+import { Menu, X, Globe } from "lucide-react";
+import { useLanguage } from "@/components/shared/LanguageContext";
+import { Language } from "@/lib/translations";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang, t } = useLanguage();
+
+  const NAV_ITEMS = [
+    { href: "#countdown", label: t.countdown },
+    { href: "#schedule", label: t.schedule },
+    { href: "#attire", label: t.attire },
+    { href: "#travel", label: t.travel },
+    { href: "#families", label: t.families },
+    { href: "#accommodations", label: t.stay },
+    { href: "#notes", label: t.notes },
+    { href: "#menu", label: t.menu },
+    { href: "#gallery", label: t.gallery },
+    { href: "#wishes", label: t.wishWall },
+    { href: "#faq", label: t.faqs },
+    { href: "#helpdesk", label: t.helpdesk },
+    { href: "#rsvp", label: t.rsvp },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -44,6 +44,12 @@ export function Navigation() {
     setIsOpen(false);
   };
 
+  const languages: { code: Language; label: string }[] = [
+    { code: "en", label: "EN" },
+    { code: "hi", label: "हिन्दी" },
+    { code: "mr", label: "मराठी" },
+  ];
+
   return (
     <>
       {/* Top bar */}
@@ -54,13 +60,13 @@ export function Navigation() {
         className="fixed top-0 left-0 right-0 mx-auto z-30 flex items-center justify-between"
         style={{
           width: "100%",
-          maxWidth: "460px",
+          maxWidth: "480px",
           padding: "0.75rem 1.25rem",
-          background: scrolled ? "rgba(250,247,242,0.92)" : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          background: scrolled ? "rgba(250,247,242,0.95)" : "rgba(250,247,242,0.65)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
           borderBottom: "1px solid",
-          borderColor: scrolled ? "rgba(140,75,39,0.12)" : "transparent",
+          borderColor: scrolled ? "rgba(140,75,39,0.15)" : "rgba(140,75,39,0.08)",
           transition:
             "background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease",
         }}
@@ -74,10 +80,10 @@ export function Navigation() {
           <Image
             src={WEDDING.monogram}
             alt="M&S"
-            width={48}
-            height={28}
+            width={44}
+            height={26}
             className="object-contain"
-            style={{ opacity: scrolled ? 1 : 0.85 }}
+            style={{ opacity: 0.95 }}
           />
         </button>
 
@@ -85,39 +91,71 @@ export function Navigation() {
         <p
           className="font-calligraphy"
           style={{
-            fontSize: "1.15rem",
-            color: scrolled ? "#3D2522" : "white",
-            textShadow: scrolled ? "none" : "0 1px 10px rgba(0,0,0,0.3)",
-            transition: "color 0.3s",
+            fontSize: "1.2rem",
+            color: "#3D2522",
+            letterSpacing: "0.02em",
           }}
         >
-          Mradul & Shreya
+          {t.mradulAndShreya}
         </p>
 
-        {/* Menu button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            background: scrolled ? "rgba(140,75,39,0.10)" : "rgba(255,255,255,0.20)",
-            border: "1px solid rgba(140,75,39,0.20)",
-            borderRadius: "50%",
-            width: "2.2rem",
-            height: "2.2rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            transition: "all 0.2s",
-          }}
-          aria-label={isOpen ? "Close menu" : "Open navigation"}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? (
-            <X size={16} color={scrolled ? "#8C4B27" : "white"} />
-          ) : (
-            <Menu size={16} color={scrolled ? "#8C4B27" : "white"} />
-          )}
-        </button>
+        {/* Right side controls: Language Pill + Menu button */}
+        <div className="flex items-center gap-2">
+          {/* Quick Lang Switcher Pill */}
+          <div
+            className="flex items-center rounded-full p-0.5"
+            style={{
+              background: "rgba(140,75,39,0.08)",
+              border: "1px solid rgba(140,75,39,0.18)",
+            }}
+          >
+            {languages.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                style={{
+                  background: lang === l.code ? "#8C4B27" : "transparent",
+                  color: lang === l.code ? "#FFFFFF" : "#5C3D2E",
+                  border: "none",
+                  borderRadius: "9999px",
+                  padding: "0.2rem 0.45rem",
+                  fontSize: "0.62rem",
+                  fontWeight: lang === l.code ? 700 : 500,
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                aria-label={`Change language to ${l.label}`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Menu button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              background: "rgba(140,75,39,0.12)",
+              border: "1px solid rgba(140,75,39,0.20)",
+              borderRadius: "50%",
+              width: "2.2rem",
+              height: "2.2rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              transition: "all 0.2s",
+            }}
+            aria-label={isOpen ? "Close menu" : "Open navigation"}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? (
+              <X size={16} color="#8C4B27" />
+            ) : (
+              <Menu size={16} color="#8C4B27" />
+            )}
+          </button>
+        </div>
       </motion.header>
 
       {/* Drawer */}
@@ -142,7 +180,7 @@ export function Navigation() {
               transition={{ type: "tween", duration: 0.28, ease: "easeInOut" }}
               className="fixed top-0 right-0 z-50 h-full flex flex-col"
               style={{
-                width: "min(80vw, 280px)",
+                width: "min(85vw, 300px)",
                 background: "#FAF7F2",
                 boxShadow: "-8px 0 32px rgba(0,0,0,0.18)",
                 paddingTop: "4.5rem",
@@ -154,23 +192,99 @@ export function Navigation() {
               {/* Close */}
               <button
                 onClick={() => setIsOpen(false)}
-                style={{ position: "absolute", top: "1rem", right: "1rem", background: "rgba(140,75,39,0.10)", border: "none", borderRadius: "50%", width: "2rem", height: "2rem", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                style={{
+                  position: "absolute",
+                  top: "1rem",
+                  right: "1rem",
+                  background: "rgba(140,75,39,0.10)",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "2rem",
+                  height: "2rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
                 aria-label="Close menu"
               >
                 <X size={16} color="#8C4B27" />
               </button>
 
               <div className="px-5">
-                <p className="font-calligraphy" style={{ fontSize: "1.5rem", color: "#3D2522", marginBottom: "1.5rem" }}>
-                  Explore
+                <p
+                  className="font-calligraphy"
+                  style={{ fontSize: "1.6rem", color: "#3D2522", marginBottom: "0.25rem" }}
+                >
+                  {t.mradulAndShreya}
                 </p>
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.15em",
+                    textTransform: "uppercase",
+                    color: "#8C4B27",
+                    marginBottom: "1.25rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  {t.weddingCelebration}
+                </p>
+
+                {/* Language Picker in Drawer */}
+                <div
+                  className="p-2.5 rounded-xl mb-4"
+                  style={{
+                    background: "rgba(140,75,39,0.06)",
+                    border: "1px solid rgba(140,75,39,0.15)",
+                  }}
+                >
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Globe size={13} color="#8C4B27" />
+                    <span
+                      style={{
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontSize: "0.6rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "#8C4B27",
+                      }}
+                    >
+                      {t.langSelect}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1">
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => setLang(l.code)}
+                        style={{
+                          background: lang === l.code ? "#8C4B27" : "rgba(255,255,255,0.8)",
+                          color: lang === l.code ? "#FFFFFF" : "#3D2522",
+                          border: `1px solid ${lang === l.code ? "#8C4B27" : "rgba(140,75,39,0.2)"}`,
+                          borderRadius: "0.5rem",
+                          padding: "0.35rem 0.2rem",
+                          fontSize: "0.72rem",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        {l.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {NAV_ITEMS.map((item, i) => (
                     <motion.li
                       key={item.href}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04 }}
+                      transition={{ delay: i * 0.03 }}
                     >
                       <button
                         onClick={() => scrollTo(item.href)}
@@ -178,12 +292,12 @@ export function Navigation() {
                           display: "block",
                           width: "100%",
                           textAlign: "left",
-                          padding: "0.7rem 0",
+                          padding: "0.65rem 0",
                           background: "none",
                           border: "none",
-                          borderBottom: "1px solid rgba(140,75,39,0.12)",
+                          borderBottom: "1px solid rgba(140,75,39,0.10)",
                           fontFamily: "'Cormorant Garamond', Georgia, serif",
-                          fontSize: "1rem",
+                          fontSize: "1.05rem",
                           fontWeight: 600,
                           color: "#4A2E2B",
                           cursor: "pointer",
@@ -209,7 +323,7 @@ export function Navigation() {
                   onClick={() => scrollTo("#rsvp")}
                   className="btn-primary w-full mt-5"
                 >
-                  RSVP NOW
+                  {t.rsvpNow}
                 </button>
               </div>
             </motion.nav>
@@ -219,5 +333,3 @@ export function Navigation() {
     </>
   );
 }
-
-

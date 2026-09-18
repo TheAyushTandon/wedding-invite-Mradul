@@ -6,12 +6,14 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { WISH_PRESETS, INITIAL_WISHES } from "@/data/wishes";
 import type { WishItem } from "@/types";
 import { Send, ThumbsUp, Sparkles } from "lucide-react";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function WishesSection() {
   const [customWish, setCustomWish] = useState("");
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
   const [wishes, setWishes] = useState<WishItem[]>(INITIAL_WISHES);
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLanguage();
 
   const handleVote = (id: string) => {
     setWishes((prev) =>
@@ -47,9 +49,9 @@ export function WishesSection() {
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ INTERACTIVE WISHES ✦"
-          heading="Wedding Wish Wall"
-          quote="Dream big for us! Share your most creative, heartfelt idea for our celebrations."
+          eyebrow={t.wishesEyebrow}
+          heading={t.wishesHeading}
+          quote={t.wishesQuote}
         />
 
         {/* Preset chips */}

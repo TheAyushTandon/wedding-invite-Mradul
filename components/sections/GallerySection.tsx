@@ -6,10 +6,12 @@ import useEmblaCarousel from "embla-carousel-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { GALLERY } from "@/data/gallery";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function GallerySection() {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const { t } = useLanguage();
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -33,9 +35,9 @@ export function GallerySection() {
       <div className="section-content w-full py-16">
         <div className="section-pad">
           <SectionHeader
-            eyebrow="✦ CAPTURED MOMENTS ✦"
-            heading="Our Photo Gallery"
-            quote="Snapshots of joy, laughter, and the beautiful journey that led us here."
+            eyebrow={t.galleryEyebrow}
+            heading={t.galleryHeading}
+            quote={t.galleryQuote}
           />
         </div>
 

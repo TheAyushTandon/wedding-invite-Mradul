@@ -1,178 +1,177 @@
 "use client";
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import Image from "next/image";
-import useEmblaCarousel from "embla-carousel-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { CopyButton } from "@/components/shared/CopyButton";
-import { HOTELS } from "@/data/accommodations";
-import { Building2, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { ACCOMMODATION_NOTE } from "@/data/accommodations";
+import { Building2, MapPin, Phone, Navigation as NavIcon, Sparkles } from "lucide-react";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function AccommodationsSection() {
-  const [activeHotel, setActiveHotel] = useState(0);
-  const hotel = HOTELS[activeHotel];
-  const [emblaRef, emblaApi] = useEmblaCarousel({ startIndex: 0 });
-
-  const goTo = useCallback((index: number) => {
-    setActiveHotel(index);
-    emblaApi?.scrollTo(index);
-  }, [emblaApi]);
-
-  const tabLabels = ["Taj Heritage", "Taj Horizon", "Goa Marriott"];
+  const { t } = useLanguage();
 
   return (
-    <section id="accommodations" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/accommodations/lantern-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+    <section
+      id="accommodations"
+      className="section-bg"
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+    >
+      <Image
+        src="/assets/accommodations/lantern-arch-bg.png"
+        alt=""
+        fill
+        className="section-bg-img"
+        style={{ objectPosition: "center top" }}
+      />
+      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ GUEST STAY & RETREATS ✦"
-          heading="Accommodations"
-          quote="Curated luxury estates & coastal resorts reserved with special courtesy rates."
+          eyebrow={t.stayEyebrow}
+          heading={t.stayHeading}
+          quote={t.stayQuote}
         />
 
-        {/* Hotel tabs */}
-        <div className="flex gap-0 mb-6" style={{ borderBottom: "1px solid rgba(140,75,39,0.20)" }}>
-          {tabLabels.map((label, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-[420px] mx-auto flex flex-col items-center text-center"
+        >
+          {/* Resort Image Banner */}
+          <div className="relative w-full h-[220px] rounded-2xl overflow-hidden shadow-lg mb-6 border border-[#8C4B27]/20">
+            <Image
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80"
+              alt="Taj Cidade de Goa Heritage"
+              fill
+              className="object-cover"
+            />
+            <div
               style={{
-                flex: 1,
-                padding: "0.5rem 0.25rem",
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.55rem",
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                background: "none",
-                border: "none",
-                borderBottom: activeHotel === i ? "2px solid #8C4B27" : "2px solid transparent",
-                color: activeHotel === i ? "#8C4B27" : "#9B9B9B",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-                marginBottom: "-1px",
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(61,37,34,0.7) 100%)",
               }}
-              aria-pressed={activeHotel === i}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={hotel.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="glass-card overflow-hidden"
-          >
-            {/* Photo */}
-            <div className="relative" style={{ height: "220px" }}>
-              <Image
-                src={hotel.image}
-                alt={hotel.name}
-                fill
-                className="object-cover"
-              />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.5) 100%)" }} />
-              {/* Nav */}
-              <button
-                onClick={() => goTo((activeHotel - 1 + HOTELS.length) % HOTELS.length)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full z-10"
-                style={{ width: "2rem", height: "2rem", background: "rgba(0,0,0,0.40)", border: "none" }}
-                aria-label="Previous hotel"
-              >
-                <ChevronLeft size={16} color="white" />
-              </button>
-              <button
-                onClick={() => goTo((activeHotel + 1) % HOTELS.length)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full z-10"
-                style={{ width: "2rem", height: "2rem", background: "rgba(0,0,0,0.40)", border: "none" }}
-                aria-label="Next hotel"
-              >
-                <ChevronRight size={16} color="white" />
-              </button>
-              {/* Status badge */}
+            />
+            <div className="absolute bottom-3 left-4 right-4 text-left">
               <span
                 style={{
-                  position: "absolute",
-                  top: "0.75rem",
-                  left: "0.75rem",
-                  background: "rgba(140,75,39,0.90)",
-                  color: "white",
+                  display: "inline-block",
                   fontFamily: "'Montserrat', sans-serif",
                   fontSize: "0.55rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
+                  fontWeight: 700,
+                  letterSpacing: "0.14em",
                   textTransform: "uppercase",
-                  padding: "0.3rem 0.65rem",
+                  color: "#FAF7F2",
+                  background: "rgba(140,75,39,0.9)",
+                  padding: "0.2rem 0.6rem",
                   borderRadius: "9999px",
+                  marginBottom: "0.3rem",
                 }}
               >
-                {hotel.status}
+                {t.stayBadge}
               </span>
+              <h3 className="heading-calligraphy text-white" style={{ fontSize: "1.9rem", lineHeight: 1.1 }}>
+                Taj Cidade de Goa Heritage
+              </h3>
+            </div>
+          </div>
+
+          {/* Complimentary Stay Highlight (Open uncontainerized layout) */}
+          <div className="w-full py-4 text-left mb-6">
+            <div className="flex items-center gap-2 mb-2 text-[#8C4B27]">
+              <Sparkles size={16} />
+              <h4
+                className="font-serif-wd"
+                style={{
+                  fontSize: "1.15rem",
+                  fontWeight: 700,
+                  color: "#3D2522",
+                }}
+              >
+                {t.stayCoveredTitle}
+              </h4>
             </div>
 
-            {/* Content */}
-            <div className="p-5">
-              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.58rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#8C4B27", fontWeight: 600, marginBottom: "0.25rem" }}>
-                {hotel.type}
-              </p>
-              <h3 className="heading-calligraphy" style={{ fontSize: "1.75rem", marginBottom: "0.5rem" }}>
-                {hotel.name}
-              </h3>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.88rem", color: "#5C3D2E", fontStyle: "italic", marginBottom: "1rem" }}>
-                {hotel.amenities.join(" • ")}
-              </p>
+            <p
+              className="font-serif-wd"
+              style={{
+                fontSize: "1rem",
+                color: "#4A2E2B",
+                lineHeight: 1.75,
+                fontStyle: "italic",
+                marginBottom: "1rem",
+              }}
+            >
+              {t.stayCoveredNote}
+            </p>
 
-              {/* Courtesy code */}
-              <div className="flex items-center gap-2 p-3 rounded-xl mb-4" style={{ background: "rgba(140,75,39,0.06)", border: "1px solid rgba(140,75,39,0.15)" }}>
-                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.62rem", color: "#6E4141", fontWeight: 500 }}>Courtesy Code:</span>
-                <span style={{ fontFamily: "monospace", fontSize: "0.85rem", fontWeight: 700, color: "#3D2522", letterSpacing: "0.05em" }}>{hotel.courtesyCode}</span>
-                <div className="ml-auto">
-                  <CopyButton value={hotel.courtesyCode} label="Code" />
-                </div>
+            {/* Full Address */}
+            <div className="flex items-start gap-2.5 p-3.5 rounded-xl mb-4" style={{ background: "rgba(140,75,39,0.06)", border: "1px solid rgba(140,75,39,0.15)" }}>
+              <MapPin size={18} color="#8C4B27" className="flex-shrink-0 mt-0.5" />
+              <div>
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.58rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#8C4B27",
+                    marginBottom: "0.15rem",
+                  }}
+                >
+                  {t.resortAddressLabel}
+                </p>
+                <p
+                  className="font-serif-wd"
+                  style={{
+                    fontSize: "0.95rem",
+                    color: "#3D2522",
+                    lineHeight: 1.4,
+                    fontWeight: 600,
+                  }}
+                >
+                  {t.venueFullAddress}
+                </p>
               </div>
+            </div>
 
-              {/* Book button */}
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-2.5 w-full mt-2">
               <a
-                href={hotel.website}
+                href={ACCOMMODATION_NOTE.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary w-full"
+                className="btn-primary flex-1 flex items-center justify-center gap-2 text-center"
+                style={{ padding: "0.75rem 1rem", fontSize: "0.68rem" }}
               >
-                <Building2 size={14} />
-                BOOK SUITE
-                <ExternalLink size={12} />
+                <NavIcon size={14} />
+                {t.openGoogleMaps}
+              </a>
+              <a
+                href={`tel:${ACCOMMODATION_NOTE.plannerContact}`}
+                className="btn-secondary flex-1 flex items-center justify-center gap-2 text-center"
+                style={{
+                  padding: "0.75rem 1rem",
+                  fontSize: "0.68rem",
+                  background: "rgba(255,255,255,0.85)",
+                  border: "1.5px solid #8C4B27",
+                  color: "#8C4B27",
+                  borderRadius: "9999px",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                }}
+              >
+                <Phone size={14} />
+                {t.callPlanner}
               </a>
             </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Pagination dots */}
-        <div className="flex justify-center gap-2 mt-5">
-          {HOTELS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              style={{
-                width: activeHotel === i ? "1.5rem" : "0.5rem",
-                height: "0.5rem",
-                borderRadius: "9999px",
-                background: activeHotel === i ? "#8C4B27" : "rgba(140,75,39,0.30)",
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              aria-label={`View hotel ${i + 1}`}
-            />
-          ))}
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
+export default AccommodationsSection;

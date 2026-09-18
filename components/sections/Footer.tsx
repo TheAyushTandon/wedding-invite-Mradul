@@ -1,17 +1,10 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { WEDDING } from "@/data/wedding";
 import { Heart, ChevronUp, MessageCircle } from "lucide-react";
-
-const NAV_LINKS = [
-  { href: "#hero", label: "Home" },
-  { href: "#countdown", label: "Countdown" },
-  { href: "#schedule", label: "Schedule" },
-  { href: "#story", label: "Our Story" },
-  { href: "#rsvp", label: "RSVP" },
-];
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 function InstagramIcon({ size = 15 }: { size?: number }) {
   return (
@@ -35,6 +28,16 @@ function InstagramIcon({ size = 15 }: { size?: number }) {
 
 export function Footer() {
   const [shareUrl, setShareUrl] = useState("");
+  const { t, lang } = useLanguage();
+
+  const NAV_LINKS = [
+    { href: "#hero", label: "Home" },
+    { href: "#countdown", label: t.countdown },
+    { href: "#schedule", label: t.schedule },
+    { href: "#attire", label: t.attire },
+    { href: "#accommodations", label: t.stay },
+    { href: "#rsvp", label: t.rsvp },
+  ];
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,6 +62,13 @@ export function Footer() {
       document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const shareText =
+    lang === "hi"
+      ? `मृदुल एवं श्रेया के शुभ विवाह समारोह में सादर आमंत्रित हैं — 2 एवं 3 फरवरी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
+      : lang === "mr"
+      ? `मृदुल आणि श्रेया यांच्या शुभविवाह सोहळ्यास सस्नेह निमंत्रण — 2 आणि 3 फेब्रुवारी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
+      : `Join us for the Royal Wedding Celebration of Mradul & Shreya — February 2 & 3, 2026 at Taj Heritage, Goa! ${shareUrl}`;
 
   return (
     <footer
@@ -91,7 +101,7 @@ export function Footer() {
         className="text-4xl sm:text-5xl text-[#8C4B27] mb-3 font-normal"
         style={{ fontFamily: "var(--font-cursive)" }}
       >
-        Mradul &amp; Shreya
+        {t.mradulAndShreya}
       </motion.h3>
 
       {/* Closing Quote */}
@@ -103,7 +113,7 @@ export function Footer() {
         className="text-xs sm:text-sm text-[#6E4141] font-serif italic max-w-sm mx-auto mb-5 leading-relaxed px-2"
         style={{ fontFamily: "var(--font-serif)" }}
       >
-        &ldquo;With boundless love, joy, and gratitude, our families eagerly look forward to celebrating this sacred new beginning with you by our side in beautiful Goa.&rdquo;
+        {t.footerQuote}
       </motion.p>
 
       {/* Dates & Location Accent */}
@@ -116,7 +126,7 @@ export function Footer() {
         style={{ fontFamily: "var(--font-serif)" }}
       >
         <Heart size={13} className="fill-[#C24137] text-[#C24137] not-italic" />
-        <span>February 2 &amp; 3 • Taj Heritage, Goa</span>
+        <span>{t.footerDatesVenue}</span>
       </motion.div>
 
       {/* Nav links */}
@@ -125,7 +135,7 @@ export function Footer() {
           <button
             key={link.href}
             onClick={() => scrollTo(link.href)}
-            className="text-xs font-semibold uppercase tracking-[0.12em] text-[#6E4141]/70 hover:text-[#8C4B27] transition-colors cursor-pointer"
+            className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6E4141]/80 hover:text-[#8C4B27] transition-colors cursor-pointer"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {link.label}
@@ -142,25 +152,25 @@ export function Footer() {
       >
         <button
           onClick={scrollToTop}
-          className="relative min-h-[48px] inline-flex items-center justify-center text-xs font-bold uppercase tracking-[0.22em] text-[#8C4B27] hover:text-white hover:bg-[#8C4B27] transition-all cursor-pointer py-3 px-10 rounded-xl border border-[#8C4B27]/30 shadow-xs active:scale-95 text-center mx-auto"
+          className="relative min-h-[48px] inline-flex items-center justify-center text-xs font-bold uppercase tracking-[0.15em] text-[#8C4B27] hover:text-white hover:bg-[#8C4B27] transition-all cursor-pointer py-3 px-8 rounded-xl border border-[#8C4B27]/30 shadow-xs active:scale-95 text-center mx-auto"
           style={{ fontFamily: "var(--font-sans)" }}
         >
           <ChevronUp size={15} className="mr-2" />
-          <span>Back To Top</span>
+          <span>{t.backToTop}</span>
         </button>
       </motion.div>
 
       {/* Social / WhatsApp / Instagram */}
       <div className="flex justify-center gap-4 mt-8 mb-4">
         <a
-          href={`https://wa.me/?text=${encodeURIComponent("Join me for the Royal Wedding of Mradul & Shreya — February 2 & 3, Taj Heritage Goa! " + (shareUrl || ""))}`}
+          href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-xs text-[#6E4141] hover:text-[#8C4B27] transition-colors"
           style={{ fontFamily: "var(--font-sans)" }}
         >
           <MessageCircle size={15} />
-          <span>Share</span>
+          <span>{t.shareInvite}</span>
         </a>
         <a
           href="https://www.instagram.com/explore/tags/mradulwedsshreya/"
@@ -176,21 +186,21 @@ export function Footer() {
 
       {/* Families Sign-off */}
       <p
-        className="text-[10px] text-[#6E4141]/75 mt-8 tracking-[0.24em] uppercase font-serif"
+        className="text-[11px] text-[#6E4141]/80 mt-8 tracking-wider font-serif"
         style={{ fontFamily: "var(--font-serif)" }}
       >
-        With love • The Agrawal &amp; Sharma Families
+        {t.withLoveFamilies}
       </p>
 
       {/* Legal */}
       <p
-        className="text-[9px] text-[#4A2E2B]/40 mt-3 tracking-[0.08em]"
+        className="text-[10px] text-[#4A2E2B]/50 mt-3 tracking-normal"
         style={{ fontFamily: "var(--font-sans)" }}
       >
-        © 2027 Mradul &amp; Shreya Wedding • Crafted with love in Goa
+        {t.copyrightText}
       </p>
     </footer>
   );
 }
 
-
+export default Footer;

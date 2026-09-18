@@ -2,110 +2,145 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { FAMILIES } from "@/data/families";
-import { Users, Quote } from "lucide-react";
+import { FAMILIES_BY_LANG } from "@/data/families";
+import { HairlineDivider } from "@/components/shared/HairlineDivider";
+import { Sparkles } from "lucide-react";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function FamiliesSection() {
+  const { t, lang } = useLanguage();
+  const families = (lang && FAMILIES_BY_LANG && FAMILIES_BY_LANG[lang]) || FAMILIES_BY_LANG?.en || [];
+
   return (
-    <section id="families" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/story/romantic-rose-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
+    <section
+      id="families"
+      className="section-bg"
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+    >
+      <Image
+        src="/assets/story/romantic-rose-bg.png"
+        alt=""
+        fill
+        className="section-bg-img"
+        style={{ objectPosition: "center" }}
+      />
+      <div
+        className="section-overlay"
+        style={{ background: "rgba(250,247,242,0.92)" }}
+      />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ WITH BLESSINGS & LOVE ✦"
-          heading="Our Families"
-          quote="Two families united in love, friendship, and shared celebration."
+          eyebrow={t.familiesEyebrow}
+          heading={t.familiesHeading}
+          quote={t.familiesQuote}
         />
 
-        <div className="flex flex-col gap-5 mb-6">
-          {FAMILIES.map((family, i) => (
-            <motion.div
-              key={family.side}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="glass-card p-5"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div
-                  style={{
-                    width: "2.2rem",
-                    height: "2.2rem",
-                    borderRadius: "0.5rem",
-                    background: "#8C4B27",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <Users size={16} color="white" />
-                </div>
-                <div>
+        <div className="w-full max-w-[420px] mx-auto flex flex-col gap-8 mb-6">
+          {families.map((family, i) => {
+            const isGroom = family.side === "groom";
+            return (
+              <motion.div
+                key={`${lang}-${family.side}`}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="w-full flex flex-col items-center text-center py-2"
+              >
+                {/* Side Pill */}
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full mb-3" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.18)" }}>
+                  <Sparkles size={11} color="#8C4B27" />
                   <span
                     style={{
                       fontFamily: "'Montserrat', sans-serif",
-                      fontSize: "0.58rem",
+                      fontSize: "0.62rem",
                       fontWeight: 700,
-                      letterSpacing: "0.15em",
+                      letterSpacing: "0.18em",
                       textTransform: "uppercase",
-                      background: family.side === "groom" ? "rgba(140,75,39,0.12)" : "rgba(194,65,55,0.12)",
-                      color: family.side === "groom" ? "#8C4B27" : "#C24137",
-                      padding: "0.2rem 0.6rem",
-                      borderRadius: "9999px",
+                      color: "#8C4B27",
                     }}
                   >
-                    {family.side === "groom" ? "Groom\u2019s Side" : "Bride\u2019s Side"}
+                    {isGroom ? t.groomSide : t.brideSide}
                   </span>
                 </div>
-              </div>
 
-              <h3
-                className="font-serif-wd"
-                style={{ fontSize: "1.05rem", fontWeight: 700, color: "#3D2522", marginBottom: "0.25rem" }}
-              >
-                {family.parents}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.68rem",
-                  color: "#6E4141",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {family.supporting}
-              </p>
-              <p
-                className="font-serif-wd"
-                style={{ fontSize: "0.9rem", color: "#4A2E2B", lineHeight: 1.7, fontStyle: "italic" }}
-              >
-                {family.note}
-              </p>
-            </motion.div>
-          ))}
+                {/* Parents Names in Regal Calligraphy */}
+                <h3
+                  className="heading-calligraphy"
+                  style={{
+                    fontSize: "2.3rem",
+                    lineHeight: 1.15,
+                    color: "#3D2522",
+                    marginBottom: "0.4rem",
+                  }}
+                >
+                  {isGroom ? t.groomParents : t.brideParents}
+                </h3>
+
+                {/* Extended Family Note */}
+                <p
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.65rem",
+                    color: "#8C4B27",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  {family.supporting}
+                </p>
+
+                {/* Warm Family Message */}
+                <p
+                  className="font-serif-wd"
+                  style={{
+                    fontSize: "1.05rem",
+                    color: "#4A2E2B",
+                    lineHeight: 1.75,
+                    fontStyle: "italic",
+                    maxWidth: "380px",
+                  }}
+                >
+                  {family.note}
+                </p>
+
+                {i === 0 && (
+                  <div className="w-full my-6">
+                    <HairlineDivider />
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Blessing box */}
+        {/* Traditional Auspicious Blessing Note (No gift policy mentions) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="glass-card p-5 text-center"
-          style={{ background: "rgba(140,75,39,0.06)", border: "1px solid rgba(140,75,39,0.20)" }}
+          className="text-center max-w-[380px] mx-auto pt-4"
         >
-          <Quote size={20} color="#D4AF37" style={{ margin: "0 auto 0.75rem" }} />
           <p
             className="font-serif-wd"
-            style={{ fontSize: "1rem", color: "#3D2522", lineHeight: 1.7, fontStyle: "italic", fontWeight: 500 }}
+            style={{
+              fontSize: "1.05rem",
+              color: "#3D2522",
+              lineHeight: 1.7,
+              fontStyle: "italic",
+              fontWeight: 500,
+            }}
           >
-            Your presence, smiles, and warm blessings are the greatest gifts we could ever ask for.
+            {t.familyUnionBlessing}
           </p>
         </motion.div>
       </div>
     </section>
   );
 }
+
+export default FamiliesSection;

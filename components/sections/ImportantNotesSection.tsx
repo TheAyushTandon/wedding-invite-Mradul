@@ -2,96 +2,130 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { NOTES } from "@/data/notes";
-import { Clock, UtensilsCrossed, Sun, BriefcaseBusiness } from "lucide-react";
+import { NOTES_BY_LANG } from "@/data/notes";
+import { Clock, UtensilsCrossed, WineOff, BriefcaseBusiness, Sparkles } from "lucide-react";
+import { HairlineDivider } from "@/components/shared/HairlineDivider";
+import { useLanguage } from "@/components/shared/LanguageContext";
 
 const ICONS: Record<string, React.ReactNode> = {
-  Clock: <Clock size={18} color="white" />,
-  UtensilsCrossed: <UtensilsCrossed size={18} color="white" />,
-  Sun: <Sun size={18} color="white" />,
-  BriefcaseBusiness: <BriefcaseBusiness size={18} color="white" />,
+  Clock: <Clock size={16} color="#8C4B27" />,
+  WineOff: <WineOff size={16} color="#8C4B27" />,
+  UtensilsCrossed: <UtensilsCrossed size={16} color="#8C4B27" />,
+  BriefcaseBusiness: <BriefcaseBusiness size={16} color="#8C4B27" />,
 };
 
 export function ImportantNotesSection() {
+  const { t, lang } = useLanguage();
+  const currentLang = (lang && NOTES_BY_LANG && NOTES_BY_LANG[lang]) ? lang : "en";
+  const notes = NOTES_BY_LANG?.[currentLang] || NOTES_BY_LANG?.en || [];
+
   return (
-    <section id="notes" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/accommodations/lantern-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+    <section
+      id="notes"
+      className="section-bg"
+      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+    >
+      <Image
+        src="/assets/accommodations/lantern-arch-bg.png"
+        alt=""
+        fill
+        className="section-bg-img"
+        style={{ objectPosition: "center top" }}
+      />
+      <div
+        className="section-overlay"
+        style={{ background: "rgba(250,247,242,0.92)" }}
+      />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
-          eyebrow="✦ GUEST ESSENTIALS ✦"
-          heading="Important Notes"
-          quote="Helpful guidelines to ensure your stay in Goa is seamless, joyful, and comfortable."
+          eyebrow={t.notesEyebrow}
+          heading={t.notesHeading}
+          quote={t.notesQuote}
         />
 
-        <div className="flex flex-col gap-4">
-          {NOTES.map((note, i) => (
+        <div className="w-full max-w-[420px] mx-auto flex flex-col gap-6">
+          {notes.map((note, i) => (
             <motion.div
-              key={note.id}
-              initial={{ opacity: 0, y: 20 }}
+              key={`${lang}-${note.id}`}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass-card p-5"
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              className="w-full flex flex-col items-start py-2"
             >
-              <div className="flex items-start gap-4">
-                {/* Icon */}
+              {/* Header with Icon & Badge */}
+              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                 <div
                   style={{
-                    width: "2.5rem",
-                    height: "2.5rem",
-                    borderRadius: "0.5rem",
-                    background: "#8C4B27",
+                    width: "1.8rem",
+                    height: "1.8rem",
+                    borderRadius: "50%",
+                    background: "rgba(140,75,39,0.10)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  {ICONS[note.icon]}
+                  {ICONS[note.icon] || <Sparkles size={14} color="#8C4B27" />}
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h3
-                      className="font-serif-wd"
-                      style={{ fontSize: "1rem", fontWeight: 700, color: "#3D2522" }}
-                    >
-                      {note.title}
-                    </h3>
-                    <span
-                      style={{
-                        fontFamily: "'Montserrat', sans-serif",
-                        fontSize: "0.55rem",
-                        fontWeight: 600,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        background: "rgba(140,75,39,0.10)",
-                        color: "#8C4B27",
-                        padding: "0.2rem 0.6rem",
-                        borderRadius: "9999px",
-                        border: "1px solid rgba(140,75,39,0.20)",
-                      }}
-                    >
-                      {note.badge}
-                    </span>
-                  </div>
+                <h3
+                  className="font-serif-wd"
+                  style={{
+                    fontSize: "1.15rem",
+                    fontWeight: 700,
+                    color: "#3D2522",
+                  }}
+                >
+                  {note.title}
+                </h3>
 
-                  <ul className="flex flex-col gap-1.5 mt-2">
-                    {note.bullets.map((bullet, j) => (
-                      <li
-                        key={j}
-                        className="font-serif-wd"
-                        style={{ fontSize: "0.88rem", color: "#4A2E2B", lineHeight: 1.6, paddingLeft: "1rem", position: "relative" }}
-                      >
-                        <span style={{ position: "absolute", left: 0, color: "#8C4B27" }}>•</span>
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <span
+                  style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                    fontSize: "0.55rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    background: "rgba(140,75,39,0.08)",
+                    color: "#8C4B27",
+                    padding: "0.15rem 0.5rem",
+                    borderRadius: "9999px",
+                    border: "1px solid rgba(140,75,39,0.18)",
+                    marginLeft: "auto",
+                  }}
+                >
+                  {note.badge}
+                </span>
               </div>
+
+              {/* Bullet points */}
+              <ul className="flex flex-col gap-1.5 mt-1 pl-8 w-full">
+                {note.bullets.map((bullet, j) => (
+                  <li
+                    key={j}
+                    className="font-serif-wd"
+                    style={{
+                      fontSize: "0.95rem",
+                      color: "#4A2E2B",
+                      lineHeight: 1.65,
+                      fontStyle: "italic",
+                      position: "relative",
+                    }}
+                  >
+                    <span style={{ position: "absolute", left: "-0.9rem", color: "#8C4B27" }}>•</span>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+
+              {i < notes.length - 1 && (
+                <div className="w-full mt-4">
+                  <HairlineDivider />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
@@ -99,3 +133,5 @@ export function ImportantNotesSection() {
     </section>
   );
 }
+
+export default ImportantNotesSection;
