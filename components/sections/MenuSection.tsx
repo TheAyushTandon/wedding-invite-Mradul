@@ -105,10 +105,19 @@ export function MenuSection() {
                       </h3>
                       {item.dietary && (
                         <span
-                          className="inline-flex items-center gap-0.5 text-[8.5px] font-bold text-[#15803D] bg-[#22C55E]/15 px-1.5 py-0.5 rounded-full"
+                          className="inline-flex items-center gap-1 text-[8.5px] font-bold text-[#15803D] bg-[#22C55E]/15 px-1.5 py-0.5 rounded-full"
                           style={{ fontFamily: "'Montserrat', sans-serif" }}
                         >
-                          🌱 V
+                          <span
+                            style={{
+                              width: "5px",
+                              height: "5px",
+                              borderRadius: "50%",
+                              background: "#16A34A",
+                              display: "inline-block",
+                            }}
+                          />
+                          VEG
                         </span>
                       )}
                     </div>
