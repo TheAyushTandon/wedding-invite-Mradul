@@ -50,10 +50,10 @@ export function AccommodationsSection() {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(61,37,34,0.7) 100%)",
+                background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(15,10,8,0.4) 40%, rgba(15,10,8,0.88) 100%)",
               }}
             />
-            <div className="absolute bottom-3 left-4 right-4 text-left">
+            <div className="absolute bottom-3.5 left-4 right-4 text-left z-10">
               <span
                 style={{
                   display: "inline-block",
@@ -63,15 +63,24 @@ export function AccommodationsSection() {
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
                   color: "#FAF7F2",
-                  background: "rgba(140,75,39,0.9)",
+                  background: "rgba(140,75,39,0.95)",
                   padding: "0.2rem 0.6rem",
                   borderRadius: "9999px",
                   marginBottom: "0.3rem",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                 }}
               >
                 {t.stayBadge}
               </span>
-              <h3 className="heading-calligraphy text-white" style={{ fontSize: "1.9rem", lineHeight: 1.1 }}>
+              <h3
+                className="heading-calligraphy"
+                style={{
+                  fontSize: "2rem",
+                  lineHeight: 1.1,
+                  color: "#FFFFFF",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)",
+                }}
+              >
                 Taj Cidade de Goa Heritage
               </h3>
             </div>
