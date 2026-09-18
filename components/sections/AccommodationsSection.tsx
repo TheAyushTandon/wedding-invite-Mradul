@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { ACCOMMODATION_NOTE } from "@/data/accommodations";
-import { Building2, MapPin, Phone, Navigation as NavIcon, Sparkles } from "lucide-react";
+import { Building2, MapPin, Phone, Navigation as NavIcon } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function AccommodationsSection() {
@@ -89,7 +89,6 @@ export function AccommodationsSection() {
           {/* Complimentary Stay Highlight (Open uncontainerized layout) */}
           <div className="w-full py-4 text-left mb-6">
             <div className="flex items-center gap-2 mb-2 text-[#8C4B27]">
-              <Sparkles size={16} />
               <h4
                 className="font-serif-wd"
                 style={{

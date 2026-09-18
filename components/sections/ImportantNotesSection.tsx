@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { NOTES_BY_LANG } from "@/data/notes";
-import { Clock, UtensilsCrossed, WineOff, BriefcaseBusiness, Sparkles } from "lucide-react";
+import { Clock, UtensilsCrossed, WineOff, BriefcaseBusiness } from "lucide-react";
 import { HairlineDivider } from "@/components/shared/HairlineDivider";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
@@ -68,7 +68,7 @@ export function ImportantNotesSection() {
                     flexShrink: 0,
                   }}
                 >
-                  {ICONS[note.icon] || <Sparkles size={14} color="#8C4B27" />}
+                  {ICONS[note.icon] || <Clock size={16} color="#8C4B27" />}
                 </div>
 
                 <h3

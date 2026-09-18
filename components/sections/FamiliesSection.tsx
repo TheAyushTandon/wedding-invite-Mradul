@@ -4,7 +4,6 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { FAMILIES_BY_LANG } from "@/data/families";
 import { HairlineDivider } from "@/components/shared/HairlineDivider";
-import { Sparkles } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function FamiliesSection() {
@@ -49,8 +48,7 @@ export function FamiliesSection() {
                 className="w-full flex flex-col items-center text-center py-2"
               >
                 {/* Side Pill */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full mb-3" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.18)" }}>
-                  <Sparkles size={11} color="#8C4B27" />
+                <div className="inline-flex items-center px-3 py-0.5 rounded-full mb-3" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.18)" }}>
                   <span
                     style={{
                       fontFamily: "'Montserrat', sans-serif",

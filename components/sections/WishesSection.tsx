@@ -5,7 +5,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { WISH_PRESETS, INITIAL_WISHES } from "@/data/wishes";
 import type { WishItem } from "@/types";
-import { Send, ThumbsUp, Sparkles } from "lucide-react";
+import { Send, ThumbsUp } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function WishesSection() {
@@ -121,9 +121,8 @@ export function WishesSection() {
               className="flex items-center gap-2 mb-4 px-4 py-3 rounded-xl"
               style={{ background: "rgba(37,211,102,0.12)", border: "1px solid rgba(37,211,102,0.30)" }}
             >
-              <Sparkles size={16} color="#15803D" />
               <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.72rem", color: "#15803D", fontWeight: 600 }}>
-                Your wish has been shared! ✨
+                Your wish has been shared!
               </p>
             </motion.div>
           )}

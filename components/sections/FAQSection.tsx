@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { FAQ_BY_LANG } from "@/data/faq";
-import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function FAQSection() {

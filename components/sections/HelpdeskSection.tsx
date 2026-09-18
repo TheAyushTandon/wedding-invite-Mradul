@@ -6,7 +6,7 @@ import { CopyButton } from "@/components/shared/CopyButton";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { CONTACTS_BY_LANG } from "@/data/helpdesk";
 import { WEDDING } from "@/data/wedding";
-import { Phone, Mail, Sparkles } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { HairlineDivider } from "@/components/shared/HairlineDivider";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
