@@ -95,6 +95,15 @@ export interface GalleryPhoto {
   caption: string;
 }
 
+export interface GalleryItem {
+  id: string;
+  src: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  fallback: string;
+}
+
 export interface WishPreset {
   emoji: string;
   text: string;
