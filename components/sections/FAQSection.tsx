@@ -19,7 +19,7 @@ export function FAQSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/accommodations/lantern-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -27,7 +27,7 @@ export function FAQSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.92)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -80,10 +80,10 @@ export function FAQSection() {
 
                   <span
                     style={{
-                      fontFamily: "'Cormorant Garamond', Georgia, serif",
+                      fontFamily: "var(--font-serif)",
                       fontSize: "1.15rem",
                       fontWeight: 700,
-                      color: isOpen ? "#8C4B27" : "#3D2522",
+                      color: isOpen ? "#8C4B27" : "#1E0F0C",
                       lineHeight: 1.35,
                       flex: 1,
                       transition: "color 0.2s ease",
@@ -114,11 +114,10 @@ export function FAQSection() {
                     >
                       <p
                         style={{
-                          fontFamily: "'Cormorant Garamond', Georgia, serif",
-                          fontSize: "1.02rem",
-                          color: "#4A2E2B",
-                          lineHeight: 1.75,
-                          fontStyle: "italic",
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "0.92rem",
+                          color: "#381B14",
+                          lineHeight: 1.7,
                           padding: "0 1.25rem 1.25rem 4rem",
                         }}
                       >

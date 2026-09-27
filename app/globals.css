@@ -1,29 +1,53 @@
 /* Google Fonts - MUST be first */
-@import url("https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Mukta:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&family=Yatra+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Pinyon+Script&family=Great+Vibes&family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Mukta:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Rozha+One&family=Yatra+One&display=swap");
 
 @import "tailwindcss";
 
+/* ══════════════════════════════════════════════════════════════
+   AMPERSAND GLYPH PERFECTION
+   Pinyon Script's native font file has a truncated ampersand that stops flat at the baseline.
+   This @font-face delegates U+0026 (&) to Alex Brush, providing a complete, graceful looping swash.
+   ══════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Pinyon Script';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/alexbrush.ttf') format('truetype'),
+       url('/fonts/greatvibes.ttf') format('truetype'),
+       local('Alex Brush');
+  unicode-range: U+0026;
+}
+
+.ampersand-glyph {
+  font-family: 'Alex Brush', 'Great Vibes', cursive !important;
+  display: inline-block;
+  overflow: visible;
+  line-height: 1;
+}
+
 @theme inline {
   --color-primary:         #8C4B27;
-  --color-dark-brown:      #4A2E2B;
-  --color-heritage:        #3D2522;
-  --color-terracotta:      #6E4141;
-  --color-sienna:          #5C3D2E;
-  --color-crimson:         #C24137;
+  --color-dark-brown:      #261512;
+  --color-heritage:        #1E0F0C;
+  --color-terracotta:      #4D261E;
+  --color-sienna:          #3F2018;
+  --color-crimson:         #B3261E;
   --color-gold:            #D4AF37;
-  --color-gold-dark:       #B8860B;
+  --color-gold-dark:       #A67C00;
   --color-parchment:       #FAF7F2;
   --color-cream:           #FAF6EE;
   --color-whatsapp:        #25D366;
   --color-outer-bg:        #141414;
-  --font-cursive:          'Alex Brush', 'Great Vibes', cursive;
-  --font-serif:            'Cormorant Garamond', Georgia, serif;
-  --font-sans:             'Montserrat', system-ui, sans-serif;
+  --font-display:          'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-serif:            'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-body:       'Cormorant Garamond', Georgia, serif;
+  --font-cursive:          'Pinyon Script', 'Great Vibes', cursive;
+  --font-sans:             'Plus Jakarta Sans', 'Montserrat', system-ui, sans-serif;
   --font-pinyon:           'Pinyon Script', cursive;
   --font-jakarta:          'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-calligraphy:      'Alex Brush', 'Great Vibes', cursive;
-  --font-serif-wd:         'Cormorant Garamond', Georgia, serif;
-  --font-sans-wd:          'Montserrat', system-ui, sans-serif;
+  --font-calligraphy:      'Playfair Display', 'Pinyon Script', Georgia, serif;
+  --font-serif-wd:         'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-sans-wd:          'Plus Jakarta Sans', 'Montserrat', system-ui, sans-serif;
   --font-devanagari-title: 'Rozha One', 'Yatra One', 'Noto Serif Devanagari', serif;
   --font-devanagari-body:  'Noto Serif Devanagari', Georgia, serif;
   --font-devanagari-sans:  'Mukta', system-ui, sans-serif;
@@ -34,11 +58,16 @@
 }
 
 :root {
-  --font-cursive: 'Alex Brush', 'Great Vibes', cursive;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Montserrat', system-ui, sans-serif;
+  --font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-body: 'Cormorant Garamond', Georgia, serif;
+  --font-cursive: 'Pinyon Script', 'Great Vibes', cursive;
+  --font-sans: 'Plus Jakarta Sans', 'Montserrat', system-ui, sans-serif;
   --font-pinyon: 'Pinyon Script', cursive;
   --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-calligraphy: 'Playfair Display', 'Pinyon Script', Georgia, serif;
+  --font-serif-wd: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-sans-wd: 'Plus Jakarta Sans', 'Montserrat', system-ui, sans-serif;
   --font-devanagari-title: 'Rozha One', 'Yatra One', 'Noto Serif Devanagari', serif;
   --font-devanagari-body: 'Noto Serif Devanagari', Georgia, serif;
   --font-devanagari-sans: 'Mukta', system-ui, sans-serif;
@@ -46,23 +75,25 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{background-color:#141414;color:#4A2E2B;font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+body{background-color:#141414;color:#261512;font-family:var(--font-sans);font-size:0.95rem;line-height:1.65;letter-spacing:0.015em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 
 #wedding-site{max-width:460px;width:100%;margin:0 auto;background-color:#FAF7F2;position:relative;min-height:100vh;min-height:100svh;overflow-x:hidden}
 
 /* Font utilities */
+.font-display { font-family: var(--font-display); }
 .font-cursive { font-family: var(--font-cursive); }
 .font-serif { font-family: var(--font-serif); }
 .font-sans { font-family: var(--font-sans); }
 .font-pinyon { font-family: var(--font-pinyon); }
 .font-jakarta { font-family: var(--font-jakarta); }
-.font-calligraphy { font-family: var(--font-cursive); }
-.font-serif-wd { font-family: var(--font-serif); }
-.font-sans-wd { font-family: var(--font-sans); }
+.font-calligraphy { font-family: var(--font-calligraphy); }
+.font-serif-wd { font-family: var(--font-serif-wd); }
+.font-sans-wd { font-family: var(--font-sans-wd); }
+.font-script { font-family: var(--font-pinyon); }
 
-.eyebrow{font-family:var(--font-sans);font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:#8C4B27}
-.heading-calligraphy{font-family:var(--font-cursive);color:#3D2522;line-height:1.15}
-.quote-serif{font-family:var(--font-serif);font-style:italic;color:#6E4141;line-height:1.6}
+.eyebrow{font-family:var(--font-display), var(--font-sans);font-size:0.72rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#8C4B27}
+.heading-calligraphy{font-family:var(--font-serif);color:#1E0F0C;font-weight:600;letter-spacing:0.02em;line-height:1.25}
+.quote-serif{font-family:var(--font-serif);font-style:italic;font-size:1.02rem;color:#4D261E;line-height:1.75;letter-spacing:0.015em}
 
 /* ══════════════════════════════════════════════════════════════
    AUTHENTIC DEVANAGARI (HINDI & MARATHI) TYPOGRAPHY SYSTEM
@@ -157,7 +188,7 @@ body{background-color:#141414;color:#4A2E2B;font-family:var(--font-sans);-webkit
 .cursive-stroke-text {
   fill: none;
   stroke: #8C4B27;
-  stroke-width: 1.5px;
+  stroke-width: 0.75px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }

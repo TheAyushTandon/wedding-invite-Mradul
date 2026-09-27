@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { motion } from "motion/react";
 
 interface SectionHeaderProps {
@@ -24,24 +24,28 @@ export function SectionHeader({
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`mb-8 ${centered ? "text-center" : ""}`}
     >
-      <p className="eyebrow mb-2" style={light ? { color: "rgba(255,255,255,0.75)" } : {}}>
+      <p className="eyebrow mb-2.5" style={light ? { color: "rgba(255,255,255,0.85)" } : {}}>
         {eyebrow}
       </p>
       <h2
         className="heading-calligraphy"
         style={{
-          fontSize: "clamp(2.2rem, 8vw, 3rem)",
-          color: light ? "rgba(255,255,255,0.95)" : undefined,
+          fontSize: "clamp(2rem, 7.5vw, 2.75rem)",
+          color: light ? "rgba(255,255,255,0.98)" : "#1E0F0C",
+          letterSpacing: "0.02em",
+          lineHeight: 1.22,
         }}
       >
         {heading}
       </h2>
       {quote && (
         <p
-          className="quote-serif mt-3 px-4"
+          className="quote-serif mt-3 px-4 max-w-md mx-auto"
           style={{
-            fontSize: "clamp(0.85rem, 3vw, 1rem)",
-            color: light ? "rgba(255,255,255,0.70)" : undefined,
+            fontSize: "clamp(0.95rem, 3.2vw, 1.05rem)",
+            color: light ? "rgba(255,255,255,0.85)" : "#4D261E",
+            lineHeight: 1.7,
+            letterSpacing: "0.015em",
           }}
         >
           {quote}

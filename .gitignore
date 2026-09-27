@@ -24,6 +24,8 @@
 .DS_Store
 *.pem
 /image*.png
+/*.jpeg
+/*.mp3
 
 # debug
 npm-debug.log*

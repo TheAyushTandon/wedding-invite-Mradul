@@ -166,7 +166,7 @@ export function RSVPSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/schedule/floral-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -174,7 +174,7 @@ export function RSVPSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.92)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -203,8 +203,8 @@ export function RSVPSection() {
             </div>
             <p
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.6rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 color: "#8C4B27",
                 fontWeight: 700,
                 letterSpacing: "0.12em",
@@ -358,8 +358,8 @@ export function RSVPSection() {
 
                   <button
                     onClick={confirmDecline}
-                    className="w-full py-2.5 px-4 rounded-full text-xs font-semibold tracking-wider uppercase text-[#C24137] hover:bg-[#C24137]/10 transition-colors"
-                    style={{ fontFamily: "'Montserrat', sans-serif" }}
+                    className="w-full py-2.5 px-4 rounded-full text-sm font-semibold tracking-wider uppercase text-[#C24137] hover:bg-[#C24137]/10 transition-colors"
+                    style={{ fontFamily: "var(--font-sans)" }}
                   >
                     {t.confirmDeclineBtn}
                   </button>
@@ -407,10 +407,10 @@ function Step1Attendance({
           <CheckCircle2 size={24} color="#15803D" />
         </div>
         <div>
-          <p className="font-serif-wd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#3D2522", marginBottom: "0.2rem" }}>
+          <p className="font-serif-wd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#1E0F0C", marginBottom: "0.2rem" }}>
             {acceptLabel} 🎉
           </p>
-          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.68rem", color: "#6E4141" }}>
+          <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", color: "#4D261E" }}>
             {acceptSubtext}
           </p>
         </div>
@@ -428,10 +428,10 @@ function Step1Attendance({
           <XCircle size={24} color="#C24137" />
         </div>
         <div>
-          <p className="font-serif-wd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#3D2522", marginBottom: "0.2rem" }}>
+          <p className="font-serif-wd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#1E0F0C", marginBottom: "0.2rem" }}>
             {declineLabel}
           </p>
-          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.68rem", color: "#6E4141" }}>
+          <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", color: "#4D261E" }}>
             {declineSubtext}
           </p>
         </div>
@@ -470,7 +470,7 @@ function StepDetails({
           <input
             {...register("fullName")}
             placeholder="e.g. Rahul Sharma"
-            style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.05rem", color: "#3D2522" }}
+            style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C" }}
           />
         </div>
       </FieldWrap>
@@ -481,7 +481,7 @@ function StepDetails({
           <select
             value={countryCode}
             onChange={(e) => setValue("countryCode", e.target.value)}
-            style={{ padding: "0.65rem 0.6rem", borderRadius: "0.75rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "'Montserrat', sans-serif", fontSize: "0.75rem", color: "#3D2522", cursor: "pointer", outline: "none" }}
+            style={{ padding: "0.65rem 0.6rem", borderRadius: "0.75rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "#1E0F0C", cursor: "pointer", outline: "none" }}
           >
             {COUNTRY_CODES.map((c) => (
               <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
@@ -493,7 +493,7 @@ function StepDetails({
               {...register("phone")}
               type="tel"
               placeholder="e.g. 98200 12345"
-              style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.05rem", color: "#3D2522" }}
+              style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C" }}
             />
           </div>
         </div>
@@ -507,7 +507,7 @@ function StepDetails({
             {...register("email")}
             type="email"
             placeholder="e.g. rahul.sharma@example.com"
-            style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.05rem", color: "#3D2522" }}
+            style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C" }}
           />
         </div>
       </FieldWrap>
@@ -528,9 +528,9 @@ function StepDetails({
                 borderRadius: "50%",
                 background: watch("guestCount") === n ? "#8C4B27" : "rgba(255,255,255,0.90)",
                 border: `1.5px solid ${watch("guestCount") === n ? "#8C4B27" : "rgba(140,75,39,0.25)"}`,
-                color: watch("guestCount") === n ? "white" : "#3D2522",
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.85rem",
+                color: watch("guestCount") === n ? "white" : "#1E0F0C",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.95rem",
                 fontWeight: 700,
                 cursor: "pointer",
                 transition: "all 0.2s",
@@ -596,10 +596,10 @@ function StepEvents({
           >
             <div className="flex items-center justify-between gap-2">
               <div style={{ flex: 1 }}>
-                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#8C4B27", marginBottom: "0.2rem" }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8C4B27", marginBottom: "0.25rem" }}>
                   {event.time} • {event.location}
                 </p>
-                <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.15rem", fontWeight: 700, color: "#3D2522", lineHeight: 1.2 }}>
+                <p style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", fontWeight: 700, color: "#1E0F0C", lineHeight: 1.25 }}>
                   {event.title}
                 </p>
               </div>
@@ -689,9 +689,9 @@ function StepDietary({
               borderRadius: "9999px",
               border: `1.5px solid ${selected.includes(opt.id) ? "#8C4B27" : "rgba(140,75,39,0.25)"}`,
               background: selected.includes(opt.id) ? "#8C4B27" : "rgba(255,255,255,0.85)",
-              color: selected.includes(opt.id) ? "white" : "#3D2522",
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.72rem",
+              color: selected.includes(opt.id) ? "white" : "#1E0F0C",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.8rem",
               fontWeight: 600,
               cursor: "pointer",
             }}
@@ -815,8 +815,8 @@ function StepDeclineDetails({
       <div className="text-center mb-1">
         <p
           style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.65rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.75rem",
             color: "#8C4B27",
             fontWeight: 700,
             letterSpacing: "0.15em",
@@ -833,8 +833,8 @@ function StepDeclineDetails({
           {t.declineDetailsHeading}
         </h4>
         <p
-          className="font-serif-wd text-[#6E4141]"
-          style={{ fontSize: "0.95rem", lineHeight: 1.5, fontStyle: "italic" }}
+          className="font-serif-wd text-[#3F2018]"
+          style={{ fontSize: "1rem", lineHeight: 1.6, fontStyle: "italic" }}
         >
           {t.declineDetailsSubtitle}
         </p>
@@ -874,9 +874,9 @@ function StepDeclineDetails({
               borderRadius: "0.75rem",
               border: "1.5px solid rgba(140,75,39,0.25)",
               background: "rgba(255,255,255,0.90)",
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.75rem",
-              color: "#3D2522",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.85rem",
+              color: "#1E0F0C",
               cursor: "pointer",
               outline: "none",
             }}
@@ -1026,12 +1026,12 @@ function FieldWrap({
     <div>
       <label
         style={{
-          fontFamily: "'Montserrat', sans-serif",
-          fontSize: "0.62rem",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.75rem",
           fontWeight: 700,
-          letterSpacing: "0.1em",
+          letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "#6E4141",
+          color: "#3F2018",
           display: "block",
           marginBottom: "0.4rem",
         }}
@@ -1042,8 +1042,8 @@ function FieldWrap({
       {error && (
         <p
           style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.6rem",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.72rem",
             color: "#C24137",
             marginTop: "0.25rem",
           }}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import stampImage from "@/public/assets/opening/stamp-custom.png";
 import { useLanguage } from "@/components/shared/LanguageContext";
+import type { Language } from "@/lib/translations";
 
 interface OpeningTransitionProps {
   onComplete?: () => void;
@@ -22,6 +23,8 @@ export function OpeningTransition({
   const [isFlapOpened, setIsFlapOpened] = useState(false);
   const [mounted, setMounted] = useState(true);
   const { t, lang, setLang } = useLanguage();
+  const [showLangPrompt, setShowLangPrompt] = useState(true);
+  const [selectedLang, setSelectedLang] = useState<Language>(lang);
 
   // DOM Refs
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,6 +35,8 @@ export function OpeningTransition({
   const cardRef = useRef<HTMLDivElement>(null);
   const cardContentRef = useRef<HTMLDivElement>(null);
   const promptRef = useRef<HTMLDivElement>(null);
+  const langPromptRef = useRef<HTMLDivElement>(null);
+  const langCardRef = useRef<HTMLDivElement>(null);
 
   // SVG Text Line refs for stroke animation
   const line1Ref = useRef<SVGTextElement>(null);
@@ -41,6 +46,8 @@ export function OpeningTransition({
   const dividerPathRef = useRef<SVGPathElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
   const enterBtnRef = useRef<HTMLButtonElement>(null);
+  const autoForwardTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const forwardedRef = useRef<boolean>(false);
 
   const handleComplete = () => {
     setMounted(false);
@@ -59,6 +66,9 @@ export function OpeningTransition({
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = originalOverflow;
+      if (autoForwardTimerRef.current) {
+        clearTimeout(autoForwardTimerRef.current);
+      }
     };
   }, []);
 
@@ -81,7 +91,53 @@ export function OpeningTransition({
     }
   }, [hasTapped]);
 
+  // Keep selectedLang in sync with context lang
+  useEffect(() => {
+    setSelectedLang(lang);
+  }, [lang]);
+
+  // Entrance animation for language prompt
+  useEffect(() => {
+    if (showLangPrompt && langPromptRef.current && langCardRef.current) {
+      gsap.fromTo(
+        langPromptRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.35, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        langCardRef.current,
+        { opacity: 0, scale: 0.92, y: 15 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(1.2)", delay: 0.05 }
+      );
+    }
+  }, [showLangPrompt]);
+
+  const handleSelectLanguage = (l: Language) => {
+    setSelectedLang(l);
+    setLang(l);
+  };
+
+  const handleDismissLangPrompt = () => {
+    if (langPromptRef.current) {
+      gsap.to(langPromptRef.current, {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.3,
+        ease: "power2.inOut",
+        onComplete: () => {
+          setShowLangPrompt(false);
+        },
+      });
+    } else {
+      setShowLangPrompt(false);
+    }
+  };
+
   const handleTap = () => {
+    if (showLangPrompt) {
+      handleDismissLangPrompt();
+      return;
+    }
     if (hasTapped) return;
     setHasTapped(true);
     handleStartMusic();
@@ -231,11 +287,13 @@ export function OpeningTransition({
       );
     }
 
-    // Fill in cursive text with warm terracotta-brown
+    // Fill in text with deep rich espresso and clear the stroke outline so text stays razor-sharp
     tl.to(
       ".cursive-stroke-text",
       {
-        fill: "#6D3519",
+        fill: "#241411",
+        stroke: "transparent",
+        strokeWidth: 0,
         duration: 0.5,
         ease: "power2.out",
       },
@@ -261,10 +319,22 @@ export function OpeningTransition({
       },
       "+=0.1"
     );
+
+    // 12-second auto-forward timer after animation settles
+    tl.call(() => {
+      autoForwardTimerRef.current = setTimeout(() => {
+        triggerForward();
+      }, 12000);
+    });
   };
 
-  const handleEnterClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const triggerForward = () => {
+    if (forwardedRef.current) return;
+    forwardedRef.current = true;
+    if (autoForwardTimerRef.current) {
+      clearTimeout(autoForwardTimerRef.current);
+      autoForwardTimerRef.current = null;
+    }
     gsap.to(containerRef.current, {
       opacity: 0,
       scale: 1.03,
@@ -272,6 +342,11 @@ export function OpeningTransition({
       ease: "power3.inOut",
       onComplete: handleComplete,
     });
+  };
+
+  const handleEnterClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    triggerForward();
   };
 
   if (!mounted) return null;
@@ -288,6 +363,175 @@ export function OpeningTransition({
     >
       {/* Ambient background lighting */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(80,40,20,0.35)_0%,rgba(15,12,10,0.92)_60%,rgba(8,6,5,0.98)_90%)] pointer-events-none" />
+
+      {/* TRANSLUCENT CHOOSE A LANGUAGE PROMPT (SHOWN BEFORE STARTING) */}
+      {showLangPrompt && (
+        <div
+          ref={langPromptRef}
+          onClick={handleDismissLangPrompt}
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md select-none cursor-pointer"
+        >
+          <div
+            ref={langCardRef}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[370px] sm:max-w-[410px] rounded-3xl p-6 sm:p-8 bg-[#17120E]/80 backdrop-blur-2xl border border-[#D4AF37]/50 text-center overflow-hidden cursor-default shadow-[0_30px_70px_rgba(0,0,0,0.85),0_0_35px_rgba(212,175,55,0.15)]"
+          >
+            {/* Ambient Gold Radial Glow */}
+            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#D4AF37]/25 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-1.5 border border-[#D4AF37]/20 rounded-2xl pointer-events-none" />
+
+            {/* Crest Stamp */}
+            <div className="w-14 h-14 mx-auto mb-3 relative flex-shrink-0 drop-shadow-md">
+              <Image
+                src={stampImage}
+                alt="M&S Monogram Wax Seal"
+                width={56}
+                height={56}
+                priority
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            {/* Eyebrow */}
+            <p
+              className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold mb-1"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Mradul & Shreya
+            </p>
+
+            {/* Title */}
+            <h3
+              className="text-2xl sm:text-[26px] font-serif text-[#FAF5ED] tracking-wide mb-1"
+              style={{
+                fontFamily:
+                  selectedLang === "en" ? "var(--font-serif)" : "'Noto Serif Devanagari', serif",
+              }}
+            >
+              {selectedLang === "mr"
+                ? "भाषा निवडा"
+                : selectedLang === "hi"
+                ? "भाषा चुनें"
+                : "Choose a Language"}
+            </h3>
+
+            {/* Subtitle */}
+            <p
+              className="text-xs text-[#E8D09E]/85 mb-5 tracking-wide"
+              style={{ fontFamily: "'Noto Serif Devanagari', serif" }}
+            >
+              {selectedLang === "mr"
+                ? "कृपया आपली पसंतीची भाषा निवडा"
+                : selectedLang === "hi"
+                ? "कृपया अपनी पसंदीदा भाषा चुनें"
+                : "Please select your preferred language"}
+            </p>
+
+            {/* Language Options */}
+            <div className="flex flex-col gap-2.5 mb-6">
+              {[
+                {
+                  code: "en" as const,
+                  native: "English",
+                  subtitle: "English",
+                  fontFamily: "var(--font-serif)",
+                },
+                {
+                  code: "mr" as const,
+                  native: "मराठी",
+                  subtitle: "Marathi",
+                  fontFamily: "'Noto Serif Devanagari', serif",
+                },
+                {
+                  code: "hi" as const,
+                  native: "हिन्दी",
+                  subtitle: "Hindi",
+                  fontFamily: "'Noto Serif Devanagari', serif",
+                },
+              ].map((item) => {
+                const isSelected = selectedLang === item.code;
+                return (
+                  <button
+                    key={item.code}
+                    type="button"
+                    onClick={() => handleSelectLanguage(item.code)}
+                    className={`group w-full flex items-center justify-between px-4 py-3 sm:py-3.5 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                      isSelected
+                        ? "bg-gradient-to-r from-[#8C4B27]/90 to-[#5C2B14]/90 border-[#D4AF37] text-white shadow-[0_0_20px_rgba(212,175,55,0.35)] ring-1 ring-[#D4AF37]/60 scale-[1.01]"
+                        : "bg-white/[0.04] hover:bg-[#D4AF37]/15 border-[#D4AF37]/25 text-[#E7DFD5] hover:border-[#D4AF37]/70 hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                          isSelected
+                            ? "border-[#D4AF37] bg-[#D4AF37]"
+                            : "border-[#D4AF37]/50 bg-black/30 group-hover:border-[#D4AF37]"
+                        }`}
+                      >
+                        {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-[#2A1805]" />}
+                      </div>
+                      <span
+                        className="text-base sm:text-lg font-semibold tracking-wide text-left"
+                        style={{ fontFamily: item.fontFamily }}
+                      >
+                        {item.native}
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[11px] uppercase tracking-wider font-medium px-2 py-0.5 rounded-md ${
+                        isSelected
+                          ? "bg-[#D4AF37]/20 text-[#F5EEDF]"
+                          : "text-[#D4AF37]/70 group-hover:text-[#D4AF37]"
+                      }`}
+                    >
+                      {item.subtitle}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Continue / Proceed Button */}
+            <button
+              type="button"
+              onClick={handleDismissLangPrompt}
+              className="w-full py-3.5 px-6 rounded-2xl font-bold tracking-widest text-xs sm:text-sm uppercase transition-all duration-300 cursor-pointer bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA771C] text-[#241407] hover:brightness-110 active:scale-[0.98] shadow-[0_4px_22px_rgba(212,175,55,0.35)] flex items-center justify-center gap-2.5"
+              style={{
+                fontFamily:
+                  selectedLang === "en" ? "var(--font-serif)" : "'Noto Serif Devanagari', serif",
+              }}
+            >
+              <span>
+                {selectedLang === "mr"
+                  ? "निमंत्रण पत्रिकेकडे पुढे जा"
+                  : selectedLang === "hi"
+                  ? "निमंत्रण पत्र की ओर बढ़ें"
+                  : "Continue to Invitation"}
+              </span>
+              <svg
+                className="w-4 h-4 stroke-[2.5]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Micro hint */}
+            <p className="text-[10px] text-[#A89886]/70 mt-3 tracking-wide">
+              {selectedLang === "mr"
+                ? "तुम्ही उजव्या कोपऱ्यातून कधीही भाषा बदलू शकता"
+                : selectedLang === "hi"
+                ? "आप शीर्ष दाएं कोने से कभी भी भाषा बदल सकते हैं"
+                : "You can change language anytime from top-right corner"}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Language Switcher Bar on Top Right */}
       <div
@@ -376,22 +620,23 @@ export function OpeningTransition({
                   viewBox="0 0 380 340"
                   className="w-full h-auto overflow-visible drop-shadow-sm max-w-[380px] sm:max-w-[420px]"
                 >
-                  <g
-                    style={{
-                      fontFamily: isDevanagari
-                        ? "'Rozha One', 'Noto Serif Devanagari', serif"
-                        : "'Alex Brush', 'Great Vibes', cursive",
-                    }}
-                  >
+                  <g>
                     <text
                       ref={line1Ref}
                       x="190"
-                      y={isDevanagari ? "40" : "44"}
+                      y={isDevanagari ? "42" : "38"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "25" : "36"}
-                      letterSpacing={isDevanagari ? "0.03em" : "0.05em"}
+                      fontSize={isDevanagari ? "22" : "15"}
+                      letterSpacing={isDevanagari ? "0.06em" : "0.22em"}
                       className="cursive-stroke-text"
-                      style={{ opacity: 0 }}
+                      style={{
+                        opacity: 0,
+                        fontFamily: isDevanagari
+                          ? "'Noto Serif Devanagari', serif"
+                          : "'Cinzel', 'Playfair Display', Georgia, serif",
+                        fontWeight: 600,
+                        textTransform: "uppercase",
+                      }}
                     >
                       {t.cordiallyInvited}
                     </text>
@@ -399,12 +644,19 @@ export function OpeningTransition({
                     <text
                       ref={line2Ref}
                       x="190"
-                      y={isDevanagari ? "88" : "96"}
+                      y={isDevanagari ? "80" : "68"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "25" : "34"}
-                      letterSpacing={isDevanagari ? "0.03em" : "0.05em"}
+                      fontSize={isDevanagari ? "20" : "13"}
+                      letterSpacing={isDevanagari ? "0.05em" : "0.18em"}
                       className="cursive-stroke-text"
-                      style={{ opacity: 0 }}
+                      style={{
+                        opacity: 0,
+                        fontFamily: isDevanagari
+                          ? "'Noto Serif Devanagari', serif"
+                          : "'Cinzel', 'Playfair Display', Georgia, serif",
+                        fontWeight: 500,
+                        textTransform: "uppercase",
+                      }}
                     >
                       {t.celebrateWeddingOf}
                     </text>
@@ -412,25 +664,54 @@ export function OpeningTransition({
                     <text
                       ref={name1Ref}
                       x="190"
-                      y={isDevanagari ? "165" : "178"}
+                      y={isDevanagari ? "158" : "162"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "46" : "66"}
-                      letterSpacing={isDevanagari ? "0.04em" : "0.04em"}
+                      fontSize={isDevanagari ? "44" : "64"}
+                      letterSpacing={isDevanagari ? "0.03em" : "0.02em"}
                       className="cursive-stroke-text"
-                      style={{ opacity: 0, fontWeight: 600 }}
+                      style={{
+                        opacity: 0,
+                        fontWeight: 400,
+                        fontFamily: isDevanagari
+                          ? "'Rozha One', 'Noto Serif Devanagari', serif"
+                          : "'Pinyon Script', 'Alex Brush', cursive",
+                      }}
                     >
-                      {lang === "en" ? "Mradul &" : lang === "hi" ? "मृदुल एवं" : "मृदुल आणि"}
+                      {lang === "en" ? (
+                        <>
+                          Mradul{" "}
+                          <tspan
+                            style={{
+                              fontFamily: "'Alex Brush', 'Great Vibes', cursive",
+                              fontSize: "0.95em",
+                            }}
+                            dx="4"
+                          >
+                            &amp;
+                          </tspan>
+                        </>
+                      ) : lang === "hi" ? (
+                        "मृदुल एवं"
+                      ) : (
+                        "मृदुल आणि"
+                      )}
                     </text>
 
                     <text
                       ref={name2Ref}
                       x="190"
-                      y={isDevanagari ? "242" : "256"}
+                      y={isDevanagari ? "236" : "242"}
                       textAnchor="middle"
-                      fontSize={isDevanagari ? "50" : "72"}
-                      letterSpacing={isDevanagari ? "0.04em" : "0.04em"}
+                      fontSize={isDevanagari ? "48" : "68"}
+                      letterSpacing={isDevanagari ? "0.03em" : "0.02em"}
                       className="cursive-stroke-text"
-                      style={{ opacity: 0, fontWeight: 600 }}
+                      style={{
+                        opacity: 0,
+                        fontWeight: 400,
+                        fontFamily: isDevanagari
+                          ? "'Rozha One', 'Noto Serif Devanagari', serif"
+                          : "'Pinyon Script', 'Alex Brush', cursive",
+                      }}
                     >
                       {lang === "en" ? "Shreya" : "श्रेया"}
                     </text>
@@ -454,21 +735,29 @@ export function OpeningTransition({
                 {/* EVENT DETAILS */}
                 <div
                   ref={detailsRef}
-                  className="mt-3 sm:mt-4 flex flex-col items-center text-center text-[#4A2E2B] opacity-0"
-                  style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-serif)" }}
+                  className="mt-3.5 sm:mt-4 flex flex-col items-center text-center px-4 py-2.5 rounded-2xl bg-[#FAF7F2]/80 backdrop-blur-[4px] border border-[#D4AF37]/35 shadow-sm opacity-0"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="h-[1px] w-8 sm:w-10 bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                    <p className="text-lg sm:text-xl font-bold tracking-[0.16em] uppercase text-[#3D2522]">
+                    <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#D4AF37]" />
+                    <p
+                      className="text-base sm:text-lg font-bold tracking-[0.24em] uppercase text-[#1E0F0C]"
+                      style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-display)" }}
+                    >
                       {t.dates}
                     </p>
-                    <span className="h-[1px] w-8 sm:w-10 bg-gradient-to-l from-transparent to-[#D4AF37]" />
+                    <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#D4AF37]" />
                   </div>
 
-                  <p className="text-sm sm:text-base text-[#8C4B27] font-bold mt-1 tracking-[0.14em] uppercase">
+                  <p
+                    className="text-xs sm:text-sm text-[#8C4B27] font-bold mt-1 tracking-[0.16em] uppercase"
+                    style={{ fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-display)" }}
+                  >
                     {t.venueHero}
                   </p>
-                  <p className="text-xs sm:text-sm text-[#6E4141] tracking-[0.06em] mt-0.5 italic">
+                  <p
+                    className="text-xs sm:text-sm text-[#4D261E] tracking-[0.05em] mt-0.5 italic font-medium"
+                    style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-serif)" }}
+                  >
                     Vainguinim Beach, Dona Paula, Goa
                   </p>
                 </div>
@@ -479,7 +768,7 @@ export function OpeningTransition({
                 <button
                   ref={enterBtnRef}
                   onClick={handleEnterClick}
-                  className="px-9 sm:px-10 py-3.5 sm:py-4 rounded-full bg-[#8C4B27] hover:bg-[#6D3519] text-white text-xs sm:text-sm font-bold tracking-[0.2em] uppercase shadow-[0_6px_20px_rgba(140,75,39,0.35),0_0_0_1px_rgba(212,175,55,0.45)] hover:shadow-[0_8px_25px_rgba(140,75,39,0.5),0_0_0_1.5px_rgba(212,175,55,0.7)] transition-all duration-300 opacity-0 cursor-pointer pointer-events-auto transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="px-9 sm:px-11 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#8C4B27] via-[#783C1A] to-[#8C4B27] hover:from-[#783C1A] hover:to-[#5E2B10] text-white text-xs sm:text-sm font-bold tracking-[0.22em] uppercase shadow-[0_6px_22px_rgba(140,75,39,0.38),0_0_0_1px_rgba(212,175,55,0.45)] hover:shadow-[0_8px_28px_rgba(140,75,39,0.55),0_0_0_1.5px_rgba(212,175,55,0.7)] transition-all duration-300 opacity-0 cursor-pointer pointer-events-auto transform hover:-translate-y-0.5 active:translate-y-0"
                   style={{ fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)" }}
                 >
                   {t.enterCelebration}

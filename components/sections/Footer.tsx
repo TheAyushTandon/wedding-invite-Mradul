@@ -32,10 +32,10 @@ export function Footer() {
 
   const NAV_LINKS = [
     { href: "#hero", label: "Home" },
+    { href: "#families", label: t.families },
     { href: "#countdown", label: t.countdown },
     { href: "#schedule", label: t.schedule },
     { href: "#attire", label: t.attire },
-    { href: "#accommodations", label: t.stay },
     { href: "#rsvp", label: t.rsvp },
   ];
 
@@ -99,9 +99,27 @@ export function Footer() {
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className="text-4xl sm:text-5xl text-[#8C4B27] mb-3 font-normal"
-        style={{ fontFamily: "var(--font-cursive)" }}
+        style={{ fontFamily: "var(--font-script)" }}
       >
-        {t.mradulAndShreya}
+        {lang === "en" ? (
+          <span className="inline-block overflow-visible">
+            <span>Mradul</span>{" "}
+            <span
+              className="ampersand-glyph"
+              style={{
+                fontFamily: "'Alex Brush', 'Great Vibes', cursive",
+                fontSize: "0.95em",
+                paddingBottom: "0.15em",
+                verticalAlign: "baseline",
+              }}
+            >
+              &amp;
+            </span>{" "}
+            <span>Shreya</span>
+          </span>
+        ) : (
+          t.mradulAndShreya
+        )}
       </motion.h3>
 
       {/* Closing Quote */}
@@ -110,7 +128,7 @@ export function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-xs sm:text-sm text-[#6E4141] font-serif italic max-w-sm mx-auto mb-5 leading-relaxed px-2"
+        className="text-sm sm:text-base text-[#4D261E] font-serif italic max-w-sm mx-auto mb-5 leading-relaxed px-2"
         style={{ fontFamily: "var(--font-serif)" }}
       >
         {t.footerQuote}
@@ -122,10 +140,10 @@ export function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.25 }}
-        className="flex items-center justify-center gap-2 text-xs text-[#8C4B27] mb-8 font-medium font-serif italic"
+        className="flex items-center justify-center gap-2 text-sm text-[#8C4B27] mb-8 font-medium font-serif italic"
         style={{ fontFamily: "var(--font-serif)" }}
       >
-        <Heart size={13} className="fill-[#C24137] text-[#C24137] not-italic" />
+        <Heart size={14} className="fill-[#C24137] text-[#C24137] not-italic" />
         <span>{t.footerDatesVenue}</span>
       </motion.div>
 
@@ -135,7 +153,7 @@ export function Footer() {
           <button
             key={link.href}
             onClick={() => scrollTo(link.href)}
-            className="text-xs font-semibold uppercase tracking-[0.1em] text-[#6E4141]/80 hover:text-[#8C4B27] transition-colors cursor-pointer"
+            className="text-xs font-semibold uppercase tracking-[0.14em] text-[#543C36] hover:text-[#8C4B27] transition-colors cursor-pointer"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {link.label}
@@ -161,32 +179,32 @@ export function Footer() {
       </motion.div>
 
       {/* Social / WhatsApp / Instagram */}
-      <div className="flex justify-center gap-4 mt-8 mb-4">
+      <div className="flex justify-center gap-5 mt-8 mb-4">
         <a
           href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-[#6E4141] hover:text-[#8C4B27] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3F2018] hover:text-[#8C4B27] transition-colors"
           style={{ fontFamily: "var(--font-sans)" }}
         >
-          <MessageCircle size={15} />
+          <MessageCircle size={16} />
           <span>{t.shareInvite}</span>
         </a>
         <a
           href="https://www.instagram.com/explore/tags/mradulwedsshreya/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-[#6E4141] hover:text-[#8C4B27] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3F2018] hover:text-[#8C4B27] transition-colors"
           style={{ fontFamily: "var(--font-sans)" }}
         >
-          <InstagramIcon size={15} />
+          <InstagramIcon size={16} />
           <span>#MradulWedsShreya</span>
         </a>
       </div>
 
       {/* Families Sign-off */}
       <p
-        className="text-[11px] text-[#6E4141]/80 mt-8 tracking-wider font-serif"
+        className="text-[13px] text-[#3F2018] font-medium mt-8 tracking-wider font-serif"
         style={{ fontFamily: "var(--font-serif)" }}
       >
         {t.withLoveFamilies}
@@ -194,7 +212,7 @@ export function Footer() {
 
       {/* Legal */}
       <p
-        className="text-[10px] text-[#4A2E2B]/50 mt-3 tracking-normal"
+        className="text-[12px] text-[#3F2018]/70 mt-3 tracking-normal"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         {t.copyrightText}

@@ -105,7 +105,8 @@ export interface GalleryItem {
 }
 
 export interface WishPreset {
-  emoji: string;
+  icon?: string;
+  emoji?: string;
   text: string;
 }
 

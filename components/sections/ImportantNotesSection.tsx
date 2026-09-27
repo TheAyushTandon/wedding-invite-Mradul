@@ -26,7 +26,7 @@ export function ImportantNotesSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/accommodations/lantern-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -34,7 +34,7 @@ export function ImportantNotesSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.92)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -74,9 +74,9 @@ export function ImportantNotesSection() {
                 <h3
                   className="font-serif-wd"
                   style={{
-                    fontSize: "1.15rem",
+                    fontSize: "1.2rem",
                     fontWeight: 700,
-                    color: "#3D2522",
+                    color: "#1E0F0C",
                   }}
                 >
                   {note.title}
@@ -84,16 +84,16 @@ export function ImportantNotesSection() {
 
                 <span
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.55rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.68rem",
                     fontWeight: 700,
-                    letterSpacing: "0.12em",
+                    letterSpacing: "0.14em",
                     textTransform: "uppercase",
                     background: "rgba(140,75,39,0.08)",
                     color: "#8C4B27",
-                    padding: "0.15rem 0.5rem",
+                    padding: "0.2rem 0.6rem",
                     borderRadius: "9999px",
-                    border: "1px solid rgba(140,75,39,0.18)",
+                    border: "1px solid rgba(140,75,39,0.22)",
                     marginLeft: "auto",
                   }}
                 >
@@ -102,16 +102,15 @@ export function ImportantNotesSection() {
               </div>
 
               {/* Bullet points */}
-              <ul className="flex flex-col gap-1.5 mt-1 pl-8 w-full">
+              <ul className="flex flex-col gap-2 mt-1.5 pl-8 w-full">
                 {note.bullets.map((bullet, j) => (
                   <li
                     key={j}
                     className="font-serif-wd"
                     style={{
-                      fontSize: "0.95rem",
-                      color: "#4A2E2B",
-                      lineHeight: 1.65,
-                      fontStyle: "italic",
+                      fontSize: "0.98rem",
+                      color: "#381B14",
+                      lineHeight: 1.7,
                       position: "relative",
                     }}
                   >

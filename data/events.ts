@@ -4,7 +4,7 @@ export const EVENTS: WeddingEvent[] = [
   {
     id: "haldi",
     day: 1,
-    time: "11:00 AM",
+    time: "2:00 PM",
     title: "The Haldi Ceremony",
     description: "Sunshine yellows, marigold floral showers, organic ubtan, lively dhol rhythms, and joyful blessings.",
     location: "Oceanfront Palm Lawn • Taj Heritage",
@@ -12,7 +12,7 @@ export const EVENTS: WeddingEvent[] = [
   {
     id: "sangeet",
     day: 1,
-    time: "07:30 PM",
+    time: "8:30 PM",
     title: "The Sangeet Night",
     description: "Glitz & glamour! High-energy dance performances, live musical acts, bespoke artisanal mocktail bar, and a Bollywood DJ dance floor.",
     location: "The Grand Heritage Ballroom",
@@ -28,7 +28,7 @@ export const EVENTS: WeddingEvent[] = [
   {
     id: "gala",
     day: 2,
-    time: "08:30 PM",
+    time: "9:00 PM",
     title: "The Gala Dinner & Afterparty",
     description: "Celebratory sparkling mocktail toasts, lavish gourmet feast, live band serenades, and starlit dancing under the Goan night sky.",
     location: "Mandovi Royal Terrace",

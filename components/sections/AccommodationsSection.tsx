@@ -16,13 +16,13 @@ export function AccommodationsSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/accommodations/lantern-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
         style={{ objectPosition: "center top" }}
       />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
+      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.35)" }} />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
@@ -57,16 +57,16 @@ export function AccommodationsSection() {
               <span
                 style={{
                   display: "inline-block",
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.55rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.68rem",
                   fontWeight: 700,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
                   color: "#FAF7F2",
                   background: "rgba(140,75,39,0.95)",
-                  padding: "0.2rem 0.6rem",
+                  padding: "0.25rem 0.75rem",
                   borderRadius: "9999px",
-                  marginBottom: "0.3rem",
+                  marginBottom: "0.4rem",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                 }}
               >
@@ -75,8 +75,8 @@ export function AccommodationsSection() {
               <h3
                 className="heading-calligraphy"
                 style={{
-                  fontSize: "2rem",
-                  lineHeight: 1.1,
+                  fontSize: "1.85rem",
+                  lineHeight: 1.2,
                   color: "#FFFFFF",
                   textShadow: "0 2px 8px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.9)",
                 }}
@@ -92,9 +92,9 @@ export function AccommodationsSection() {
               <h4
                 className="font-serif-wd"
                 style={{
-                  fontSize: "1.15rem",
+                  fontSize: "1.2rem",
                   fontWeight: 700,
-                  color: "#3D2522",
+                  color: "#1E0F0C",
                 }}
               >
                 {t.stayCoveredTitle}
@@ -104,10 +104,9 @@ export function AccommodationsSection() {
             <p
               className="font-serif-wd"
               style={{
-                fontSize: "1rem",
-                color: "#4A2E2B",
-                lineHeight: 1.75,
-                fontStyle: "italic",
+                fontSize: "1.02rem",
+                color: "#381B14",
+                lineHeight: 1.7,
                 marginBottom: "1rem",
               }}
             >
@@ -120,13 +119,13 @@ export function AccommodationsSection() {
               <div>
                 <p
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.58rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.68rem",
                     fontWeight: 700,
-                    letterSpacing: "0.12em",
+                    letterSpacing: "0.14em",
                     textTransform: "uppercase",
                     color: "#8C4B27",
-                    marginBottom: "0.15rem",
+                    marginBottom: "0.2rem",
                   }}
                 >
                   {t.resortAddressLabel}
@@ -134,9 +133,9 @@ export function AccommodationsSection() {
                 <p
                   className="font-serif-wd"
                   style={{
-                    fontSize: "0.95rem",
-                    color: "#3D2522",
-                    lineHeight: 1.4,
+                    fontSize: "0.98rem",
+                    color: "#1E0F0C",
+                    lineHeight: 1.5,
                     fontWeight: 600,
                   }}
                 >

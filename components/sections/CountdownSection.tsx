@@ -51,7 +51,7 @@ function CountBlock({ value, label }: { value: number; label: string }) {
       >
         <span
           className="font-serif-wd"
-          style={{ fontSize: "2rem", fontWeight: 600, color: "#3D2522" }}
+          style={{ fontSize: "2.1rem", fontWeight: 700, color: "#1E0F0C" }}
           suppressHydrationWarning
         >
           {String(value).padStart(2, "0")}
@@ -59,12 +59,12 @@ function CountBlock({ value, label }: { value: number; label: string }) {
       </div>
       <span
         style={{
-          fontFamily: "'Montserrat', sans-serif",
-          fontSize: "0.62rem",
-          letterSpacing: "0.1em",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.72rem",
+          letterSpacing: "0.14em",
           textTransform: "uppercase",
-          color: "#6E4141",
-          fontWeight: 600,
+          color: "#4D261E",
+          fontWeight: 700,
         }}
       >
         {label}
@@ -98,7 +98,7 @@ export function CountdownSection() {
     const title = encodeURIComponent("Mradul & Shreya Wedding");
     const details = encodeURIComponent("Join us for the wedding celebration of Mradul & Shreya at Taj Heritage, Goa");
     const location = encodeURIComponent("Taj Cidade de Goa Heritage, Vainguinim Beach, Dona Paula, Goa");
-    const start = "20260202T103000Z";
+    const start = "20260202T083000Z"; // 2:00 PM IST
     const end = "20260203T180000Z";
     const url = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
     window.open(url, "_blank");
@@ -111,7 +111,7 @@ export function CountdownSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "center" }}
     >
       <Image
-        src="/assets/countdown/floral-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -119,7 +119,7 @@ export function CountdownSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.88)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -166,31 +166,56 @@ export function CountdownSection() {
           <CountBlock value={time.seconds} label={t.seconds} />
         </motion.div>
 
-        {/* Date summary */}
+        {/* Date summary & Venue card */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-col items-center gap-2 mb-8"
+          className="flex flex-col items-center gap-3 mb-8 mx-auto w-full max-w-[420px] px-5 py-4 rounded-2xl text-center"
+          style={{
+            background: "rgba(255, 252, 248, 0.88)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            border: "1px solid rgba(140, 75, 39, 0.25)",
+            boxShadow: "0 8px 24px rgba(77, 38, 30, 0.1)",
+          }}
         >
-          <div className="flex items-center gap-2">
-            <CalendarDays size={14} color="#8C4B27" />
+          {/* Festivities Date */}
+          <div className="flex items-center justify-center gap-2.5">
+            <CalendarDays size={16} color="#8C4B27" className="flex-shrink-0" />
             <span
               className="font-serif-wd"
-              style={{ fontSize: "0.95rem", color: "#4A2E2B", fontStyle: "italic" }}
+              style={{
+                fontSize: "1.05rem",
+                color: "#240E08",
+                fontWeight: 600,
+                letterSpacing: "0.01em",
+              }}
             >
               {t.festivitiesCount}
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <MapPin size={14} color="#8C4B27" />
+
+          {/* Thin ornamental divider */}
+          <div
+            className="w-24 h-[1px]"
+            style={{
+              background: "linear-gradient(to right, transparent, rgba(140,75,39,0.35), transparent)",
+            }}
+          />
+
+          {/* Venue Address */}
+          <div className="flex items-start justify-center gap-2">
+            <MapPin size={15} color="#8C4B27" className="flex-shrink-0 mt-0.5" />
             <span
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.75rem",
-                color: "#6E4141",
-                letterSpacing: "0.03em",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                color: "#34140D",
+                lineHeight: 1.5,
+                letterSpacing: "0.015em",
               }}
             >
               {t.venueFullAddress}

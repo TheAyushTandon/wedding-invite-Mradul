@@ -43,8 +43,8 @@ export function GiftsSection() {
 
   return (
     <section id="gifts" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/gifts/drapery-giftbox-frame-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: revealed ? "rgba(250,240,210,0.90)" : "rgba(250,247,242,0.88)" }} />
+      <Image src="/assets/shared/all-page.jpeg" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
+      <div className="section-overlay" style={{ background: revealed ? "rgba(250,240,210,0.50)" : "rgba(250,247,242,0.35)" }} />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
@@ -91,15 +91,15 @@ export function GiftsSection() {
                 >
                   <Gift size={28} color="white" />
                 </div>
-                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#8C4B27" }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#8C4B27" }}>
                   SEND A WEDDING GIFT
                 </p>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.85rem", color: "#6E4141", fontStyle: "italic" }}>
+                <p style={{ fontFamily: "var(--font-serif)", fontSize: "0.95rem", color: "#3F2018", fontStyle: "italic" }}>
                   ✦ Tap to open wishing well ✦
                 </p>
               </motion.button>
 
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.85rem", color: "#9B9B9B", fontStyle: "italic", marginTop: "2rem" }}>
+              <p style={{ fontFamily: "var(--font-serif)", fontSize: "0.95rem", color: "#5A382D", fontStyle: "italic", marginTop: "2rem" }}>
                 With heartfelt gratitude for celebrating our love
               </p>
             </motion.div>
@@ -114,10 +114,10 @@ export function GiftsSection() {
               <div className="glass-card p-5 mb-5">
                 <div className="flex items-center gap-2 mb-4">
                   <Heart size={16} color="#C24137" fill="#C24137" />
-                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#3D2522" }}>
+                  <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#1E0F0C" }}>
                     LEAVE A BLESSING
                   </span>
-                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.58rem", color: "#9B9B9B", marginLeft: "auto" }}>
+                  <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", color: "#5A382D", marginLeft: "auto" }}>
                     Optional Note
                   </span>
                 </div>
@@ -131,36 +131,36 @@ export function GiftsSection() {
                     >
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6E4141", display: "block", marginBottom: "0.35rem" }}>
+                          <label style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3F2018", display: "block", marginBottom: "0.35rem" }}>
                             First Name *
                           </label>
                           <input
                             {...register("firstName")}
                             placeholder="Your name"
-                            style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.80)", fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: "#3D2522", outline: "none" }}
+                            style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C", outline: "none" }}
                           />
-                          {errors.firstName && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", color: "#C24137", marginTop: "0.25rem" }}>{errors.firstName.message}</p>}
+                          {errors.firstName && <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.7rem", color: "#C24137", marginTop: "0.25rem" }}>{errors.firstName.message}</p>}
                         </div>
                         <div>
-                          <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6E4141", display: "block", marginBottom: "0.35rem" }}>
+                          <label style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3F2018", display: "block", marginBottom: "0.35rem" }}>
                             Last Name
                           </label>
                           <input
                             {...register("lastName")}
                             placeholder="Optional"
-                            style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.80)", fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: "#3D2522", outline: "none" }}
+                            style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C", outline: "none" }}
                           />
                         </div>
                       </div>
                       <div>
-                        <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6E4141", display: "block", marginBottom: "0.35rem" }}>
+                        <label style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#3F2018", display: "block", marginBottom: "0.35rem" }}>
                           Warm Note & Sent Amount
                         </label>
                         <textarea
                           {...register("note")}
                           rows={3}
                           placeholder='Share a sweet blessing or sent amount (e.g., "$150 via Zelle")...'
-                          style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.80)", fontFamily: "'Cormorant Garamond', serif", fontSize: "0.92rem", color: "#3D2522", outline: "none", resize: "none", lineHeight: 1.6 }}
+                          style={{ width: "100%", padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "var(--font-sans)", fontSize: "0.92rem", color: "#1E0F0C", outline: "none", resize: "none", lineHeight: 1.6 }}
                         />
                       </div>
                       <button type="submit" className="btn-primary w-full">
@@ -176,10 +176,10 @@ export function GiftsSection() {
                       className="flex flex-col items-center text-center py-3"
                     >
                       <CheckCircle2 size={36} color="#25D366" style={{ marginBottom: "0.75rem" }} />
-                      <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#15803D", marginBottom: "0.35rem" }}>
+                      <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#15803D", marginBottom: "0.35rem" }}>
                         NOTE RECORDED WITH LOVE!
                       </p>
-                      <p className="font-serif-wd" style={{ fontSize: "0.92rem", color: "#4A2E2B", fontStyle: "italic" }}>
+                      <p className="font-serif-wd" style={{ fontSize: "1rem", color: "#1E0F0C", fontStyle: "italic" }}>
                         Thank you, {submittedName}! Your heartfelt wishes mean the world to us.
                       </p>
                     </motion.div>
@@ -189,7 +189,7 @@ export function GiftsSection() {
 
               {/* Bank details */}
               <HairlineDivider className="mb-5" />
-              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#8C4B27", textAlign: "center", marginBottom: "1rem" }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8C4B27", textAlign: "center", marginBottom: "1rem" }}>
                 Direct Transfer Details
               </p>
 
@@ -199,13 +199,13 @@ export function GiftsSection() {
                 ))}
               </div>
 
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.8rem", color: "#9B9B9B", fontStyle: "italic", textAlign: "center", marginBottom: "1rem" }}>
+              <p style={{ fontFamily: "var(--font-serif)", fontSize: "0.9rem", color: "#5A382D", fontStyle: "italic", textAlign: "center", marginBottom: "1rem" }}>
                 ✨ Tap copy on any account details for celebration confetti ✨
               </p>
 
               <button
                 onClick={() => setRevealed(false)}
-                style={{ display: "block", margin: "0 auto", background: "none", border: "none", cursor: "pointer", fontFamily: "'Montserrat', sans-serif", fontSize: "0.68rem", color: "#8C4B27", textDecoration: "underline" }}
+                style={{ display: "block", margin: "0 auto", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-sans)", fontSize: "0.78rem", fontWeight: 600, color: "#8C4B27", textDecoration: "underline" }}
               >
                 ← Close Wishing Well
               </button>
@@ -221,13 +221,13 @@ function BankDetailRow({ detail, onCopy }: { detail: { label: string; value: str
   return (
     <div
       className="flex items-center gap-3 px-4 py-3 rounded-xl"
-      style={{ background: "rgba(255,255,255,0.75)", border: "1px solid rgba(140,75,39,0.15)" }}
+      style={{ background: "rgba(255,255,255,0.85)", border: "1px solid rgba(140,75,39,0.22)" }}
     >
       <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8C4B27", marginBottom: "0.15rem" }}>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8C4B27", marginBottom: "0.15rem" }}>
           {detail.label}
         </p>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", fontWeight: 700, color: "#3D2522", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", fontWeight: 700, color: "#1E0F0C", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {detail.value}
         </p>
       </div>

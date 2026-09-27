@@ -33,8 +33,8 @@ export function LoveStorySection() {
 
   return (
     <section id="story" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/story/romantic-rose-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+      <Image src="/assets/shared/all-page.jpeg" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
+      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.35)" }} />
 
       <div className="section-content w-full py-16">
         <div className="section-pad">
@@ -84,24 +84,25 @@ export function LoveStorySection() {
                           position: "absolute",
                           top: "0.75rem",
                           left: "0.75rem",
-                          background: "rgba(140,75,39,0.90)",
+                          background: "rgba(140,75,39,0.92)",
                           color: "white",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: "0.58rem",
-                          fontWeight: 600,
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "0.72rem",
+                          fontWeight: 700,
                           display: "flex",
                           alignItems: "center",
                           gap: "0.3rem",
-                          padding: "0.3rem 0.7rem",
+                          padding: "0.3rem 0.75rem",
                           borderRadius: "9999px",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                         }}
                       >
-                        <Heart size={10} fill="white" color="white" />
+                        <Heart size={11} fill="white" color="white" />
                         {milestone.badge}
                       </div>
                     )}
                     <div style={{ position: "absolute", bottom: "0.75rem", left: "0.75rem" }}>
-                      <p style={{ fontFamily: "'Alex Brush', cursive", fontSize: "1.5rem", color: "white", lineHeight: 1 }}>
+                      <p style={{ fontFamily: "var(--font-calligraphy)", fontSize: "1.8rem", color: "white", lineHeight: 1, textShadow: "0 2px 6px rgba(0,0,0,0.7)" }}>
                         {milestone.chapter}
                       </p>
                     </div>
@@ -144,13 +145,13 @@ export function LoveStorySection() {
             transition={{ duration: 0.3 }}
             className="section-pad text-center"
           >
-            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8C4B27", fontWeight: 600, marginBottom: "0.35rem" }}>
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8C4B27", fontWeight: 700, marginBottom: "0.35rem" }}>
               {current.chapter} • {current.period}
             </p>
-            <h3 className="heading-calligraphy" style={{ fontSize: "1.8rem", marginBottom: "0.6rem" }}>
+            <h3 className="heading-calligraphy" style={{ fontSize: "1.9rem", marginBottom: "0.6rem" }}>
               {current.title}
             </h3>
-            <p className="font-serif-wd" style={{ fontSize: "0.92rem", color: "#5C3D2E", lineHeight: 1.7, fontStyle: "italic" }}>
+            <p className="font-serif-wd" style={{ fontSize: "1.02rem", color: "#3F2018", lineHeight: 1.7, fontStyle: "italic" }}>
               {current.description}
             </p>
           </motion.div>

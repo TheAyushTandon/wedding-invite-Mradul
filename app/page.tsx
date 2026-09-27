@@ -13,9 +13,7 @@ import { ScheduleSection } from "@/components/sections/ScheduleSection";
 import { AttireSection } from "@/components/sections/AttireSection";
 import { TravelSection } from "@/components/sections/TravelSection";
 import { FamiliesSection } from "@/components/sections/FamiliesSection";
-import { AccommodationsSection } from "@/components/sections/AccommodationsSection";
 import { ImportantNotesSection } from "@/components/sections/ImportantNotesSection";
-import { MenuSection } from "@/components/sections/MenuSection";
 import { GallerySection } from "@/components/sections/GallerySection";
 import { WishesSection } from "@/components/sections/WishesSection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -73,19 +71,17 @@ function WeddingContent() {
 
         <main>
           <HeroSection />
+          <FamiliesSection />
           <CountdownSection />
           <ScheduleSection />
           <AttireSection />
-          <TravelSection />
-          <FamiliesSection />
-          <AccommodationsSection />
-          <ImportantNotesSection />
-          <MenuSection />
-          <GallerySection />
           <WishesSection />
+          <ImportantNotesSection />
+          <TravelSection />
+          <GallerySection />
           <FAQSection />
-          <HelpdeskSection />
           <RSVPSection />
+          <HelpdeskSection />
         </main>
 
         <Footer />

@@ -91,13 +91,13 @@ export function GallerySection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/story/romantic-rose-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
-        style={{ objectPosition: "center" }}
+        style={{ objectPosition: "center top" }}
       />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.90)" }} />
+      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.35)" }} />
 
       <div className="section-content w-full py-16">
         <div className="section-pad">
@@ -167,14 +167,14 @@ export function GallerySection() {
                       >
                         <span
                           style={{
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontSize: "0.55rem",
+                            fontFamily: "var(--font-sans)",
+                            fontSize: "0.72rem",
                             fontWeight: 700,
                             letterSpacing: "0.14em",
                             textTransform: "uppercase",
                             color: "#FAF7F2",
                             background: "rgba(140,75,39,0.92)",
-                            padding: "0.2rem 0.6rem",
+                            padding: "0.25rem 0.75rem",
                             borderRadius: "9999px",
                             marginBottom: "0.4rem",
                             boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
@@ -186,9 +186,9 @@ export function GallerySection() {
                           className="font-serif-wd"
                           style={{
                             color: "#FFFFFF",
-                            fontSize: "1.35rem",
+                            fontSize: "1.45rem",
                             fontWeight: 700,
-                            lineHeight: 1.15,
+                            lineHeight: 1.2,
                             textShadow: "0 2px 6px rgba(0,0,0,0.8)",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -200,9 +200,9 @@ export function GallerySection() {
                         </div>
                         <div
                           style={{
-                            color: "rgba(255,255,255,0.85)",
-                            fontFamily: "'Cormorant Garamond', Georgia, serif",
-                            fontSize: "0.95rem",
+                            color: "rgba(255,255,255,0.92)",
+                            fontFamily: "var(--font-serif)",
+                            fontSize: "1.05rem",
                             fontStyle: "italic",
                             marginTop: 2,
                             textShadow: "0 1px 4px rgba(0,0,0,0.8)",
@@ -277,8 +277,8 @@ export function GallerySection() {
             <div className="flex items-center justify-between px-1">
               <span
                 style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.6rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
@@ -288,7 +288,7 @@ export function GallerySection() {
                 Cherished Memories ({cur + 1}/{n})
               </span>
               <span
-                className="font-serif-wd text-[0.8rem] text-[#6E4141] italic"
+                className="font-serif-wd text-[0.88rem] text-[#3F2018] italic"
               >
                 Tap thumb to preview
               </span>
@@ -363,29 +363,29 @@ export function GallerySection() {
               <div className="p-4 text-center bg-[#1A1412] text-white">
                 <span
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.55rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.72rem",
                     fontWeight: 700,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                     color: "#D4AF37",
                     display: "inline-block",
-                    marginBottom: "0.25rem",
+                    marginBottom: "0.3rem",
                   }}
                 >
                   {GALLERY[lightboxIdx].category}
                 </span>
                 <h4
                   className="font-serif-wd"
-                  style={{ fontSize: "1.3rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.2rem" }}
+                  style={{ fontSize: "1.45rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.25rem" }}
                 >
                   {GALLERY[lightboxIdx].title}
                 </h4>
                 <p
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontSize: "0.95rem",
-                    color: "rgba(255,255,255,0.75)",
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "1.05rem",
+                    color: "rgba(255,255,255,0.9)",
                     fontStyle: "italic",
                   }}
                 >

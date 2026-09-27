@@ -17,15 +17,15 @@ export function FamiliesSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/story/romantic-rose-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
-        style={{ objectPosition: "center" }}
+        style={{ objectPosition: "center top" }}
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.92)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -48,13 +48,13 @@ export function FamiliesSection() {
                 className="w-full flex flex-col items-center text-center py-2"
               >
                 {/* Side Pill */}
-                <div className="inline-flex items-center px-3 py-0.5 rounded-full mb-3" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.18)" }}>
+                <div className="inline-flex items-center px-3.5 py-1 rounded-full mb-3" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.22)" }}>
                   <span
                     style={{
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: "0.62rem",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.68rem",
                       fontWeight: 700,
-                      letterSpacing: "0.18em",
+                      letterSpacing: "0.2em",
                       textTransform: "uppercase",
                       color: "#8C4B27",
                     }}
@@ -63,14 +63,16 @@ export function FamiliesSection() {
                   </span>
                 </div>
 
-                {/* Parents Names in Regal Calligraphy */}
+                {/* Parents Names in Regal Display Serif */}
                 <h3
                   className="heading-calligraphy"
                   style={{
-                    fontSize: "2.3rem",
-                    lineHeight: 1.15,
-                    color: "#3D2522",
-                    marginBottom: "0.4rem",
+                    fontSize: "2rem",
+                    lineHeight: 1.25,
+                    color: "#1E0F0C",
+                    fontWeight: 600,
+                    marginBottom: "0.45rem",
+                    letterSpacing: "0.015em",
                   }}
                 >
                   {isGroom ? t.groomParents : t.brideParents}
@@ -79,12 +81,12 @@ export function FamiliesSection() {
                 {/* Extended Family Note */}
                 <p
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.65rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.72rem",
                     color: "#8C4B27",
-                    letterSpacing: "0.1em",
+                    letterSpacing: "0.14em",
                     textTransform: "uppercase",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     marginBottom: "0.75rem",
                   }}
                 >
@@ -95,8 +97,8 @@ export function FamiliesSection() {
                 <p
                   className="font-serif-wd"
                   style={{
-                    fontSize: "1.05rem",
-                    color: "#4A2E2B",
+                    fontSize: "1.02rem",
+                    color: "#381B14",
                     lineHeight: 1.75,
                     fontStyle: "italic",
                     maxWidth: "380px",

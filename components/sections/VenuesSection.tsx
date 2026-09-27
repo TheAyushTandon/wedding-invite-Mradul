@@ -15,8 +15,8 @@ export function VenuesSection() {
 
   return (
     <section id="venues" className="section-bg" style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}>
-      <Image src="/assets/venues/botanical-arch-bg.png" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
-      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.88)" }} />
+      <Image src="/assets/shared/all-page.jpeg" alt="" fill className="section-bg-img" style={{ objectPosition: "center top" }} />
+      <div className="section-overlay" style={{ background: "rgba(250,247,242,0.35)" }} />
 
       <div className="section-content section-pad w-full py-16">
         <SectionHeader
@@ -59,15 +59,16 @@ export function VenuesSection() {
                           position: "absolute",
                           bottom: "0.75rem",
                           left: "0.75rem",
-                          background: "rgba(140,75,39,0.90)",
+                          background: "rgba(140,75,39,0.92)",
                           color: "white",
-                          fontFamily: "'Montserrat', sans-serif",
-                          fontSize: "0.58rem",
-                          fontWeight: 600,
+                          fontFamily: "var(--font-sans)",
+                          fontSize: "0.72rem",
+                          fontWeight: 700,
                           letterSpacing: "0.12em",
                           textTransform: "uppercase",
-                          padding: "0.3rem 0.7rem",
+                          padding: "0.3rem 0.75rem",
                           borderRadius: "9999px",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                         }}
                       >
                         {venue.event}
@@ -83,7 +84,7 @@ export function VenuesSection() {
                       </h3>
                       <p
                         className="font-serif-wd"
-                        style={{ fontSize: "0.92rem", color: "#5C3D2E", lineHeight: 1.65, fontStyle: "italic" }}
+                        style={{ fontSize: "1rem", color: "#3F2018", lineHeight: 1.7, fontStyle: "italic" }}
                       >
                         {venue.description}
                       </p>

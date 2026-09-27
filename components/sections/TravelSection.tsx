@@ -20,7 +20,7 @@ export function TravelSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/venues/botanical-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -28,7 +28,7 @@ export function TravelSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.90)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -48,14 +48,14 @@ export function TravelSection() {
               onClick={() => setActiveAirport(i)}
               className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-full transition-all`}
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.65rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.75rem",
                 fontWeight: 600,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 border: activeAirport === i ? "none" : "1.5px solid rgba(140,75,39,0.30)",
                 background: activeAirport === i ? "#8C4B27" : "rgba(255,255,255,0.70)",
-                color: activeAirport === i ? "white" : "#6E4141",
+                color: activeAirport === i ? "white" : "#261512",
                 cursor: "pointer",
                 boxShadow: activeAirport === i ? "0 4px 12px rgba(140,75,39,0.25)" : "none",
               }}
@@ -86,11 +86,11 @@ export function TravelSection() {
                     ? "rgba(212,175,55,0.20)"
                     : "rgba(140,75,39,0.10)",
                   color: airport.preferred ? "#B8860B" : "#8C4B27",
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.6rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  padding: "0.3rem 0.8rem",
+                  letterSpacing: "0.1em",
+                  padding: "0.35rem 0.85rem",
                   borderRadius: "9999px",
                   border: airport.preferred
                     ? "1px solid rgba(212,175,55,0.40)"
@@ -104,13 +104,12 @@ export function TravelSection() {
             {/* Code + Name */}
             <div className="flex items-center gap-3 mb-2">
               <span
-                className="font-serif-wd"
                 style={{
-                  fontSize: "2rem",
+                  fontSize: "2.1rem",
                   fontWeight: 700,
-                  color: "#3D2522",
-                  fontFamily: "monospace",
-                  letterSpacing: "0.05em",
+                  color: "#1E0F0C",
+                  fontFamily: "var(--font-display)",
+                  letterSpacing: "0.08em",
                 }}
               >
                 {airport.code}
@@ -118,10 +117,10 @@ export function TravelSection() {
             </div>
             <p
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.75rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.85rem",
                 fontWeight: 700,
-                color: "#4A2E2B",
+                color: "#1E0F0C",
                 marginBottom: "0.5rem",
               }}
             >
@@ -130,10 +129,9 @@ export function TravelSection() {
             <p
               className="font-serif-wd"
               style={{
-                fontSize: "0.92rem",
-                color: "#5C3D2E",
-                lineHeight: 1.65,
-                fontStyle: "italic",
+                fontSize: "0.98rem",
+                color: "#381B14",
+                lineHeight: 1.7,
                 marginBottom: "1rem",
               }}
             >
@@ -150,15 +148,15 @@ export function TravelSection() {
                 }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
-                  <MapPin size={12} color="#8C4B27" />
+                  <MapPin size={13} color="#8C4B27" />
                   <span
                     style={{
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: "0.58rem",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.68rem",
                       color: "#8C4B27",
                       fontWeight: 700,
                       textTransform: "uppercase",
-                      letterSpacing: "0.1em",
+                      letterSpacing: "0.12em",
                     }}
                   >
                     {t.distanceLabel}
@@ -166,9 +164,9 @@ export function TravelSection() {
                 </div>
                 <p
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "0.95rem",
-                    color: "#3D2522",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "1.05rem",
+                    color: "#1E0F0C",
                     fontWeight: 700,
                   }}
                 >
@@ -183,15 +181,15 @@ export function TravelSection() {
                 }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Clock size={12} color="#8C4B27" />
+                  <Clock size={13} color="#8C4B27" />
                   <span
                     style={{
-                      fontFamily: "'Montserrat', sans-serif",
-                      fontSize: "0.58rem",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: "0.68rem",
                       color: "#8C4B27",
                       fontWeight: 700,
                       textTransform: "uppercase",
-                      letterSpacing: "0.1em",
+                      letterSpacing: "0.12em",
                     }}
                   >
                     {t.travelTimeLabel}
@@ -199,9 +197,9 @@ export function TravelSection() {
                 </div>
                 <p
                   style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: "0.95rem",
-                    color: "#3D2522",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "1.05rem",
+                    color: "#1E0F0C",
                     fontWeight: 700,
                   }}
                 >
@@ -222,10 +220,10 @@ export function TravelSection() {
               />
               <p
                 style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.7rem",
-                  color: "#4A2E2B",
-                  lineHeight: 1.55,
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.85rem",
+                  color: "#261512",
+                  lineHeight: 1.6,
                 }}
               >
                 <strong style={{ color: "#8C4B27" }}>
@@ -239,8 +237,8 @@ export function TravelSection() {
             <div className="mb-5">
               <p
                 style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.62rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",

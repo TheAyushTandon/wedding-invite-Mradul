@@ -1,11 +1,24 @@
 "use client";
-import { motion } from "motion/react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function HeroSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY < 70);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isDevanagari = lang === "hi" || lang === "mr";
 
   const scrollToRSVP = () => {
     const lenis = (window as unknown as { __lenis?: { scrollTo: (target: string, opts?: object) => void } }).__lenis;
@@ -13,6 +26,15 @@ export function HeroSection() {
       lenis.scrollTo("#rsvp", { offset: -20, duration: 1.4 });
     } else {
       document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scrollToNext = () => {
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (target: string, opts?: object) => void } }).__lenis;
+    if (lenis) {
+      lenis.scrollTo("#families", { offset: -20, duration: 1.2 });
+    } else {
+      document.getElementById("families")?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -24,7 +46,7 @@ export function HeroSection() {
     >
       {/* Background Image */}
       <Image
-        src="/assets/hero/couple-bg.png"
+        src="/assets/hero/main-home-page.jpeg"
         alt="Mradul and Shreya"
         fill
         priority
@@ -69,13 +91,13 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
           style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.65rem",
-            letterSpacing: "0.35em",
-            fontWeight: 600,
+            fontFamily: "var(--font-display), var(--font-sans)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.32em",
+            fontWeight: 700,
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.85)",
-            marginBottom: "0.75rem",
+            color: "rgba(255,255,255,0.92)",
+            marginBottom: "0.85rem",
           }}
         >
           {t.weddingCelebration}
@@ -86,16 +108,36 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-calligraphy"
+          className="font-script overflow-visible"
           style={{
-            fontSize: "clamp(3.4rem, 14vw, 4.8rem)",
-            color: "white",
-            textShadow: "0 4px 25px rgba(0,0,0,0.6)",
-            lineHeight: 1.1,
-            marginBottom: "1rem",
+            fontSize: "clamp(3.8rem, 15vw, 5.2rem)",
+            color: "#FFFFFF",
+            textShadow: "0 4px 30px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5)",
+            lineHeight: 1.25,
+            marginBottom: "1.25rem",
           }}
         >
-          {t.mradulAndShreya}
+          {lang === "en" ? (
+            <span className="inline-block overflow-visible leading-[1.2]">
+              <span>Mradul</span>{" "}
+              <span
+                className="ampersand-glyph"
+                style={{
+                  fontFamily: "'Alex Brush', 'Great Vibes', cursive",
+                  fontSize: "0.95em",
+                  paddingBottom: "0.2em",
+                  paddingRight: "0.08em",
+                  verticalAlign: "baseline",
+                }}
+              >
+                &amp;
+              </span>
+              <br className="block sm:hidden" />
+              <span className="sm:ml-2">Shreya</span>
+            </span>
+          ) : (
+            t.mradulAndShreya
+          )}
         </motion.h1>
 
         {/* Decorative Indian Paisley / Floral Arch Divider */}
@@ -105,9 +147,9 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex items-center gap-3 w-full max-w-xs mb-4"
         >
-          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,transparent,rgba(212,175,55,0.8))" }} />
-          <span style={{ color: "#D4AF37", fontSize: "0.85rem" }}>✦ ॐ ✦</span>
-          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,rgba(212,175,55,0.8),transparent)" }} />
+          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,transparent,rgba(212,175,55,0.9))" }} />
+          <span style={{ color: "#D4AF37", fontSize: "0.95rem" }}>✦ ॐ ✦</span>
+          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,rgba(212,175,55,0.9),transparent)" }} />
         </motion.div>
 
         {/* Date */}
@@ -115,8 +157,16 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="font-serif-wd"
-          style={{ fontSize: "1.25rem", color: "#F7EEDB", fontStyle: "italic", fontWeight: 500, marginBottom: "0.5rem", letterSpacing: "0.05em" }}
+          className="font-display"
+          style={{
+            fontSize: "1.3rem",
+            color: "#FAF4E8",
+            fontWeight: 600,
+            marginBottom: "0.5rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            textShadow: "0 2px 10px rgba(0,0,0,0.7)",
+          }}
         >
           {t.dates}
         </motion.p>
@@ -126,16 +176,17 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="flex items-center gap-1.5 mb-8"
+          className="flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-[3px] border border-[#D4AF37]/30 shadow-md"
         >
-          <MapPin size={14} color="#E8D09E" />
+          <MapPin size={15} color="#E8D09E" />
           <span
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "1.05rem",
-              color: "rgba(255,255,255,0.92)",
-              fontStyle: "italic",
-              letterSpacing: "0.04em",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.85rem",
+              color: "rgba(255,255,255,0.95)",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
             }}
           >
             {t.venueHero}
@@ -150,29 +201,90 @@ export function HeroSection() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={scrollToRSVP}
-          className="btn-primary w-full shadow-[0_8px_30px_rgba(140,75,39,0.5),0_0_0_1px_rgba(212,175,55,0.4)]"
-          style={{ maxWidth: "320px", marginBottom: "2rem" }}
+          className="btn-primary w-full shadow-[0_8px_30px_rgba(140,75,39,0.55),0_0_0_1px_rgba(212,175,55,0.5)] tracking-[0.18em]"
+          style={{ maxWidth: "320px", marginBottom: "1.25rem" }}
         >
-          <CalendarDays size={15} />
+          <CalendarDays size={16} />
           {t.rsvpNow}
         </motion.button>
 
-        {/* Scroll hint */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
-          style={{
-            fontFamily: "'Montserrat', sans-serif",
-            fontSize: "0.68rem",
-            letterSpacing: "0.12em",
-            color: "rgba(255,255,255,0.7)",
-            animation: "bounce-slow 2s ease-in-out infinite",
-          }}
-        >
-          {t.scrollHint}
-        </motion.p>
+        {/* In-flow bottom clearance */}
+        <div className="h-10 sm:h-12 w-full pointer-events-none" />
       </div>
+
+      {/* Subtle Bottom Vignette for Visual Depth into Next Section */}
+      <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#0F0D0B] via-[#0F0D0B]/40 to-transparent pointer-events-none z-10" />
+
+      {/* Smart Docked Floating Scroll Indicator (Prominent at viewport bottom when user is at the top) */}
+      <AnimatePresence>
+        {isAtTop && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 15 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto"
+          >
+            <button
+              type="button"
+              onClick={scrollToNext}
+              className="group relative flex flex-col items-center gap-1 cursor-pointer select-none focus:outline-none"
+              aria-label={t.scrollHint}
+            >
+              {/* Outer Glow Ring & Glass Capsule */}
+              <div className="flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#18110B]/90 hover:bg-[#251A10] backdrop-blur-xl border border-[#D4AF37]/75 hover:border-[#D4AF37] shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_25px_rgba(212,175,55,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 ring-1 ring-[#D4AF37]/30">
+                {/* Animated Mouse Wheel / Scroll Icon */}
+                <div className="w-3.5 h-5 sm:h-5.5 rounded-full border border-[#D4AF37] flex items-start justify-center p-0.5 relative flex-shrink-0">
+                  <motion.div
+                    animate={{ y: [0, 6, 0], opacity: [1, 0.25, 1] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-1 h-1.5 rounded-full bg-[#F3E5AB]"
+                  />
+                </div>
+
+                {/* High-Contrast Bold Text */}
+                <span
+                  className="text-xs sm:text-sm font-semibold tracking-[0.14em] uppercase text-[#FAF5ED] group-hover:text-white transition-colors drop-shadow"
+                  style={{
+                    fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-sans)",
+                  }}
+                >
+                  {isDevanagari
+                    ? lang === "mr"
+                      ? "खाली स्क्रोल करा"
+                      : "नीचे स्क्रॉल करें"
+                    : "Scroll Down to Explore"}
+                </span>
+
+                {/* Dual Pulsing Down Chevrons */}
+                <div className="flex flex-col -space-y-1.5 text-[#D4AF37] flex-shrink-0">
+                  <motion.div
+                    animate={{ y: [0, 3, 0], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ChevronDown size={14} className="stroke-[2.5]" />
+                  </motion.div>
+                  <motion.div
+                    animate={{ y: [0, 3, 0], opacity: [0.2, 0.9, 0.2] }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
+                  >
+                    <ChevronDown size={14} className="stroke-[2.5]" />
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Sub-cue badge */}
+              <span className="text-[10px] tracking-widest text-[#D4AF37]/90 uppercase font-semibold drop-shadow-md">
+                {isDevanagari
+                  ? lang === "mr"
+                    ? "✦ पाहण्यासाठी टॅप करा ✦"
+                    : "✦ देखने के लिए स्पर्श करें ✦"
+                  : "✦ Tap or scroll ✦"}
+              </span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

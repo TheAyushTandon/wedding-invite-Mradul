@@ -256,7 +256,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "haldi",
         day: 1,
-        time: "11:00 AM",
+        time: "2:00 PM",
         title: "The Haldi Ceremony",
         description: "Sunshine yellows, marigold floral showers, organic ubtan, lively dhol rhythms, and joyful blessings.",
         location: "Oceanfront Palm Lawn • Taj Heritage",
@@ -264,7 +264,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "sangeet",
         day: 1,
-        time: "07:30 PM",
+        time: "8:30 PM",
         title: "The Sangeet Night",
         description: "Glitz & glamour! High-energy dance performances, live musical acts, bespoke artisanal mocktail bar, and a Bollywood DJ dance floor.",
         location: "The Grand Heritage Ballroom",
@@ -280,7 +280,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "gala",
         day: 2,
-        time: "08:30 PM",
+        time: "9:00 PM",
         title: "The Gala Dinner & Afterparty",
         description: "Celebratory sparkling mocktail toasts, lavish gourmet feast, live band serenades, and starlit dancing under the Goan night sky.",
         location: "Mandovi Royal Terrace",
@@ -510,7 +510,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "haldi",
         day: 1,
-        time: "11:00 AM",
+        time: "2:00 PM",
         title: "हल्दी रस्म",
         description: "पीले परिधान, गेंदे के फूलों की वर्षा, प्राकृतिक उबटन, ढोल-नगाड़ों की थाप और मंगलकामनाएं।",
         location: "ओशनफ्रंट पाम लॉन • ताज हेरिटेज",
@@ -518,7 +518,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "sangeet",
         day: 1,
-        time: "07:30 PM",
+        time: "8:30 PM",
         title: "संगीत संध्या",
         description: "रोशनी, संगीत और उल्लास! विशेष नृत्य प्रस्तुतियां, लाइव बैंड, मॉकटेल्स बार एवं बॉलीवुड डीजे।",
         location: "द ग्रैंड हेरिटेज बॉलरूम",
@@ -534,7 +534,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "gala",
         day: 2,
-        time: "08:30 PM",
+        time: "9:00 PM",
         title: "गाला डिनर एवं सेलिब्रेशन",
         description: "शाही भोज, स्वागत टोस्ट, मधुर संगीत एवं सितारों की छांव में आनंदमय उत्सव।",
         location: "मांडवी रॉयल टैरेस",
@@ -760,7 +760,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "haldi",
         day: 1,
-        time: "11:00 AM",
+        time: "2:00 PM",
         title: "हळदीचा समारंभ",
         description: "पिवळे परिधान, झेंडूच्या फुलांचा वर्षाव, पारंपरिक उटणे, ढोल-ताशांचा गजर आणि मंगल आशीर्वाद.",
         location: "ओशनफ्रंट पाम लॉन • ताज हेरिटेज",
@@ -768,7 +768,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "sangeet",
         day: 1,
-        time: "07:30 PM",
+        time: "8:30 PM",
         title: "संगीत रजनी",
         description: "रोषणाई, गाणी आणि नृत्याची रंगतदार रात्र! नृत्याविष्कार, लाईव्ह संगीत, मॉकटेल्स बार आणि बॉलीवूड डीजे.",
         location: "द ग्रँड हेरिटेज बॉलरूम",
@@ -784,7 +784,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       {
         id: "gala",
         day: 2,
-        time: "08:30 PM",
+        time: "9:00 PM",
         title: "गाला डिनर आणि सेलिब्रेशन",
         description: "शाही भोजनाचा आस्वाद, स्वागत परंपरेसह संगीत आणि चांदण्यांच्या प्रकाशात आनंदोत्सव.",
         location: "मांडवी रॉयल टेरेस",

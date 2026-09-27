@@ -21,7 +21,7 @@ export function HelpdeskSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/venues/botanical-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -29,7 +29,7 @@ export function HelpdeskSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.92)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -49,23 +49,23 @@ export function HelpdeskSection() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="w-full flex flex-col items-start py-2"
             >
-              <div className="flex items-center gap-2 mb-1 w-full justify-between">
+              <div className="flex items-center gap-2 mb-1.5 w-full justify-between">
                 <h3
                   className="font-serif-wd"
-                  style={{ fontSize: "1.15rem", fontWeight: 700, color: "#3D2522" }}
+                  style={{ fontSize: "1.22rem", fontWeight: 700, color: "#1E0F0C" }}
                 >
                   {contact.title}
                 </h3>
                 <span
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.55rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.72rem",
                     fontWeight: 700,
-                    letterSpacing: "0.12em",
+                    letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     background: "rgba(37,211,102,0.15)",
-                    color: "#19875A",
-                    padding: "0.2rem 0.6rem",
+                    color: "#0F5132",
+                    padding: "0.25rem 0.65rem",
                     borderRadius: "9999px",
                   }}
                 >
@@ -75,11 +75,11 @@ export function HelpdeskSection() {
 
               <p
                 style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.85rem",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.95rem",
                   fontWeight: 600,
-                  color: "#4A2E2B",
-                  marginBottom: "0.15rem",
+                  color: "#261512",
+                  marginBottom: "0.2rem",
                 }}
               >
                 {contact.name}
@@ -87,8 +87,8 @@ export function HelpdeskSection() {
               <p
                 className="font-serif-wd"
                 style={{
-                  fontSize: "0.95rem",
-                  color: "#6E4141",
+                  fontSize: "1rem",
+                  color: "#3F2018",
                   fontStyle: "italic",
                   marginBottom: "0.85rem",
                 }}
@@ -101,16 +101,16 @@ export function HelpdeskSection() {
                 className="flex items-center gap-2 mb-3 p-3 rounded-xl w-full"
                 style={{
                   background: "rgba(140,75,39,0.06)",
-                  border: "1px solid rgba(140,75,39,0.15)",
+                  border: "1px solid rgba(140,75,39,0.2)",
                 }}
               >
-                <Phone size={15} color="#8C4B27" />
+                <Phone size={16} color="#8C4B27" />
                 <span
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.9rem",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.95rem",
                     fontWeight: 700,
-                    color: "#3D2522",
+                    color: "#1E0F0C",
                     flex: 1,
                   }}
                 >
@@ -145,17 +145,17 @@ export function HelpdeskSection() {
           transition={{ duration: 0.4 }}
           className="w-full max-w-[420px] mx-auto flex items-center justify-between p-3.5 rounded-xl mt-4"
           style={{
-            background: "rgba(255,255,255,0.75)",
-            border: "1px solid rgba(140,75,39,0.15)",
+            background: "rgba(255,255,255,0.85)",
+            border: "1px solid rgba(140,75,39,0.22)",
           }}
         >
           <div className="flex items-center gap-2">
-            <Mail size={14} color="#8C4B27" />
-            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.75rem", color: "#4A2E2B", fontWeight: 500 }}>
+            <Mail size={16} color="#8C4B27" />
+            <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "#261512", fontWeight: 600 }}>
               {WEDDING.helpdesk}
             </span>
           </div>
-          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "0.6rem", fontWeight: 700, color: "#8C4B27", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+          <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 700, color: "#8C4B27", letterSpacing: "0.08em", textTransform: "uppercase" }}>
             {t.tajConcierge}
           </span>
         </motion.div>

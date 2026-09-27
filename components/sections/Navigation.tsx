@@ -13,19 +13,17 @@ export function Navigation() {
   const { lang, setLang, t } = useLanguage();
 
   const NAV_ITEMS = [
+    { href: "#families", label: t.families },
     { href: "#countdown", label: t.countdown },
     { href: "#schedule", label: t.schedule },
     { href: "#attire", label: t.attire },
-    { href: "#travel", label: t.travel },
-    { href: "#families", label: t.families },
-    { href: "#accommodations", label: t.stay },
-    { href: "#notes", label: t.notes },
-    { href: "#menu", label: t.menu },
-    { href: "#gallery", label: t.gallery },
     { href: "#wishes", label: t.wishWall },
+    { href: "#notes", label: t.notes },
+    { href: "#travel", label: t.travel },
+    { href: "#gallery", label: t.gallery },
     { href: "#faq", label: t.faqs },
-    { href: "#helpdesk", label: t.helpdesk },
     { href: "#rsvp", label: t.rsvp },
+    { href: "#helpdesk", label: t.helpdesk },
   ];
 
   useEffect(() => {
@@ -89,11 +87,11 @@ export function Navigation() {
 
         {/* Center title */}
         <p
-          className="font-calligraphy truncate px-1"
+          className="font-serif font-semibold truncate px-1"
           style={{
-            fontSize: "1.1rem",
-            color: "#3D2522",
-            letterSpacing: "0.02em",
+            fontSize: "1.05rem",
+            color: "#1E0F0C",
+            letterSpacing: "0.06em",
           }}
         >
           {t.mradulAndShreya}
@@ -218,20 +216,20 @@ export function Navigation() {
 
               <div className="px-5">
                 <p
-                  className="font-calligraphy"
-                  style={{ fontSize: "1.6rem", color: "#3D2522", marginBottom: "0.25rem" }}
+                  className="font-serif font-bold"
+                  style={{ fontSize: "1.5rem", color: "#1E0F0C", marginBottom: "0.25rem", letterSpacing: "0.02em" }}
                 >
                   {t.mradulAndShreya}
                 </p>
                 <p
                   style={{
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.15em",
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     color: "#8C4B27",
                     marginBottom: "1.25rem",
-                    fontWeight: 600,
+                    fontWeight: 700,
                   }}
                 >
                   {t.weddingCelebration}
@@ -249,8 +247,8 @@ export function Navigation() {
                     <Globe size={13} color="#8C4B27" />
                     <span
                       style={{
-                        fontFamily: "'Montserrat', sans-serif",
-                        fontSize: "0.6rem",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.72rem",
                         fontWeight: 700,
                         letterSpacing: "0.1em",
                         textTransform: "uppercase",

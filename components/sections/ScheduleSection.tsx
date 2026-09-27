@@ -1,10 +1,8 @@
 "use client";
-import { useState, Fragment } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MapPin } from "lucide-react";
-import { EVENTS, DAY1_EVENTS, DAY2_EVENTS } from "@/data/events";
+import { EVENTS } from "@/data/events";
 import { WeddingEvent } from "@/types";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
@@ -12,12 +10,7 @@ function TimelineEventItem({ event, index, total }: { event: WeddingEvent; index
   const isLast = index === total - 1;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -12 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.45, delay: index * 0.1 }}
-      className="relative flex items-start gap-4 sm:gap-6 w-full pl-2 pr-1"
-    >
+    <div className="relative flex items-start gap-4 sm:gap-6 w-full pl-2 pr-1">
       {/* Left Timeline Stem & Node */}
       <div className="relative self-stretch flex flex-col items-center flex-shrink-0" style={{ width: "28px" }}>
         {/* Continuous Connecting Line to Next Event */}
@@ -63,17 +56,17 @@ function TimelineEventItem({ event, index, total }: { event: WeddingEvent; index
       </div>
 
       {/* Right Content */}
-      <div className="flex-1 pb-10">
-        {/* Time Badge without sparkle */}
+      <div className={`flex-1 ${isLast ? "pb-4" : "pb-10"}`}>
+        {/* Time Badge */}
         <div
-          className="inline-flex items-center px-2.5 py-0.5 rounded-full mb-2"
-          style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.18)" }}
+          className="inline-flex items-center px-3 py-1 rounded-full mb-2.5"
+          style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.22)" }}
         >
           <span
             style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.68rem",
-              letterSpacing: "0.16em",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "#8C4B27",
               fontWeight: 700,
@@ -87,10 +80,12 @@ function TimelineEventItem({ event, index, total }: { event: WeddingEvent; index
         <h3
           className="heading-calligraphy"
           style={{
-            fontSize: "2.1rem",
-            lineHeight: 1.15,
-            color: "#3D2522",
+            fontSize: "1.75rem",
+            lineHeight: 1.25,
+            color: "#1E0F0C",
+            fontWeight: 600,
             marginBottom: "0.45rem",
+            letterSpacing: "0.015em",
           }}
         >
           {event.title}
@@ -100,41 +95,83 @@ function TimelineEventItem({ event, index, total }: { event: WeddingEvent; index
         <p
           className="font-serif-wd"
           style={{
-            fontSize: "1rem",
-            color: "#5C3D2E",
-            lineHeight: 1.65,
+            fontSize: "1.02rem",
+            color: "#3F2018",
+            lineHeight: 1.7,
             marginBottom: "0.65rem",
-            fontStyle: "italic",
           }}
         >
           {event.description}
         </p>
 
         {/* Location Marker */}
-        <div className="flex items-center gap-1.5">
-          <MapPin size={13} color="#8C4B27" style={{ flexShrink: 0 }} />
+        <div className="flex items-center gap-2">
+          <MapPin size={14} color="#8C4B27" style={{ flexShrink: 0 }} />
           <span
             style={{
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: "0.7rem",
-              color: "#6E4141",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.78rem",
+              color: "#4D261E",
               fontWeight: 600,
-              letterSpacing: "0.03em",
+              letterSpacing: "0.04em",
             }}
           >
             {event.location}
           </span>
         </div>
       </div>
-    </motion.div>
+    </div>
+  );
+}
+
+function DayDivider({ title }: { title: string }) {
+  return (
+    <div className="flex items-center gap-3 pt-3 pb-6 w-full">
+      <div
+        className="h-[1px] flex-1"
+        style={{
+          background: "linear-gradient(to right, transparent, rgba(140,75,39,0.4))",
+        }}
+      />
+      <div
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.78rem",
+          fontWeight: 700,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          color: "#8C4B27",
+          background: "rgba(140,75,39,0.08)",
+          border: "1px solid rgba(140,75,39,0.22)",
+          padding: "0.45rem 1.15rem",
+          borderRadius: "9999px",
+          boxShadow: "0 2px 8px rgba(140,75,39,0.08)",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.45rem",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+        }}
+      >
+        <span style={{ fontSize: "0.55rem", opacity: 0.75 }}>✦</span>
+        <span>{title}</span>
+        <span style={{ fontSize: "0.55rem", opacity: 0.75 }}>✦</span>
+      </div>
+      <div
+        className="h-[1px] flex-1"
+        style={{
+          background: "linear-gradient(to left, transparent, rgba(140,75,39,0.4))",
+        }}
+      />
+    </div>
   );
 }
 
 export function ScheduleSection() {
-  const [activeDay, setActiveDay] = useState<1 | 2>(1);
   const { t } = useLanguage();
   const allEvents = t.eventsList || EVENTS;
-  const events = allEvents.filter((e) => e.day === activeDay);
+  const day1Events = allEvents.filter((e) => e.day === 1);
+  const day2Events = allEvents.filter((e) => e.day === 2);
 
   return (
     <section
@@ -143,7 +180,7 @@ export function ScheduleSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/schedule/floral-arch-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -151,7 +188,7 @@ export function ScheduleSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.90)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -161,70 +198,33 @@ export function ScheduleSection() {
           quote={t.scheduleQuote}
         />
 
-        {/* Day Switcher */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-10 w-full max-w-[420px] mx-auto px-1">
-          {[1, 2].map((day, i) => (
-            <Fragment key={day}>
-              {i === 1 && (
-                <span
-                  style={{
-                    color: "#8C4B27",
-                    margin: "0 0.25rem",
-                    fontSize: "0.55rem",
-                    opacity: 0.6,
-                    flexShrink: 0,
-                  }}
-                >
-                  ✦
-                </span>
-              )}
-              <button
-                onClick={() => setActiveDay(day as 1 | 2)}
-                className="relative flex-1 text-center py-2 px-1 rounded-t-lg transition-colors duration-200 cursor-pointer border-none"
-                style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.68rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  color: activeDay === day ? "#8C4B27" : "#8A7D78",
-                  background: activeDay === day ? "rgba(140,75,39,0.08)" : "transparent",
-                  lineHeight: 1.25,
-                }}
-              >
-                {day === 1 ? t.day1 : t.day2}
-                {activeDay === day && (
-                  <motion.div
-                    layoutId="activeScheduleDayBorder"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#8C4B27]"
-                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  />
-                )}
-              </button>
-            </Fragment>
-          ))}
-        </div>
-
-        {/* Vertical Connected Timeline */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeDay}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col w-full max-w-[420px] mx-auto mt-2"
-          >
-            {events.map((event, i) => (
+        <div className="flex flex-col w-full max-w-[440px] mx-auto mt-6">
+          {/* Day 1 */}
+          <DayDivider title={t.day1} />
+          <div className="flex flex-col w-full mb-4">
+            {day1Events.map((event, i) => (
               <TimelineEventItem
                 key={event.id}
                 event={event}
                 index={i}
-                total={events.length}
+                total={day1Events.length}
               />
             ))}
-          </motion.div>
-        </AnimatePresence>
+          </div>
+
+          {/* Day 2 */}
+          <DayDivider title={t.day2} />
+          <div className="flex flex-col w-full">
+            {day2Events.map((event, i) => (
+              <TimelineEventItem
+                key={event.id}
+                event={event}
+                index={i}
+                total={day2Events.length}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

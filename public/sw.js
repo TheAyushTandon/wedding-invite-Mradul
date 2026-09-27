@@ -1,15 +1,14 @@
-const CACHE_NAME = "wedding-invite-v1";
+const CACHE_NAME = "wedding-invite-v3";
 const STATIC_ASSETS = [
   "/",
   "/favicon.svg",
   "/image copy.png",
   "/image copy 4.png",
   "/assets/opening/stamp-custom.png",
+  "/assets/hero/main-home-page.jpeg",
+  "/assets/hero/couple-bg.png",
+  "/assets/shared/all-page.jpeg",
   "/assets/audio/background-music.mp3",
-  "/assets/hero/taj-hero-bg.png",
-  "/assets/schedule/floral-arch-bg.png",
-  "/assets/accommodations/taj-cidade-bg.png",
-  "/assets/attire/attire-bg.png",
   "/assets/shared/monogram-ms-crest.png",
 ];
 

@@ -20,7 +20,7 @@ export function AttireSection() {
       style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
     >
       <Image
-        src="/assets/attire/coastal-terrace-bg.png"
+        src="/assets/shared/all-page.jpeg"
         alt=""
         fill
         className="section-bg-img"
@@ -28,7 +28,7 @@ export function AttireSection() {
       />
       <div
         className="section-overlay"
-        style={{ background: "rgba(250,247,242,0.90)" }}
+        style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
       <div className="section-content section-pad w-full py-16">
@@ -61,14 +61,14 @@ export function AttireSection() {
             <button
               key={tab}
               onClick={() => setActiveTab(i)}
-              className="relative flex-1 py-2 px-1 text-center border-none cursor-pointer z-10 transition-colors duration-200 bg-transparent"
+              className="relative flex-1 py-2.5 px-1.5 text-center border-none cursor-pointer z-10 transition-colors duration-200 bg-transparent"
               style={{
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: "0.68rem",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.72rem",
                 fontWeight: 700,
-                letterSpacing: "0.04em",
+                letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                color: activeTab === i ? "#FFFFFF" : "#6E4141",
+                color: activeTab === i ? "#FFFFFF" : "#543C36",
               }}
               aria-pressed={activeTab === i}
             >
@@ -96,9 +96,9 @@ export function AttireSection() {
               {/* Event label */}
               <p
                 style={{
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.08em",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.14em",
                   textTransform: "uppercase",
                   color: "#8C4B27",
                   fontWeight: 700,
@@ -109,30 +109,30 @@ export function AttireSection() {
               </p>
               <h3
                 className="heading-calligraphy"
-                style={{ fontSize: "1.9rem", marginBottom: "0.75rem", color: "#3D2522" }}
+                style={{ fontSize: "1.75rem", marginBottom: "0.75rem", color: "#1E0F0C" }}
               >
                 {current.dressCode}
               </h3>
 
               {/* Color swatches */}
-              <div className="flex gap-2 mb-4">
+              <div className="flex gap-2.5 mb-4">
                 {current.colorHex.map((hex, i) => (
                   <div key={i} className="flex flex-col items-center gap-1">
                     <div
                       style={{
-                        width: "2.2rem",
-                        height: "2.2rem",
+                        width: "2.3rem",
+                        height: "2.3rem",
                         borderRadius: "50%",
                         background: hex,
-                        border: "2px solid rgba(140,75,39,0.20)",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+                        border: "2px solid rgba(140,75,39,0.25)",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
                       }}
                     />
                     <span
                       style={{
-                        fontFamily: "'Montserrat', sans-serif",
-                        fontSize: "0.58rem",
-                        color: "#6E4141",
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.68rem",
+                        color: "#4D261E",
                         fontWeight: 600,
                       }}
                     >
@@ -145,10 +145,9 @@ export function AttireSection() {
               <p
                 className="font-serif-wd"
                 style={{
-                  fontSize: "0.95rem",
-                  color: "#4A2E2B",
-                  lineHeight: 1.75,
-                  fontStyle: "italic",
+                  fontSize: "1.02rem",
+                  color: "#381B14",
+                  lineHeight: 1.7,
                 }}
               >
                 {current.description}
