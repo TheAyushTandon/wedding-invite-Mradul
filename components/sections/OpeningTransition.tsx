@@ -137,7 +137,7 @@ export function OpeningTransition({
     tl.to(promptRef.current, {
       opacity: 0,
       y: -8,
-      duration: 0.22,
+      duration: 0.2,
       ease: "power2.out",
     });
 
@@ -145,8 +145,8 @@ export function OpeningTransition({
       waxSealRef.current,
       {
         opacity: 0,
-        scale: 1.15,
-        duration: 0.28,
+        scale: 1.2,
+        duration: 0.25,
         ease: "power2.out",
       },
       0
@@ -155,18 +155,18 @@ export function OpeningTransition({
     // 2. Open envelope flap
     tl.add(() => {
       setIsFlapOpened(true);
-    }, "+=0.02");
+    }, "+=0.04");
 
-    // 3. Card slides up gracefully inside envelope pocket
+    // 3. Card slides up gracefully in front of opened flap, emerging from pocket
     if (cardRef.current) {
       tl.to(
         cardRef.current,
         {
-          yPercent: -65,
-          duration: 0.55,
+          yPercent: -62,
+          duration: 0.7,
           ease: "power2.out",
         },
-        "+=0.15"
+        "+=0.32"
       );
     }
 
@@ -176,11 +176,11 @@ export function OpeningTransition({
       {
         opacity: 0,
         scale: 1.04,
-        duration: 0.7,
+        duration: 0.75,
         ease: "power2.inOut",
         onComplete: handleComplete,
       },
-      "+=0.15"
+      "+=0.6"
     );
   };
 
@@ -399,6 +399,7 @@ export function OpeningTransition({
         {/* INTERACTIVE ENVELOPE CONTAINER */}
         <div
           className="relative w-[320px] sm:w-[380px] h-[215px] sm:h-[250px] cursor-pointer"
+          style={{ perspective: "1200px" }}
           onClick={handleTap}
           role="button"
           tabIndex={0}
@@ -407,8 +408,9 @@ export function OpeningTransition({
         >
           {/* 1. ENVELOPE BACK (z-10) */}
           <div
-            className="absolute inset-0 rounded-[4px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_10px_25px_rgba(40,15,5,0.4),0_0_0_1px_rgba(212,175,55,0.35)] overflow-hidden z-10 pointer-events-none"
+            className="absolute inset-0 rounded-[4px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_10px_25px_rgba(40,15,5,0.4),0_0_0_1px_rgba(212,175,55,0.35)] overflow-hidden pointer-events-none"
             style={{
+              zIndex: 10,
               background: "linear-gradient(175deg, #FAF6EE 0%, #F5EEDF 60%, #EDE2CF 100%)",
               boxShadow: "inset 0 0 35px -5px #CBB493",
             }}
@@ -416,97 +418,141 @@ export function OpeningTransition({
             <div className="absolute inset-2 border border-[#D4AF37]/25 rounded-[2px] pointer-events-none" />
           </div>
 
-          {/* 2. WEDDING INVITATION CARD (z-20) */}
+          {/* 2. TOP FLAP (z-40 when closed, z-15 when open - strictly behind card) */}
           <div
-            ref={cardRef}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-xl bg-[#FAF7F2] bg-cover bg-center bg-no-repeat shadow-2xl flex flex-col items-center justify-center overflow-hidden pointer-events-none"
+            className={`custom-envelope-flap ${isFlapOpened ? "opened" : ""}`}
             style={{
-              width: "calc(100% - 24px)",
-              height: "calc(100% - 20px)",
-              backgroundImage:
-                "url('/image copy.png'), url('/image-copy.png'), url('/assets/opening/parchment-bg.png')",
+              zIndex: isFlapOpened ? 15 : 40,
             }}
           >
-            {/* Card Gold Borders */}
-            <div className="absolute inset-2.5 sm:inset-4 border border-[#D4AF37]/45 rounded-sm sm:rounded-lg pointer-events-none" />
-            <div className="absolute inset-3.5 sm:inset-5 border border-[#D4AF37]/25 rounded-[2px] sm:rounded-md pointer-events-none" />
+            <div className="custom-envelope-flap-inner" />
+          </div>
 
-            {/* Elegant Monogram Crest Watermark on Parchment Card */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 opacity-85 drop-shadow-sm flex items-center justify-center">
+          {/* 3. WEDDING INVITATION CARD (z-25) - in front of opened flap (z-15) and inside front pocket (z-30) */}
+          <div
+            ref={cardRef}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl shadow-2xl flex flex-col items-center justify-between p-3.5 sm:p-4 overflow-hidden pointer-events-none select-none"
+            style={{
+              zIndex: 25,
+              width: "calc(100% - 24px)",
+              height: "calc(100% - 20px)",
+              background:
+                "linear-gradient(180deg, #FAF7F2 0%, #F6EFE2 55%, #EDE2D0 100%)",
+              boxShadow:
+                "0 15px 35px -5px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.5)",
+            }}
+          >
+            {/* Double Gold Ornate Borders */}
+            <div className="absolute inset-1.5 sm:inset-2.5 border border-[#D4AF37]/50 rounded-lg pointer-events-none" />
+            <div className="absolute inset-2.5 sm:inset-3.5 border border-[#D4AF37]/25 rounded-md pointer-events-none" />
+
+            {/* Corner Gold Flourishes (decorative diamond stars) */}
+            <span className="absolute top-2 left-2 text-[#D4AF37] text-[8px] opacity-70">✦</span>
+            <span className="absolute top-2 right-2 text-[#D4AF37] text-[8px] opacity-70">✦</span>
+            <span className="absolute bottom-2 left-2 text-[#D4AF37] text-[8px] opacity-70">✦</span>
+            <span className="absolute bottom-2 right-2 text-[#D4AF37] text-[8px] opacity-70">✦</span>
+
+            {/* TOP HALF OF CARD (Prominently visible when card slides up) */}
+            <div className="w-full flex flex-col items-center text-center pt-1 z-10">
+              <p
+                className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-[#8C4B27] font-bold mb-1"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                ✦ Wedding Invitation ✦
+              </p>
+              <h2
+                className="text-[#2C1810] tracking-wide mb-1 leading-tight"
+                style={{
+                  fontSize: "clamp(1.25rem, 4.2vw, 1.65rem)",
+                  fontWeight: 700,
+                  fontFamily: isDevanagari ? "var(--font-devanagari-title)" : "var(--font-serif)",
+                }}
+              >
+                {t.mradulAndShreya}
+              </h2>
+              <p
+                className="text-[10px] sm:text-[11px] text-[#6E4141] font-semibold tracking-wider"
+                style={{ fontFamily: "var(--font-serif)" }}
+              >
+                {t.dates} • Taj Heritage, Goa
+              </p>
+            </div>
+
+            {/* CENTER / CREST STAMP */}
+            <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 drop-shadow-md my-auto z-10 flex items-center justify-center">
               <Image
                 src={stampImage}
                 alt="M&S Monogram"
-                width={80}
-                height={80}
+                width={64}
+                height={64}
                 priority
                 className="w-full h-full object-contain"
               />
             </div>
+
+            {/* BOTTOM HINT (Subtle footer inside pocket) */}
+            <div className="w-full text-center pb-0.5 z-10">
+              <p
+                className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-[#8C4B27]/75 font-semibold"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                {t.cordiallyInvited || "Cordially Invited"}
+              </p>
+            </div>
           </div>
 
-          {/* 3. ENVELOPE FRONT POCKET & FLAP (z-30 / z-40) */}
+          {/* 4. ENVELOPE FRONT POCKET (z-30) */}
           <div
-            className={`custom-envelope z-30 pointer-events-none ${
-              isFlapOpened ? "opened" : ""
-            }`}
-            style={{ background: "transparent", boxShadow: "none" }}
+            className="absolute inset-0 pointer-events-none rounded-[4px] overflow-hidden"
+            style={{
+              zIndex: 30,
+              clipPath: "polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 50% 50%)",
+              background:
+                "linear-gradient(175deg, #FAF6EE 0%, #F5EEDF 60%, #EDE2CF 100%)",
+              boxShadow:
+                "inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.06)",
+            }}
           >
-            {/* FRONT POCKET */}
-            <div
-              className="absolute inset-0 z-[30] pointer-events-none rounded-[4px] overflow-hidden"
-              style={{
-                clipPath: "polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 50% 50%)",
-                background:
-                  "linear-gradient(175deg, #FAF6EE 0%, #F5EEDF 60%, #EDE2CF 100%)",
-                boxShadow:
-                  "inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.06)",
-              }}
-            >
-              <svg viewBox="0 0 380 250" className="absolute inset-0 w-full h-full opacity-60">
-                <path
-                  d="M 0 250 L 190 125 L 380 250"
-                  fill="none"
-                  stroke="#D4AF37"
-                  strokeWidth="1.2"
-                />
-                <path
-                  d="M 0 0 L 190 125 L 0 250"
-                  fill="none"
-                  stroke="rgba(140,75,39,0.15)"
-                  strokeWidth="1"
-                />
-                <path
-                  d="M 380 0 L 190 125 L 380 250"
-                  fill="none"
-                  stroke="rgba(140,75,39,0.15)"
-                  strokeWidth="1"
-                />
-              </svg>
-            </div>
-
-            {/* TOP FLAP (z-[40] in 3D) */}
-            <div className="custom-envelope-flap">
-              <div className="custom-envelope-flap-inner"></div>
-            </div>
-
-            {/* RED WAX STAMP (z-[50]) */}
-            <div
-              ref={waxSealRef}
-              className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[50] w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center pointer-events-none"
-              style={{
-                filter:
-                  "drop-shadow(0 8px 16px rgba(45,10,10,0.65)) drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
-              }}
-            >
-              <Image
-                src={stampImage}
-                alt="M&S Monogram Red Wax Seal"
-                width={96}
-                height={96}
-                priority
-                className="w-full h-full object-contain select-none"
+            <svg viewBox="0 0 380 250" className="absolute inset-0 w-full h-full opacity-60">
+              <path
+                d="M 0 250 L 190 125 L 380 250"
+                fill="none"
+                stroke="#D4AF37"
+                strokeWidth="1.2"
               />
-            </div>
+              <path
+                d="M 0 0 L 190 125 L 0 250"
+                fill="none"
+                stroke="rgba(140,75,39,0.15)"
+                strokeWidth="1"
+              />
+              <path
+                d="M 380 0 L 190 125 L 380 250"
+                fill="none"
+                stroke="rgba(140,75,39,0.15)"
+                strokeWidth="1"
+              />
+            </svg>
+          </div>
+
+          {/* 5. RED WAX STAMP (z-50) */}
+          <div
+            ref={waxSealRef}
+            className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center pointer-events-none"
+            style={{
+              zIndex: 50,
+              filter:
+                "drop-shadow(0 8px 16px rgba(45,10,10,0.65)) drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
+            }}
+          >
+            <Image
+              src={stampImage}
+              alt="M&S Monogram Red Wax Seal"
+              width={96}
+              height={96}
+              priority
+              className="w-full h-full object-contain select-none"
+            />
           </div>
         </div>
 
