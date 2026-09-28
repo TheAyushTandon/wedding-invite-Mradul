@@ -6,12 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { EVENTS } from "@/data/events";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useLanguage } from "@/components/shared/LanguageContext";
 import {
-  User, Phone, Mail, Check, ChevronRight, CalendarDays,
-  UtensilsCrossed, Music, Send, Star, X, CheckCircle2, XCircle,
+  User, Phone, Mail, Check, ChevronRight, ChevronLeft,
+  Music, Send, CheckCircle2, XCircle,
   AlertTriangle, WineOff
 } from "lucide-react";
 
@@ -57,10 +56,10 @@ const DIETARY_OPTIONS_BY_LANG: Record<Language, { id: string; label: string }[]>
 };
 
 const schema = z.object({
-  fullName: z.string().min(2, "Full name required"),
+  fullName: z.string().trim().min(2, "Please enter your full name"),
   countryCode: z.string(),
-  phone: z.string().min(6, "Valid phone number required"),
-  email: z.string().email("Valid email required").optional().or(z.literal("")),
+  phone: z.string().trim().min(6, "Please enter a valid phone number"),
+  email: z.string().trim().email("Please enter a valid email address").optional().or(z.literal("")),
   attendance: z.enum(["accept", "decline"]),
   guestCount: z.number().min(1).max(8).optional(),
   events: z.array(z.string()).optional(),
@@ -72,9 +71,9 @@ const schema = z.object({
 
 type RSVPData = z.infer<typeof schema>;
 
-type Step = "attendance" | "details" | "events" | "dietary" | "extras" | "declineDetails" | "done";
+type Step = "attendance" | "details" | "diningExtras" | "declineDetails" | "done";
 
-const ACCEPTING_STEPS: Step[] = ["attendance", "details", "events", "dietary", "extras", "done"];
+const ACCEPTING_STEPS: Step[] = ["attendance", "details", "diningExtras", "done"];
 
 export function RSVPSection() {
   const [step, setStep] = useState<Step>("attendance");
@@ -85,23 +84,46 @@ export function RSVPSection() {
 
   const form = useForm<RSVPData>({
     resolver: zodResolver(schema),
+    mode: "onTouched",
     defaultValues: {
+      fullName: "",
       countryCode: "+91",
-      events: ["haldi", "sangeet", "pheras", "gala"],
+      phone: "",
+      email: "",
+      attendance: "accept",
+      events: ["haldi", "sangeet", "baraat", "pheras", "gala"],
       dietary: ["Vegetarian"],
       guestCount: 2,
+      otherDietary: "",
+      songRequest: "",
+      blessings: "",
     },
   });
 
   const { watch, setValue, getValues, trigger, formState: { errors } } = form;
-  const selectedEvents = watch("events") || [];
   const selectedDietary = watch("dietary") || [];
-  const guestCount = watch("guestCount") || 2;
 
   const goNext = () => {
     const current = ACCEPTING_STEPS.indexOf(step);
     if (current >= 0 && current < ACCEPTING_STEPS.length - 1) {
       setStep(ACCEPTING_STEPS[current + 1]);
+    }
+  };
+
+  const goBack = () => {
+    if (step === "details") {
+      setStep("attendance");
+    } else if (step === "diningExtras") {
+      setStep("details");
+    } else if (step === "declineDetails") {
+      setStep("attendance");
+    }
+  };
+
+  const handleDetailsNext = async () => {
+    const isValid = await trigger(["fullName", "phone", "email"]);
+    if (isValid) {
+      goNext();
     }
   };
 
@@ -127,11 +149,6 @@ export function RSVPSection() {
     setAttendance("accept");
     setValue("attendance", "accept");
     setStep("details");
-  };
-
-  const toggleEvent = (id: string) => {
-    const current = getValues("events") || [];
-    setValue("events", current.includes(id) ? current.filter((e) => e !== id) : [...current, id]);
   };
 
   const toggleDietary = (item: string) => {
@@ -187,7 +204,34 @@ export function RSVPSection() {
         {/* Progress bar */}
         {step !== "done" && step !== "declineDetails" && (
           <div className="w-full max-w-[420px] mx-auto mb-6">
-            <div className="flex gap-1 mb-2">
+            <div className="flex items-center justify-between mb-2">
+              {step !== "attendance" ? (
+                <button
+                  type="button"
+                  onClick={goBack}
+                  className="inline-flex items-center gap-1 text-[#8C4B27] hover:text-[#5C3D2E] text-xs font-semibold tracking-wider uppercase cursor-pointer transition-colors"
+                  style={{ fontFamily: "var(--font-sans)" }}
+                >
+                  <ChevronLeft size={14} />
+                  {t.backBtn}
+                </button>
+              ) : (
+                <span />
+              )}
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.75rem",
+                  color: "#8C4B27",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {t.stepLabel} {stepIdx + 1} {t.stepOf} {ACCEPTING_STEPS.length - 1} • {t.stepNames[step as keyof typeof t.stepNames] || step}
+              </p>
+            </div>
+            <div className="flex gap-1">
               {ACCEPTING_STEPS.slice(0, -1).map((s, i) => (
                 <div
                   key={s}
@@ -201,18 +245,6 @@ export function RSVPSection() {
                 />
               ))}
             </div>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "0.75rem",
-                color: "#8C4B27",
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-              }}
-            >
-              {t.stepLabel} {stepIdx + 1} {t.stepOf} {ACCEPTING_STEPS.length - 1} • {t.stepNames[step as keyof typeof t.stepNames] || step}
-            </p>
           </div>
         )}
 
@@ -235,45 +267,25 @@ export function RSVPSection() {
               <StepDetails
                 key="details"
                 form={form}
-                onNext={goNext}
+                onNext={handleDetailsNext}
+                onBack={goBack}
                 errors={errors}
                 t={t}
               />
             )}
 
-            {/* STEP 3: Events */}
-            {step === "events" && (
-              <StepEvents
-                key="events"
-                guestCount={guestCount}
-                selectedEvents={selectedEvents}
-                onToggle={toggleEvent}
-                onNext={goNext}
-                t={t}
-              />
-            )}
-
-            {/* STEP 4: Dietary */}
-            {step === "dietary" && (
-              <StepDietary
-                key="dietary"
+            {/* STEP 3: Dining & Extras (Merged) */}
+            {step === "diningExtras" && (
+              <StepDiningExtras
+                key="diningExtras"
                 selected={selectedDietary}
                 onToggle={toggleDietary}
                 showOther={selectedDietary.includes("Other")}
                 register={form.register}
-                onNext={goNext}
+                onSubmit={handleSubmit}
+                onBack={goBack}
                 t={t}
                 lang={lang}
-              />
-            )}
-
-            {/* STEP 5: Extras */}
-            {step === "extras" && (
-              <StepExtras
-                key="extras"
-                register={form.register}
-                onSubmit={handleSubmit}
-                t={t}
               />
             )}
 
@@ -283,6 +295,7 @@ export function RSVPSection() {
                 key="declineDetails"
                 form={form}
                 onSubmit={handleSubmitDecline}
+                onBack={goBack}
                 errors={errors}
                 t={t}
               />
@@ -444,11 +457,13 @@ function Step1Attendance({
 function StepDetails({
   form,
   onNext,
+  onBack,
   errors,
   t,
 }: {
   form: UseFormReturn<RSVPData>;
   onNext: () => void;
+  onBack: () => void;
   errors: FieldErrors<RSVPData>;
   t: TranslationSchema;
 }) {
@@ -465,8 +480,15 @@ function StepDetails({
     >
       {/* Full Name */}
       <FieldWrap label={t.fullNameLabel} error={errors.fullName?.message}>
-        <div className="flex items-center gap-2 px-3.5 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.90)", border: "1.5px solid rgba(140,75,39,0.25)" }}>
-          <User size={15} color="#8C4B27" />
+        <div
+          className="flex items-center gap-2 px-3.5 py-3 rounded-xl transition-all"
+          style={{
+            background: "rgba(255,255,255,0.92)",
+            border: `1.5px solid ${errors.fullName ? "#C24137" : "rgba(140,75,39,0.25)"}`,
+            boxShadow: errors.fullName ? "0 0 0 1px #C24137" : "none",
+          }}
+        >
+          <User size={15} color={errors.fullName ? "#C24137" : "#8C4B27"} />
           <input
             {...register("fullName")}
             placeholder="e.g. Rahul Sharma"
@@ -481,14 +503,21 @@ function StepDetails({
           <select
             value={countryCode}
             onChange={(e) => setValue("countryCode", e.target.value)}
-            style={{ padding: "0.65rem 0.6rem", borderRadius: "0.75rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.90)", fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "#1E0F0C", cursor: "pointer", outline: "none" }}
+            style={{ padding: "0.65rem 0.6rem", borderRadius: "0.75rem", border: "1.5px solid rgba(140,75,39,0.25)", background: "rgba(255,255,255,0.92)", fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "#1E0F0C", cursor: "pointer", outline: "none" }}
           >
             {COUNTRY_CODES.map((c) => (
               <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
             ))}
           </select>
-          <div className="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.90)", border: "1.5px solid rgba(140,75,39,0.25)" }}>
-            <Phone size={15} color="#8C4B27" />
+          <div
+            className="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl transition-all"
+            style={{
+              background: "rgba(255,255,255,0.92)",
+              border: `1.5px solid ${errors.phone ? "#C24137" : "rgba(140,75,39,0.25)"}`,
+              boxShadow: errors.phone ? "0 0 0 1px #C24137" : "none",
+            }}
+          >
+            <Phone size={15} color={errors.phone ? "#C24137" : "#8C4B27"} />
             <input
               {...register("phone")}
               type="tel"
@@ -501,12 +530,19 @@ function StepDetails({
 
       {/* Email */}
       <FieldWrap label={t.emailLabel} error={errors.email?.message}>
-        <div className="flex items-center gap-2 px-3.5 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.90)", border: "1.5px solid rgba(140,75,39,0.25)" }}>
-          <Mail size={15} color="#8C4B27" />
+        <div
+          className="flex items-center gap-2 px-3.5 py-3 rounded-xl transition-all"
+          style={{
+            background: "rgba(255,255,255,0.92)",
+            border: `1.5px solid ${errors.email ? "#C24137" : "rgba(140,75,39,0.25)"}`,
+            boxShadow: errors.email ? "0 0 0 1px #C24137" : "none",
+          }}
+        >
+          <Mail size={15} color={errors.email ? "#C24137" : "#8C4B27"} />
           <input
             {...register("email")}
             type="email"
-            placeholder="e.g. rahul.sharma@example.com"
+            placeholder="e.g. rahul.sharma@example.com (optional)"
             style={{ flex: 1, background: "none", border: "none", outline: "none", fontFamily: "var(--font-sans)", fontSize: "0.95rem", color: "#1E0F0C" }}
           />
         </div>
@@ -526,7 +562,7 @@ function StepDetails({
                 width: "2.6rem",
                 height: "2.6rem",
                 borderRadius: "50%",
-                background: watch("guestCount") === n ? "#8C4B27" : "rgba(255,255,255,0.90)",
+                background: watch("guestCount") === n ? "#8C4B27" : "rgba(255,255,255,0.92)",
                 border: `1.5px solid ${watch("guestCount") === n ? "#8C4B27" : "rgba(140,75,39,0.25)"}`,
                 color: watch("guestCount") === n ? "white" : "#1E0F0C",
                 fontFamily: "var(--font-sans)",
@@ -542,101 +578,36 @@ function StepDetails({
         </div>
       </FieldWrap>
 
-      <button onClick={onNext} className="btn-primary w-full mt-3">
-        {t.continueToEvents} <ChevronRight size={14} />
-      </button>
+      {/* Navigation button group: Back & Continue */}
+      <div className="flex items-center gap-3 mt-3">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full border border-[#8C4B27]/30 text-[#8C4B27] font-semibold text-sm hover:bg-[#8C4B27]/10 transition-colors cursor-pointer"
+          style={{ fontFamily: "var(--font-sans)", minWidth: "90px" }}
+        >
+          <ChevronLeft size={16} />
+          {t.backBtn}
+        </button>
+        <button
+          type="button"
+          onClick={onNext}
+          className="btn-primary flex-1 py-3"
+        >
+          {t.continueBtn} <ChevronRight size={14} />
+        </button>
+      </div>
     </motion.div>
   );
 }
 
-function StepEvents({
-  guestCount,
-  selectedEvents,
-  onToggle,
-  onNext,
-  t,
-}: {
-  guestCount: number;
-  selectedEvents: string[];
-  onToggle: (id: string) => void;
-  onNext: () => void;
-  t: TranslationSchema;
-}) {
-  const eventsList = t.eventsList || EVENTS;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col gap-3.5"
-    >
-      <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.05rem", color: "#5C3D2E", fontStyle: "italic" }}>
-        {t.whichCelebrations} ({guestCount})
-      </p>
-
-      {eventsList.map((event) => {
-        const selected = selectedEvents.includes(event.id);
-        return (
-          <motion.button
-            key={event.id}
-            whileHover={{ scale: 1.015 }}
-            whileTap={{ scale: 0.985 }}
-            onClick={() => onToggle(event.id)}
-            className={`event-tile ${selected ? "selected" : ""}`}
-            style={{
-              padding: "1rem",
-              borderRadius: "1rem",
-              border: `1.5px solid ${selected ? "#8C4B27" : "rgba(140,75,39,0.18)"}`,
-              background: selected ? "rgba(140,75,39,0.08)" : "rgba(255,255,255,0.75)",
-              textAlign: "left",
-              cursor: "pointer",
-            }}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <div style={{ flex: 1 }}>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#8C4B27", marginBottom: "0.25rem" }}>
-                  {event.time} • {event.location}
-                </p>
-                <p style={{ fontFamily: "var(--font-serif)", fontSize: "1.2rem", fontWeight: 700, color: "#1E0F0C", lineHeight: 1.25 }}>
-                  {event.title}
-                </p>
-              </div>
-              <div
-                style={{
-                  width: "1.6rem",
-                  height: "1.6rem",
-                  borderRadius: "50%",
-                  background: selected ? "#8C4B27" : "transparent",
-                  border: `2px solid ${selected ? "#8C4B27" : "rgba(140,75,39,0.35)"}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  transition: "all 0.2s",
-                }}
-              >
-                {selected && <Check size={12} color="white" />}
-              </div>
-            </div>
-          </motion.button>
-        );
-      })}
-
-      <button onClick={onNext} className="btn-primary w-full mt-3">
-        {t.continueBtn} <ChevronRight size={14} />
-      </button>
-    </motion.div>
-  );
-}
-
-function StepDietary({
+function StepDiningExtras({
   selected,
   onToggle,
   showOther,
   register,
-  onNext,
+  onSubmit,
+  onBack,
   t,
   lang,
 }: {
@@ -644,7 +615,8 @@ function StepDietary({
   onToggle: (d: string) => void;
   showOther: boolean;
   register: UseFormRegister<RSVPData>;
-  onNext: () => void;
+  onSubmit: () => void;
+  onBack: () => void;
   t: TranslationSchema;
   lang: Language;
 }) {
@@ -661,106 +633,119 @@ function StepDietary({
       {/* Alcohol-free wedding notification */}
       <div
         className="flex items-start gap-3 p-3.5 rounded-xl"
-        style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.20)" }}
+        style={{
+          background: "rgba(255,255,255,0.90)",
+          border: "1.5px solid rgba(140,75,39,0.25)",
+          boxShadow: "0 2px 8px rgba(140,75,39,0.06)",
+        }}
       >
         <WineOff size={18} color="#8C4B27" className="flex-shrink-0 mt-0.5" />
         <p
-          className="font-serif-wd"
-          style={{ fontSize: "0.92rem", color: "#3D2522", lineHeight: 1.5, fontStyle: "italic" }}
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.85rem",
+            color: "#180A07",
+            lineHeight: 1.5,
+          }}
         >
-          <strong>{t.dietaryAlcoholNoteTitle} </strong>{t.dietaryAlcoholNote}
+          <strong style={{ color: "#8C4B27" }}>{t.dietaryAlcoholNoteTitle} </strong>{t.dietaryAlcoholNote}
         </p>
       </div>
 
-      <p style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.05rem", color: "#5C3D2E", fontStyle: "italic" }}>
-        {t.dietaryHeading}
-      </p>
+      {/* Dietary preferences */}
+      <div>
+        <label
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.82rem",
+            fontWeight: 700,
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            color: "#180A07",
+            display: "block",
+            marginBottom: "0.6rem",
+            lineHeight: 1.4,
+          }}
+        >
+          {t.dietaryHeading}
+        </label>
 
-      <div className="flex flex-wrap gap-2">
-        {options.map((opt) => (
-          <motion.button
-            key={opt.id}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => onToggle(opt.id)}
-            className={`chip ${selected.includes(opt.id) ? "selected" : ""}`}
+        <div className="flex flex-wrap gap-2">
+          {options.map((opt) => (
+            <motion.button
+              key={opt.id}
+              type="button"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => onToggle(opt.id)}
+              className={`chip ${selected.includes(opt.id) ? "selected" : ""}`}
+              style={{
+                padding: "0.5rem 0.9rem",
+                borderRadius: "9999px",
+                border: `1.5px solid ${selected.includes(opt.id) ? "#8C4B27" : "rgba(140,75,39,0.30)"}`,
+                background: selected.includes(opt.id) ? "#8C4B27" : "rgba(255,255,255,0.92)",
+                color: selected.includes(opt.id) ? "white" : "#180A07",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                boxShadow: "0 1px 4px rgba(140,75,39,0.06)",
+              }}
+            >
+              {selected.includes(opt.id) && <Check size={12} className="inline mr-1" strokeWidth={2.5} />}
+              {opt.label}
+            </motion.button>
+          ))}
+        </div>
+
+        {showOther && (
+          <input
+            {...register("otherDietary")}
+            placeholder={t.dietaryPlaceholder}
+            className="mt-2.5 w-full"
             style={{
-              padding: "0.5rem 0.9rem",
-              borderRadius: "9999px",
-              border: `1.5px solid ${selected.includes(opt.id) ? "#8C4B27" : "rgba(140,75,39,0.25)"}`,
-              background: selected.includes(opt.id) ? "#8C4B27" : "rgba(255,255,255,0.85)",
-              color: selected.includes(opt.id) ? "white" : "#1E0F0C",
+              padding: "0.75rem 1rem",
+              borderRadius: "0.75rem",
+              border: "1.5px solid rgba(140,75,39,0.25)",
+              background: "rgba(255,255,255,0.92)",
               fontFamily: "var(--font-sans)",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              cursor: "pointer",
+              fontSize: "0.95rem",
+              color: "#180A07",
+              outline: "none",
             }}
-          >
-            {selected.includes(opt.id) && <Check size={11} className="inline mr-1" />}
-            {opt.label}
-          </motion.button>
-        ))}
+          />
+        )}
       </div>
 
-      {showOther && (
-        <input
-          {...register("otherDietary")}
-          placeholder={t.dietaryPlaceholder}
-          style={{
-            padding: "0.75rem 1rem",
-            borderRadius: "0.75rem",
-            border: "1.5px solid rgba(140,75,39,0.25)",
-            background: "rgba(255,255,255,0.90)",
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "1.02rem",
-            color: "#3D2522",
-            outline: "none",
-          }}
-        />
-      )}
+      <div style={{ height: "1px", background: "rgba(140,75,39,0.15)", margin: "0.15rem 0" }} />
 
-      <button onClick={onNext} className="btn-primary w-full mt-3">
-        {t.continueBtn} <ChevronRight size={14} />
-      </button>
-    </motion.div>
-  );
-}
-
-function StepExtras({
-  register,
-  onSubmit,
-  t,
-}: {
-  register: UseFormRegister<RSVPData>;
-  onSubmit: () => void;
-  t: TranslationSchema;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col gap-4"
-    >
+      {/* Song Request */}
       <FieldWrap label={t.songRequestLabel} error={undefined}>
-        <input
-          {...register("songRequest")}
-          placeholder={t.songRequestPlaceholder}
+        <div
+          className="flex items-center gap-2 px-3.5 py-3 rounded-xl"
           style={{
-            width: "100%",
-            padding: "0.75rem 1rem",
-            borderRadius: "0.75rem",
+            background: "rgba(255,255,255,0.92)",
             border: "1.5px solid rgba(140,75,39,0.25)",
-            background: "rgba(255,255,255,0.90)",
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "1.02rem",
-            color: "#3D2522",
-            outline: "none",
           }}
-        />
+        >
+          <Music size={15} color="#8C4B27" className="flex-shrink-0" />
+          <input
+            {...register("songRequest")}
+            placeholder={t.songRequestPlaceholder}
+            style={{
+              flex: 1,
+              background: "none",
+              border: "none",
+              outline: "none",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.95rem",
+              color: "#180A07",
+            }}
+          />
+        </div>
       </FieldWrap>
 
+      {/* Blessings / Warm message */}
       <FieldWrap label={t.blessingLabel} error={undefined}>
         <textarea
           {...register("blessings")}
@@ -771,21 +756,37 @@ function StepExtras({
             padding: "0.75rem 1rem",
             borderRadius: "0.75rem",
             border: "1.5px solid rgba(140,75,39,0.25)",
-            background: "rgba(255,255,255,0.90)",
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "1.02rem",
-            color: "#3D2522",
+            background: "rgba(255,255,255,0.92)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.95rem",
+            color: "#180A07",
             outline: "none",
             resize: "none",
-            lineHeight: 1.6,
+            lineHeight: 1.5,
           }}
         />
       </FieldWrap>
 
-      <button onClick={onSubmit} className="btn-primary w-full mt-3">
-        <Send size={14} />
-        {t.submitRsvp}
-      </button>
+      {/* Navigation button group: Back & Submit */}
+      <div className="flex items-center gap-3 mt-2">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full border border-[#8C4B27]/30 text-[#8C4B27] font-semibold text-sm hover:bg-[#8C4B27]/10 transition-colors cursor-pointer"
+          style={{ fontFamily: "var(--font-sans)", minWidth: "90px" }}
+        >
+          <ChevronLeft size={16} />
+          {t.backBtn}
+        </button>
+        <button
+          type="button"
+          onClick={onSubmit}
+          className="btn-primary flex-1 py-3"
+        >
+          <Send size={14} />
+          {t.submitRsvp}
+        </button>
+      </div>
     </motion.div>
   );
 }
@@ -793,11 +794,13 @@ function StepExtras({
 function StepDeclineDetails({
   form,
   onSubmit,
+  onBack,
   errors,
   t,
 }: {
   form: UseFormReturn<RSVPData>;
   onSubmit: () => void;
+  onBack: () => void;
   errors: FieldErrors<RSVPData>;
   t: TranslationSchema;
 }) {
@@ -843,10 +846,14 @@ function StepDeclineDetails({
       {/* Full Name */}
       <FieldWrap label={t.fullNameLabel} error={errors.fullName?.message}>
         <div
-          className="flex items-center gap-2 px-3.5 py-3 rounded-xl"
-          style={{ background: "rgba(255,255,255,0.90)", border: "1.5px solid rgba(140,75,39,0.25)" }}
+          className="flex items-center gap-2 px-3.5 py-3 rounded-xl transition-all"
+          style={{
+            background: "rgba(255,255,255,0.92)",
+            border: `1.5px solid ${errors.fullName ? "#C24137" : "rgba(140,75,39,0.25)"}`,
+            boxShadow: errors.fullName ? "0 0 0 1px #C24137" : "none",
+          }}
         >
-          <User size={15} color="#8C4B27" />
+          <User size={15} color={errors.fullName ? "#C24137" : "#8C4B27"} />
           <input
             {...register("fullName")}
             placeholder="e.g. Rahul Sharma"
@@ -873,7 +880,7 @@ function StepDeclineDetails({
               padding: "0.65rem 0.6rem",
               borderRadius: "0.75rem",
               border: "1.5px solid rgba(140,75,39,0.25)",
-              background: "rgba(255,255,255,0.90)",
+              background: "rgba(255,255,255,0.92)",
               fontFamily: "var(--font-sans)",
               fontSize: "0.85rem",
               color: "#1E0F0C",
@@ -888,10 +895,14 @@ function StepDeclineDetails({
             ))}
           </select>
           <div
-            className="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl"
-            style={{ background: "rgba(255,255,255,0.90)", border: "1.5px solid rgba(140,75,39,0.25)" }}
+            className="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl transition-all"
+            style={{
+              background: "rgba(255,255,255,0.92)",
+              border: `1.5px solid ${errors.phone ? "#C24137" : "rgba(140,75,39,0.25)"}`,
+              boxShadow: errors.phone ? "0 0 0 1px #C24137" : "none",
+            }}
           >
-            <Phone size={15} color="#8C4B27" />
+            <Phone size={15} color={errors.phone ? "#C24137" : "#8C4B27"} />
             <input
               {...register("phone")}
               type="tel"
@@ -932,10 +943,26 @@ function StepDeclineDetails({
         />
       </FieldWrap>
 
-      <button onClick={onSubmit} className="btn-primary w-full mt-2">
-        <Send size={14} />
-        {t.confirmDeclineSubmitBtn}
-      </button>
+      {/* Navigation button group: Back & Submit */}
+      <div className="flex items-center gap-3 mt-2">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full border border-[#8C4B27]/30 text-[#8C4B27] font-semibold text-sm hover:bg-[#8C4B27]/10 transition-colors cursor-pointer"
+          style={{ fontFamily: "var(--font-sans)", minWidth: "90px" }}
+        >
+          <ChevronLeft size={16} />
+          {t.backBtn}
+        </button>
+        <button
+          type="button"
+          onClick={onSubmit}
+          className="btn-primary flex-1 py-3"
+        >
+          <Send size={14} />
+          {t.confirmDeclineSubmitBtn}
+        </button>
+      </div>
     </motion.div>
   );
 }
@@ -1027,13 +1054,13 @@ function FieldWrap({
       <label
         style={{
           fontFamily: "var(--font-sans)",
-          fontSize: "0.75rem",
+          fontSize: "0.78rem",
           fontWeight: 700,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "#3F2018",
+          color: "#180A07",
           display: "block",
-          marginBottom: "0.4rem",
+          marginBottom: "0.45rem",
         }}
       >
         {label}
@@ -1043,9 +1070,10 @@ function FieldWrap({
         <p
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: "0.72rem",
+            fontSize: "0.74rem",
             color: "#C24137",
-            marginTop: "0.25rem",
+            marginTop: "0.3rem",
+            fontWeight: 600,
           }}
         >
           {error}

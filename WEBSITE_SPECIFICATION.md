@@ -411,9 +411,9 @@ Route info row (car icon):
   "Recommended Route: Via NH 66, Zuari Bridge & Dona Paula Coastal Road"
 
 Travel tips list ("Arrival & Transit Guidance") with checkmark icons:
-  1. "Pre-paid taxi kiosks located immediately outside the baggage claim."
+  1. "Wedding hospitality shuttles will coordinate grouped guest arrivals."
   2. "GoaMiles App and local cabs readily available 24/7."
-  3. "Wedding hospitality shuttles will coordinate grouped guest arrivals."
+  3. "Pre-paid taxi kiosks located immediately outside the baggage claim."
 
 Button: "OPEN DIRECTIONS ON GOOGLE MAPS" (external link icon)
 Links to: Google Maps directions from Dabolim Airport to Taj Heritage
@@ -432,7 +432,7 @@ Route info:
   "Via NH 66, New Mandovi Bridge (Atal Setu) & Panaji Bypass"
 
 Travel tips:
-  1. "Pre-paid electric AC buses and airport taxis run frequently to Panaji city center."
+  1. "Wedding hospitality shuttles will coordinate grouped guest arrivals."
   2. "Expect a scenic 1 hour 15 min journey across Atal Setu bridge."
   3. "Advance cab booking recommended during peak evening arrival hours."
 

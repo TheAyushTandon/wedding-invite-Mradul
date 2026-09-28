@@ -67,29 +67,11 @@ export function HeroSection() {
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
 
       <div className="section-content section-pad w-full flex flex-col items-center text-center py-20 relative z-10">
-        {/* Sacred Indian Invocatory Motif (Image) */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="flex flex-col items-center mb-3"
-        >
-          <div className="relative w-[180px] sm:w-[220px] h-[60px] sm:h-[74px]">
-            <Image
-              src="/assets/hero/ganesha-invocation.png"
-              alt="ॐ श्री गणेशाय नमः"
-              fill
-              priority
-              className="object-contain drop-shadow-md"
-            />
-          </div>
-        </motion.div>
-
         {/* Eyebrow */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
           style={{
             fontFamily: "var(--font-display), var(--font-sans)",
             fontSize: "0.75rem",
@@ -107,10 +89,10 @@ export function HeroSection() {
         <motion.h1
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="font-script overflow-visible"
           style={{
-            fontSize: "clamp(3.8rem, 15vw, 5.2rem)",
+            fontSize: "clamp(2.6rem, 9vw, 3.8rem)",
             color: "#FFFFFF",
             textShadow: "0 4px 30px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5)",
             lineHeight: 1.25,
@@ -140,17 +122,7 @@ export function HeroSection() {
           )}
         </motion.h1>
 
-        {/* Decorative Indian Paisley / Floral Arch Divider */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex items-center gap-3 w-full max-w-xs mb-4"
-        >
-          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,transparent,rgba(212,175,55,0.9))" }} />
-          <span style={{ color: "#D4AF37", fontSize: "0.95rem" }}>✦ ॐ ✦</span>
-          <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg,rgba(212,175,55,0.9),transparent)" }} />
-        </motion.div>
+
 
         {/* Date */}
         <motion.p

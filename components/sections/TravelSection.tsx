@@ -259,8 +259,9 @@ export function TravelSection() {
                     <p
                       className="font-serif-wd"
                       style={{
-                        fontSize: "0.92rem",
-                        color: "#4A2E2B",
+                        fontSize: "0.94rem",
+                        color: "#23110C",
+                        fontWeight: 500,
                         lineHeight: 1.55,
                       }}
                     >

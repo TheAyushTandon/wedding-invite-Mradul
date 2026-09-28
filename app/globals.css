@@ -91,7 +91,24 @@ body{background-color:#141414;color:#261512;font-family:var(--font-sans);font-si
 .font-sans-wd { font-family: var(--font-sans-wd); }
 .font-script { font-family: var(--font-pinyon); }
 
-.eyebrow{font-family:var(--font-display), var(--font-sans);font-size:0.72rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#8C4B27}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-display), var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7A3918;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(140, 75, 39, 0.25);
+  box-shadow: 0 2px 8px rgba(120, 50, 20, 0.08);
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+}
 .heading-calligraphy{font-family:var(--font-serif);color:#1E0F0C;font-weight:600;letter-spacing:0.02em;line-height:1.25}
 .quote-serif{font-family:var(--font-serif);font-style:italic;font-size:1.02rem;color:#4D261E;line-height:1.75;letter-spacing:0.015em}
 
@@ -143,7 +160,7 @@ body{background-color:#141414;color:#261512;font-family:var(--font-sans);font-si
   text-transform: none !important;
 }
 
-.glass-card{background:rgba(255,255,255,0.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(140,75,39,0.15);border-radius:1rem;box-shadow:0 4px 24px rgba(60,30,20,0.12)}
+.glass-card{background:rgba(255,255,255,0.52);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(140,75,39,0.18);border-radius:1rem;box-shadow:0 4px 20px rgba(60,30,20,0.08)}
 .hairline{border:none;border-top:1px solid rgba(140,75,39,0.20);margin:0}
 
 .section-bg{position:relative;overflow:hidden}
@@ -241,7 +258,7 @@ body{background-color:#141414;color:#261512;font-family:var(--font-sans);font-si
   left: 0;
   z-index: 40;
   transform-origin: top center;
-  transition: transform 1.4s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
   filter: drop-shadow(0 8px 14px rgba(50, 20, 10, 0.28));
 }

@@ -149,9 +149,11 @@ export function WishesSection() {
                       fontSize: "0.82rem",
                       fontFamily: "var(--font-sans)",
                       fontWeight: isSelected ? 600 : 500,
-                      background: isSelected ? "#8C4B27" : "rgba(255,255,255,0.88)",
-                      color: isSelected ? "#FFFFFF" : "#3B1B14",
-                      border: `1.5px solid ${isSelected ? "#8C4B27" : "rgba(140,75,39,0.25)"}`,
+                      background: isSelected ? "#8C4B27" : "rgba(255,255,255,0.58)",
+                      backdropFilter: "blur(8px)",
+                      WebkitBackdropFilter: "blur(8px)",
+                      color: isSelected ? "#FFFFFF" : "#1E0F0C",
+                      border: `1.5px solid ${isSelected ? "#8C4B27" : "rgba(140,75,39,0.22)"}`,
                       boxShadow: isSelected
                         ? "0 4px 12px rgba(140,75,39,0.25)"
                         : "0 2px 6px rgba(140,75,39,0.06)",
@@ -174,9 +176,11 @@ export function WishesSection() {
             <div
               className="flex items-center gap-2 p-1.5 rounded-full"
               style={{
-                background: "rgba(255,255,255,0.92)",
-                border: "1.5px solid rgba(140,75,39,0.28)",
-                boxShadow: "0 4px 16px rgba(140,75,39,0.08)",
+                background: "rgba(255,255,255,0.58)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1.5px solid rgba(140,75,39,0.24)",
+                boxShadow: "0 4px 16px rgba(140,75,39,0.06)",
               }}
             >
               <input

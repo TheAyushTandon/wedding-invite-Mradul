@@ -13,9 +13,9 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "~40 – 45 minutes",
       route: "Via NH 66, Zuari Bridge & Dona Paula Coastal Road",
       tips: [
-        "Pre-paid taxi kiosks located immediately outside the baggage claim.",
-        "GoaMiles App and local cabs readily available 24/7.",
         "Wedding hospitality shuttles will coordinate grouped guest arrivals.",
+        "GoaMiles App and local cabs readily available 24/7.",
+        "Pre-paid taxi kiosks located immediately outside the baggage claim.",
       ],
       mapsUrl:
         "https://www.google.com/maps/dir/Goa+International+Airport+Dabolim/Taj+Cidade+de+Goa+Heritage,+Vainguinim+Beach,+Dona+Paula",
@@ -32,7 +32,7 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "~70 – 80 minutes",
       route: "Via NH 66, New Mandovi Bridge (Atal Setu) & Panaji Bypass",
       tips: [
-        "Pre-paid electric AC buses and airport taxis run frequently to Panaji city center.",
+        "Wedding hospitality shuttles will coordinate grouped guest arrivals.",
         "Expect a scenic 1 hour 15 min journey across Atal Setu bridge.",
         "Advance cab booking recommended during peak evening arrival hours.",
       ],
@@ -53,9 +53,9 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "लगभग 40 – 45 मिनट",
       route: "NH 66, ज़ुआरी ब्रिज एवं दोना पाउला कोस्टल मार्ग द्वारा",
       tips: [
-        "बैगेज क्लेम के तुरंत बाहर प्री-पेड टैक्सी काउंटर उपलब्ध हैं।",
-        "GoaMiles ऐप एवं स्थानीय टैक्सियां 24/7 उपलब्ध हैं।",
         "अतिथि समूहों के लिए विवाह हॉस्पिटैलिटी शटल की भी व्यवस्था रहेगी।",
+        "GoaMiles ऐप एवं स्थानीय टैक्सियां 24/7 उपलब्ध हैं।",
+        "बैगेज क्लेम के तुरंत बाहर प्री-पेड टैक्सी काउंटर उपलब्ध हैं।",
       ],
       mapsUrl:
         "https://www.google.com/maps/dir/Goa+International+Airport+Dabolim/Taj+Cidade+de+Goa+Heritage,+Vainguinim+Beach,+Dona+Paula",
@@ -72,7 +72,7 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "लगभग 70 – 80 मिनट",
       route: "NH 66, अटल सेतु (न्यू मांडवी ब्रिज) एवं पणजी बाईपास द्वारा",
       tips: [
-        "पणजी शहर केंद्र हेतु नियमित प्री-पेड एसी बसें एवं टैक्सियां उपलब्ध हैं।",
+        "अतिथि समूहों के लिए विवाह हॉस्पिटैलिटी शटल की भी व्यवस्था रहेगी।",
         "अटल सेतु मार्ग से लगभग 1 घंटा 15 मिनट का सुखद सफर।",
         "शाम के समय पूर्व कैब बुकिंग की सलाह दी जाती है।",
       ],
@@ -93,9 +93,9 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "सुमारे 40 – 45 मिनिटे",
       route: "NH 66, जुवारी पूल आणि दोना पाउला किनारपट्टी मार्गाने",
       tips: [
-        "सामान संकलन कक्षाबाहेर थेट प्री-पेड टॅक्सी काऊंटर उपलब्ध आहेत.",
-        "GoaMiles ॲप व स्थानिक टॅक्सी 24/7 उपलब्ध असतात.",
         "पाहुण्यांच्या सोयीसाठी विवाह स्वागत शटलची व्यवस्था करण्यात आली आहे.",
+        "GoaMiles ॲप व स्थानिक टॅक्सी 24/7 उपलब्ध असतात.",
+        "सामान संकलन कक्षाबाहेर थेट प्री-पेड टॅक्सी काऊंटर उपलब्ध आहेत.",
       ],
       mapsUrl:
         "https://www.google.com/maps/dir/Goa+International+Airport+Dabolim/Taj+Cidade+de+Goa+Heritage,+Vainguinim+Beach,+Dona+Paula",
@@ -112,7 +112,7 @@ export const AIRPORTS_BY_LANG: Record<Language, Airport[]> = {
       travelTime: "सुमारे 70 – 80 मिनिटे",
       route: "NH 66, अटल सेतू (नवीन मांडवी पूल) आणि पणजी बायपास मार्गे",
       tips: [
-        "पणजी शहरासाठी प्री-पेड एसी बसेस आणि विमानतळ टॅक्सी सहज उपलब्ध आहेत.",
+        "पाहुण्यांच्या सोयीसाठी विवाह स्वागत शटलची व्यवस्था करण्यात आली आहे.",
         "अटल सेतूवरून सुमारे 1 तास 15 मिनिटांचा निसर्गरम्य प्रवास.",
         "संध्याकाळच्या वेळी आगाऊ टॅक्सी बुक करण्याची शिफारस केली जाते.",
       ],

@@ -88,7 +88,7 @@ export function GallerySection() {
     <section
       id="gallery"
       className="section-bg"
-      style={{ minHeight: "100svh", display: "flex", alignItems: "flex-start" }}
+      style={{ minHeight: "100svh", display: "flex", flexDirection: "column", justifyContent: "center" }}
     >
       <Image
         src="/assets/shared/all-page.jpeg"
@@ -99,8 +99,8 @@ export function GallerySection() {
       />
       <div className="section-overlay" style={{ background: "rgba(250,247,242,0.35)" }} />
 
-      <div className="section-content w-full py-16">
-        <div className="section-pad">
+      <div className="section-content w-full py-8 sm:py-10 my-auto flex flex-col justify-center">
+        <div className="section-pad mb-1 sm:mb-2">
           <SectionHeader
             eyebrow={t.galleryEyebrow}
             heading={t.galleryHeading}
@@ -108,9 +108,9 @@ export function GallerySection() {
           />
         </div>
 
-        <div className="w-full max-w-[440px] mx-auto px-3 sm:px-4 flex flex-col gap-6">
+        <div className="w-full max-w-[440px] mx-auto px-3 sm:px-4 flex flex-col gap-4 sm:gap-5">
           {/* 1. HERO EXPANDING CAROUSEL */}
-          <div className="relative" style={{ height: "300px" }}>
+          <div className="relative" style={{ height: "clamp(350px, 47svh, 450px)" }}>
             <div className="flex h-full gap-2">
               {slots.map(({ idx, flex, side }) => {
                 const it = GALLERY[idx];
@@ -297,8 +297,10 @@ export function GallerySection() {
             <div
               className="flex items-center gap-2 p-1.5 rounded-2xl"
               style={{
-                background: "rgba(255,255,255,0.70)",
-                border: "1px solid rgba(140,75,39,0.18)",
+                background: "rgba(255,255,255,0.52)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1.5px solid rgba(140,75,39,0.18)",
               }}
             >
               {GALLERY.map((item, idx) => {
@@ -309,9 +311,9 @@ export function GallerySection() {
                     onClick={() => setCur(idx)}
                     className="relative flex-1 overflow-hidden rounded-xl transition-all duration-300"
                     style={{
-                      height: "56px",
-                      border: isActive ? "2px solid #8C4B27" : "1px solid rgba(140,75,39,0.15)",
-                      opacity: isActive ? 1 : 0.65,
+                      height: "64px",
+                      border: isActive ? "2.5px solid #8C4B27" : "1px solid rgba(140,75,39,0.18)",
+                      opacity: isActive ? 1 : 0.7,
                       transform: isActive ? "scale(1.04)" : "scale(1)",
                       cursor: "pointer",
                       padding: 0,

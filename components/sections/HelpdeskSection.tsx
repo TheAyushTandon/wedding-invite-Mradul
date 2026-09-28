@@ -5,8 +5,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { CopyButton } from "@/components/shared/CopyButton";
 import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { CONTACTS_BY_LANG } from "@/data/helpdesk";
-import { WEDDING } from "@/data/wedding";
-import { Phone, Mail } from "lucide-react";
+import { Phone } from "lucide-react";
 import { HairlineDivider } from "@/components/shared/HairlineDivider";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
@@ -137,28 +136,7 @@ export function HelpdeskSection() {
           ))}
         </div>
 
-        {/* Email concierge */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="w-full max-w-[420px] mx-auto flex items-center justify-between p-3.5 rounded-xl mt-4"
-          style={{
-            background: "rgba(255,255,255,0.85)",
-            border: "1px solid rgba(140,75,39,0.22)",
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <Mail size={16} color="#8C4B27" />
-            <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "#261512", fontWeight: 600 }}>
-              {WEDDING.helpdesk}
-            </span>
-          </div>
-          <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", fontWeight: 700, color: "#8C4B27", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-            {t.tajConcierge}
-          </span>
-        </motion.div>
+
       </div>
     </section>
   );

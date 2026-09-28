@@ -19,11 +19,6 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
         "Yes! Stay has been arranged and covered for all invited guests on February 2nd and 3rd at Taj Cidade de Goa Heritage. If you would like to arrive earlier or extend your stay, we have arranged pre-negotiated special rates — please contact our wedding planner.",
     },
     {
-      question: "What is the food and beverage policy?",
-      answer:
-        "All wedding celebrations feature lavish multi-regional Indian, coastal, and global culinary spreads. Please note that all functions are alcohol-free celebrations, accompanied by an extensive bar of artisanal mocktails, fresh coconut water, and gourmet beverages.",
-    },
-    {
       question: "What is the dress code for each celebration?",
       answer:
         "Day 1 Haldi: Sunshine yellows & floral prints. Day 1 Sangeet: Indo-Western glam, sequins & jewel tones. Day 2 Pheras: Heritage pastels & traditional weaves. Day 2 Gala Dinner: Elegant evening wear & formal attire.",
@@ -51,11 +46,6 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
         "जी हां! 2 एवं 3 फरवरी को सभी आमंत्रित अतिथियों के ठहरने की सम्पूर्ण व्यवस्था ताज सिदादे दे गोवा हेरिटेज में की गई है। यदि आप पूर्व या बाद में रुकना चाहते हैं, तो विशेष दरों हेतु वेडिंग प्लानर से संपर्क करें।",
     },
     {
-      question: "खान-पान एवं मद्यपान संबंधी क्या नियम हैं?",
-      answer:
-        "विवाह के सभी आयोजनों में शुद्ध शाकाहारी, भारतीय एवं तटीय व्यंजनों का प्रबंध है। कृपया ध्यान दें कि सभी कार्यक्रम मद्यपान मुक्त (अल्कोहल-फ्री) हैं, जहां विशेष मॉकटेल्स, नारियल पानी एवं पारंपरिक पेय परोसे जाएंगे।",
-    },
-    {
       question: "प्रत्येक कार्यक्रम हेतु क्या परिधान (ड्रेस कोड) उपयुक्त रहेगा?",
       answer:
         "दिन 1 हल्दी: पीले एवं फ्लोरल प्रिंट के परिधान। दिन 1 संगीत: इंडो-वेस्टर्न एवं चमकीले परिधान। दिन 2 फेरे: पारंपरिक पेस्टल एवं रेशमी वस्त्र। दिन 2 गाला डिनर: औपचारिक शाम के परिधान, सूट अथवा गाउन।",
@@ -81,11 +71,6 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
       question: "विवाहासाठी पाहुण्यांच्या निवासाची सोय आहे का?",
       answer:
         "होय! 2 आणि 3 फेब्रुवारी रोजी सर्व आमंत्रित पाहुण्यांच्या निवासाची व्यवस्था ताज सिदादे दे गोवा हेरिटेज येथे करण्यात आली आहे. मुक्काम वाढवायचा असल्यास विशेष सवलतींसाठी वेडिंग प्लॅनरशी संपर्क साधावा.",
-    },
-    {
-      question: "भोजन व मद्यपान धोरण काय आहे?",
-      answer:
-        "सर्व सोहळ्यांमध्ये समृद्ध शुद्ध शाकाहारी आणि कोकणी भोजनाची मेजवानी असेल. कृपया नोंद घ्यावी की सर्व कार्यक्रम मद्यपान विरहित आहेत, ज्यामध्ये खास मॉकटेल्स, शहाळ्याचे पाणी आणि चहा/कॉफी उपलब्ध असेल.",
     },
     {
       question: "कार्यक्रमांसाठी पोशाखाचे काय नियोजन आहे?",

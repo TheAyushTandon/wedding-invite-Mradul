@@ -29,25 +29,11 @@ export function OpeningTransition({
   // DOM Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const envelopeSceneRef = useRef<HTMLDivElement>(null);
-  const envelopeBackRef = useRef<HTMLDivElement>(null);
-  const envelopeFrontRef = useRef<HTMLDivElement>(null);
   const waxSealRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const cardContentRef = useRef<HTMLDivElement>(null);
   const promptRef = useRef<HTMLDivElement>(null);
   const langPromptRef = useRef<HTMLDivElement>(null);
   const langCardRef = useRef<HTMLDivElement>(null);
-
-  // SVG Text Line refs for stroke animation
-  const line1Ref = useRef<SVGTextElement>(null);
-  const line2Ref = useRef<SVGTextElement>(null);
-  const name1Ref = useRef<SVGTextElement>(null);
-  const name2Ref = useRef<SVGTextElement>(null);
-  const dividerPathRef = useRef<SVGPathElement>(null);
-  const detailsRef = useRef<HTMLDivElement>(null);
-  const enterBtnRef = useRef<HTMLButtonElement>(null);
-  const autoForwardTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const forwardedRef = useRef<boolean>(false);
 
   const handleComplete = () => {
     setMounted(false);
@@ -66,9 +52,6 @@ export function OpeningTransition({
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = originalOverflow;
-      if (autoForwardTimerRef.current) {
-        clearTimeout(autoForwardTimerRef.current);
-      }
     };
   }, []);
 
@@ -150,11 +133,11 @@ export function OpeningTransition({
 
     const tl = gsap.timeline();
 
-    // 1. Prompt fades out and stamp fades quickly without golden light
+    // 1. Prompt and wax seal fade out smoothly
     tl.to(promptRef.current, {
       opacity: 0,
       y: -8,
-      duration: 0.2,
+      duration: 0.22,
       ease: "power2.out",
     });
 
@@ -162,191 +145,43 @@ export function OpeningTransition({
       waxSealRef.current,
       {
         opacity: 0,
-        scale: 0.9,
-        duration: 0.25,
+        scale: 1.15,
+        duration: 0.28,
         ease: "power2.out",
       },
       0
     );
 
-    // 2. QUICK ENVELOPE FLAP OPENING (0.6s)
+    // 2. Open envelope flap
     tl.add(() => {
       setIsFlapOpened(true);
-    }, "+=0.05");
+    }, "+=0.02");
 
-    // 3. CARD SLIDES UP OUT OF THE POCKET (0.6s)
-    tl.to(
-      cardRef.current,
-      {
-        yPercent: -115,
-        zIndex: 50,
-        duration: 0.65,
-        ease: "power2.out",
-      },
-      "+=0.35"
-    );
-
-    // 4. ENVELOPE DROPS DOWN WHILE CARD EXTENDS SMOOTHLY UP & DOWN INTO FULL SCREEN
-    tl.to(
-      [envelopeFrontRef.current, envelopeBackRef.current],
-      {
-        y: 400,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power2.inOut",
-      },
-      "+=0.05"
-    );
-
-    // Card smoothly expands vertically and horizontally from the center
-    tl.to(
-      cardRef.current,
-      {
-        yPercent: -50,
-        xPercent: -50,
-        left: "50%",
-        top: "50%",
-        width: "100vw",
-        maxWidth: "480px",
-        height: "100svh",
-        borderRadius: "0px",
-        boxShadow: "0 0 0 rgba(0,0,0,0)",
-        duration: 0.65,
-        ease: "power2.inOut",
-      },
-      "<"
-    );
-
-    // 5. REVEAL CARD CONTENT & CALLIGRAPHY TEXT STROKE ANIMATION
-    tl.to(
-      cardContentRef.current,
-      {
-        opacity: 1,
-        duration: 0.35,
-      },
-      "-=0.1"
-    );
-
-    // Setup SVG stroke lines
-    const strokeLines = [
-      line1Ref.current,
-      line2Ref.current,
-      name1Ref.current,
-      name2Ref.current,
-    ].filter(Boolean) as SVGTextElement[];
-
-    strokeLines.forEach((line) => {
-      gsap.set(line, {
-        strokeDasharray: 2000,
-        strokeDashoffset: 2000,
-        opacity: 0,
-      });
-    });
-
-    if (dividerPathRef.current) {
-      gsap.set(dividerPathRef.current, {
-        strokeDasharray: 600,
-        strokeDashoffset: 600,
-        opacity: 0,
-      });
-    }
-
-    // Sequentially animate cursive writing strokes briskly and cleanly
-    strokeLines.forEach((line, index) => {
+    // 3. Card slides up gracefully inside envelope pocket
+    if (cardRef.current) {
       tl.to(
-        line,
+        cardRef.current,
         {
-          opacity: 1,
-          duration: 0.12,
-          ease: "none",
-        },
-        index === 0 ? "+=0.05" : "-=0.2"
-      );
-      tl.to(
-        line,
-        {
-          strokeDashoffset: 0,
-          duration: index >= 2 ? 0.9 : 0.75,
-          ease: "power1.inOut",
-        },
-        "<"
-      );
-    });
-
-    // Golden ornamental divider stroke animation
-    if (dividerPathRef.current) {
-      tl.to(
-        dividerPathRef.current,
-        {
-          opacity: 1,
-          strokeDashoffset: 0,
-          duration: 0.6,
+          yPercent: -65,
+          duration: 0.55,
           ease: "power2.out",
         },
-        "-=0.3"
+        "+=0.15"
       );
     }
 
-    // Fill in text with deep rich espresso and clear the stroke outline so text stays razor-sharp
+    // 4. Smooth cinematic fade out directly to the main home screen
     tl.to(
-      ".cursive-stroke-text",
+      containerRef.current,
       {
-        fill: "#241411",
-        stroke: "transparent",
-        strokeWidth: 0,
-        duration: 0.5,
-        ease: "power2.out",
+        opacity: 0,
+        scale: 1.04,
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: handleComplete,
       },
-      "+=0.05"
+      "+=0.15"
     );
-
-    // Fade in date & venue details
-    tl.fromTo(
-      detailsRef.current,
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-      "-=0.15"
-    );
-
-    // Enter celebration button
-    tl.to(
-      enterBtnRef.current,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.4,
-        ease: "power2.out",
-      },
-      "+=0.1"
-    );
-
-    // 12-second auto-forward timer after animation settles
-    tl.call(() => {
-      autoForwardTimerRef.current = setTimeout(() => {
-        triggerForward();
-      }, 12000);
-    });
-  };
-
-  const triggerForward = () => {
-    if (forwardedRef.current) return;
-    forwardedRef.current = true;
-    if (autoForwardTimerRef.current) {
-      clearTimeout(autoForwardTimerRef.current);
-      autoForwardTimerRef.current = null;
-    }
-    gsap.to(containerRef.current, {
-      opacity: 0,
-      scale: 1.03,
-      duration: 0.8,
-      ease: "power3.inOut",
-      onComplete: handleComplete,
-    });
-  };
-
-  const handleEnterClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    triggerForward();
   };
 
   if (!mounted) return null;
@@ -572,7 +407,6 @@ export function OpeningTransition({
         >
           {/* 1. ENVELOPE BACK (z-10) */}
           <div
-            ref={envelopeBackRef}
             className="absolute inset-0 rounded-[4px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_10px_25px_rgba(40,15,5,0.4),0_0_0_1px_rgba(212,175,55,0.35)] overflow-hidden z-10 pointer-events-none"
             style={{
               background: "linear-gradient(175deg, #FAF6EE 0%, #F5EEDF 60%, #EDE2CF 100%)",
@@ -597,189 +431,21 @@ export function OpeningTransition({
             <div className="absolute inset-2.5 sm:inset-4 border border-[#D4AF37]/45 rounded-sm sm:rounded-lg pointer-events-none" />
             <div className="absolute inset-3.5 sm:inset-5 border border-[#D4AF37]/25 rounded-[2px] sm:rounded-md pointer-events-none" />
 
-            {/* Card Content */}
-            <div
-              ref={cardContentRef}
-              className="relative z-30 w-full h-full flex flex-col items-center justify-between py-8 px-4 sm:py-9 sm:px-6 text-center opacity-0 overflow-hidden"
-            >
-              {/* Monogram Seal Top Watermark */}
-              <div className="w-20 h-20 sm:w-24 sm:h-24 mt-5 sm:mt-7 flex-shrink-0 opacity-100 drop-shadow-md">
-                <Image
-                  src={stampImage}
-                  alt="M&S Monogram"
-                  width={96}
-                  height={96}
-                  priority
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              {/* SVG Handwriting Stroke Reveal & Details (Centered) */}
-              <div className="w-full max-w-[420px] sm:max-w-[450px] flex flex-col items-center flex-grow justify-center my-auto px-1">
-                <svg
-                  viewBox="0 0 380 340"
-                  className="w-full h-auto overflow-visible drop-shadow-sm max-w-[380px] sm:max-w-[420px]"
-                >
-                  <g>
-                    <text
-                      ref={line1Ref}
-                      x="190"
-                      y={isDevanagari ? "42" : "38"}
-                      textAnchor="middle"
-                      fontSize={isDevanagari ? "22" : "15"}
-                      letterSpacing={isDevanagari ? "0.06em" : "0.22em"}
-                      className="cursive-stroke-text"
-                      style={{
-                        opacity: 0,
-                        fontFamily: isDevanagari
-                          ? "'Noto Serif Devanagari', serif"
-                          : "'Cinzel', 'Playfair Display', Georgia, serif",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {t.cordiallyInvited}
-                    </text>
-
-                    <text
-                      ref={line2Ref}
-                      x="190"
-                      y={isDevanagari ? "80" : "68"}
-                      textAnchor="middle"
-                      fontSize={isDevanagari ? "20" : "13"}
-                      letterSpacing={isDevanagari ? "0.05em" : "0.18em"}
-                      className="cursive-stroke-text"
-                      style={{
-                        opacity: 0,
-                        fontFamily: isDevanagari
-                          ? "'Noto Serif Devanagari', serif"
-                          : "'Cinzel', 'Playfair Display', Georgia, serif",
-                        fontWeight: 500,
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {t.celebrateWeddingOf}
-                    </text>
-
-                    <text
-                      ref={name1Ref}
-                      x="190"
-                      y={isDevanagari ? "158" : "162"}
-                      textAnchor="middle"
-                      fontSize={isDevanagari ? "44" : "64"}
-                      letterSpacing={isDevanagari ? "0.03em" : "0.02em"}
-                      className="cursive-stroke-text"
-                      style={{
-                        opacity: 0,
-                        fontWeight: 400,
-                        fontFamily: isDevanagari
-                          ? "'Rozha One', 'Noto Serif Devanagari', serif"
-                          : "'Pinyon Script', 'Alex Brush', cursive",
-                      }}
-                    >
-                      {lang === "en" ? (
-                        <>
-                          Mradul{" "}
-                          <tspan
-                            style={{
-                              fontFamily: "'Alex Brush', 'Great Vibes', cursive",
-                              fontSize: "0.95em",
-                            }}
-                            dx="4"
-                          >
-                            &amp;
-                          </tspan>
-                        </>
-                      ) : lang === "hi" ? (
-                        "मृदुल एवं"
-                      ) : (
-                        "मृदुल आणि"
-                      )}
-                    </text>
-
-                    <text
-                      ref={name2Ref}
-                      x="190"
-                      y={isDevanagari ? "236" : "242"}
-                      textAnchor="middle"
-                      fontSize={isDevanagari ? "48" : "68"}
-                      letterSpacing={isDevanagari ? "0.03em" : "0.02em"}
-                      className="cursive-stroke-text"
-                      style={{
-                        opacity: 0,
-                        fontWeight: 400,
-                        fontFamily: isDevanagari
-                          ? "'Rozha One', 'Noto Serif Devanagari', serif"
-                          : "'Pinyon Script', 'Alex Brush', cursive",
-                      }}
-                    >
-                      {lang === "en" ? "Shreya" : "श्रेया"}
-                    </text>
-                  </g>
-
-                  {/* Exquisite Calligraphic Flourish Divider */}
-                  <path
-                    ref={dividerPathRef}
-                    d="M 55 304 C 100 304, 125 298, 150 306 C 165 311, 178 306, 190 304 C 202 306, 215 311, 230 306 C 255 298, 280 304, 325 304 M 165 304 C 172 298, 181 296, 190 296 C 199 296, 208 298, 215 304 M 178 304 C 184 300, 190 298, 190 298 C 190 298, 196 300, 202 304"
-                    fill="none"
-                    stroke="#D4AF37"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    style={{ opacity: 0 }}
-                  />
-                  <circle cx="190" cy="304" r="3.5" fill="#D4AF37" />
-                  <circle cx="150" cy="306" r="1.8" fill="#D4AF37" />
-                  <circle cx="230" cy="306" r="1.8" fill="#D4AF37" />
-                </svg>
-
-                {/* EVENT DETAILS */}
-                <div
-                  ref={detailsRef}
-                  className="mt-3.5 sm:mt-4 flex flex-col items-center text-center px-4 py-2.5 rounded-2xl bg-[#FAF7F2]/80 backdrop-blur-[4px] border border-[#D4AF37]/35 shadow-sm opacity-0"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#D4AF37]" />
-                    <p
-                      className="text-base sm:text-lg font-bold tracking-[0.24em] uppercase text-[#1E0F0C]"
-                      style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-display)" }}
-                    >
-                      {t.dates}
-                    </p>
-                    <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#D4AF37]" />
-                  </div>
-
-                  <p
-                    className="text-xs sm:text-sm text-[#8C4B27] font-bold mt-1 tracking-[0.16em] uppercase"
-                    style={{ fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-display)" }}
-                  >
-                    {t.venueHero}
-                  </p>
-                  <p
-                    className="text-xs sm:text-sm text-[#4D261E] tracking-[0.05em] mt-0.5 italic font-medium"
-                    style={{ fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-serif)" }}
-                  >
-                    Vainguinim Beach, Dona Paula, Goa
-                  </p>
-                </div>
-              </div>
-
-              {/* ENTER BUTTON */}
-              <div className="w-full flex justify-center mt-3 mb-1 sm:mt-4 sm:mb-0 flex-shrink-0">
-                <button
-                  ref={enterBtnRef}
-                  onClick={handleEnterClick}
-                  className="px-9 sm:px-11 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-[#8C4B27] via-[#783C1A] to-[#8C4B27] hover:from-[#783C1A] hover:to-[#5E2B10] text-white text-xs sm:text-sm font-bold tracking-[0.22em] uppercase shadow-[0_6px_22px_rgba(140,75,39,0.38),0_0_0_1px_rgba(212,175,55,0.45)] hover:shadow-[0_8px_28px_rgba(140,75,39,0.55),0_0_0_1.5px_rgba(212,175,55,0.7)] transition-all duration-300 opacity-0 cursor-pointer pointer-events-auto transform hover:-translate-y-0.5 active:translate-y-0"
-                  style={{ fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)" }}
-                >
-                  {t.enterCelebration}
-                </button>
-              </div>
+            {/* Elegant Monogram Crest Watermark on Parchment Card */}
+            <div className="w-16 h-16 sm:w-20 sm:h-20 opacity-85 drop-shadow-sm flex items-center justify-center">
+              <Image
+                src={stampImage}
+                alt="M&S Monogram"
+                width={80}
+                height={80}
+                priority
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
           {/* 3. ENVELOPE FRONT POCKET & FLAP (z-30 / z-40) */}
           <div
-            ref={envelopeFrontRef}
             className={`custom-envelope z-30 pointer-events-none ${
               isFlapOpened ? "opened" : ""
             }`}
@@ -820,24 +486,7 @@ export function OpeningTransition({
 
             {/* TOP FLAP (z-[40] in 3D) */}
             <div className="custom-envelope-flap">
-              <div className="custom-envelope-flap-inner">
-                {/* Envelope Top-Center Header Text */}
-                <div className="absolute top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-full px-4 text-center pointer-events-none">
-                  <p
-                    className={`tracking-wider text-[#8C4B27] drop-shadow-sm font-semibold ${
-                      isDevanagari ? "font-devanagari-body" : "font-serif-wd"
-                    }`}
-                    style={{
-                      fontSize: isDevanagari ? "0.85rem" : "0.82rem",
-                      letterSpacing: isDevanagari ? "0.02em" : "0.06em",
-                      fontStyle: isDevanagari ? "normal" : "italic",
-                      opacity: 0.95,
-                    }}
-                  >
-                    “{t.envelopeHeader}”
-                  </p>
-                </div>
-              </div>
+              <div className="custom-envelope-flap-inner"></div>
             </div>
 
             {/* RED WAX STAMP (z-[50]) */}

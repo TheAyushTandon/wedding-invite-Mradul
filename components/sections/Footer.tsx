@@ -67,8 +67,8 @@ export function Footer() {
     lang === "hi"
       ? `मृदुल एवं श्रेया के शुभ विवाह समारोह में सादर आमंत्रित हैं — 2 एवं 3 फरवरी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
       : lang === "mr"
-      ? `मृदुल आणि श्रेया यांच्या शुभविवाह सोहळ्यास सस्नेह निमंत्रण — 2 आणि 3 फेब्रुवारी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
-      : `Join us for the Royal Wedding Celebration of Mradul & Shreya — February 2 & 3, 2026 at Taj Heritage, Goa! ${shareUrl}`;
+        ? `मृदुल आणि श्रेया यांच्या शुभविवाह सोहळ्यास सस्नेह निमंत्रण — 2 आणि 3 फेब्रुवारी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
+        : `Join us for the Royal Wedding Celebration of Mradul & Shreya — February 2 & 3, 2026 at Taj Heritage, Goa! ${shareUrl}`;
 
   return (
     <footer
@@ -209,6 +209,33 @@ export function Footer() {
       >
         {t.withLoveFamilies}
       </p>
+
+      {/* Creator Credit with Glow Link */}
+      <div className="mt-4">
+        <a
+          href="https://TheAyushTandon.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full transition-all duration-300 hover:scale-105"
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.78rem",
+            color: "#8C4B27",
+            background: "rgba(255,255,255,0.78)",
+            border: "1.5px solid rgba(140,75,39,0.25)",
+            boxShadow: "0 0 16px rgba(212,175,55,0.25), 0 2px 6px rgba(140,75,39,0.08)",
+          }}
+        >
+          <span className="text-[#3F2018]/80 font-normal">Made by</span>
+          <span
+            className="font-bold relative text-[#8C4B27] group-hover:text-[#5C2B14] transition-all duration-300 drop-shadow-[0_0_8px_rgba(212,175,55,0.7)] group-hover:drop-shadow-[0_0_14px_rgba(212,175,55,0.95)]"
+            style={{ letterSpacing: "0.02em" }}
+          >
+            Ayush Tandon
+            <span className="inline-block ml-1 transition-transform duration-300 group-hover:scale-125"></span>
+          </span>
+        </a>
+      </div>
 
       {/* Legal */}
       <p

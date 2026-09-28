@@ -122,21 +122,21 @@ export function CountdownSection() {
         style={{ background: "rgba(250,247,242,0.35)" }}
       />
 
-      <div className="section-content section-pad w-full py-16">
+      <div className="section-content section-pad w-full pt-8 pb-12 sm:pt-10 sm:pb-14">
         {/* Monogram */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="flex justify-center mb-5"
+          className="flex justify-center mb-2 sm:mb-3"
         >
-          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="w-36 sm:w-44 flex justify-center">
+          <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }} className="w-32 sm:w-40 flex justify-center">
             <Image
               src={WEDDING.monogram}
               alt="M&S Monogram"
-              width={180}
-              height={90}
+              width={160}
+              height={80}
               className="w-full h-auto object-contain pointer-events-none select-none"
             />
           </motion.div>
@@ -146,10 +146,11 @@ export function CountdownSection() {
           eyebrow={t.countdownEyebrow}
           heading={t.countdownHeading}
           quote={t.countdownQuote}
+          className="mb-3 sm:mb-4"
         />
 
-        <div className="flex justify-center mb-6">
-          <Heart size={16} fill="#C24137" color="#C24137" />
+        <div className="flex justify-center mb-4 sm:mb-5">
+          <Heart size={15} fill="#C24137" color="#C24137" />
         </div>
 
         {/* Countdown blocks - English digits with translated unit labels */}
@@ -158,7 +159,7 @@ export function CountdownSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex justify-center gap-3 mb-8"
+          className="flex justify-center gap-2.5 sm:gap-3 mb-5 sm:mb-6"
         >
           <CountBlock value={time.days} label={t.days} />
           <CountBlock value={time.hours} label={t.hours} />
@@ -172,7 +173,7 @@ export function CountdownSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-col items-center gap-3 mb-8 mx-auto w-full max-w-[420px] px-5 py-4 rounded-2xl text-center"
+          className="flex flex-col items-center gap-2.5 mb-5 sm:mb-6 mx-auto w-full max-w-[420px] px-5 py-3.5 rounded-2xl text-center"
           style={{
             background: "rgba(255, 252, 248, 0.88)",
             backdropFilter: "blur(14px)",
