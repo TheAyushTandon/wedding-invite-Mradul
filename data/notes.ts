@@ -17,7 +17,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       badge: "24/7 Guest Desk",
       bullets: [
         "Stay is covered for guests on 2nd & 3rd Feb. Pre-negotiated rates are available for extended stays before or after through the wedding planner.",
-        "A dedicated Mradul & Shreya Hospitality Desk is available at the resort lobby for luggage and room assistance.",
+        "A dedicated Mradul & Shreya Hospitality Desk is available at the resort lobby for luggage, room assistance, and airport/railway transit coordination.",
       ],
     },
     {
@@ -37,8 +37,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "Alcohol-Free Celebration",
       badge: "Dry Wedding",
       bullets: [
-        "Kindly note that all wedding celebrations and functions are alcohol-free.",
-        "A lavish curated menu of handcrafted tropical mocktails, fresh coconut water, and artisanal teas/coffees will be served throughout.",
+        "Kindly note that all wedding celebrations and functions are alcohol-free."
       ],
     },
     {
@@ -47,7 +46,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "Dining & Dietary Preferences",
       badge: "Culinary Care",
       bullets: [
-        "Lavish pure vegetarian, multi-regional Indian and coastal culinary spreads at all functions.",
+        "Pure vegeterian spread.",
         "Please mention any severe allergies or dietary preferences in your RSVP response.",
       ],
     },
@@ -60,7 +59,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       badge: "24/7 सहायता केंद्र",
       bullets: [
         "2 एवं 3 फरवरी को आमंत्रित अतिथियों के ठहरने की सम्पूर्ण व्यवस्था की गई है। विस्तारित प्रवास हेतु वेडिंग प्लानर से संपर्क करें।",
-        "रिसॉर्ट लॉबी में 'मृदुल एवं श्रेया हॉस्पिटैलिटी डेस्क' सामान एवं कमरा सहायता हेतु 24/7 उपलब्ध रहेगी।",
+        "रिसॉर्ट लॉबी में 'मृदुल एवं श्रेया हॉस्पिटैलिटी डेस्क' सामान, कमरा सहायता एवं एयरपोर्ट/रेलवे स्टेशन ट्रांजिट समन्वय हेतु 24/7 उपलब्ध रहेगी।",
       ],
     },
     {
@@ -102,8 +101,8 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "मुक्काम व अतिथी सत्कार",
       badge: "24/7 मदत कक्ष",
       bullets: [
-        "2 आणि 3 फेब्रुवारी रोजी पाहुण्यांच्या निवासाची व्यवस्था करण्यात आली आहे. मुक्काम वाढवण्यासाठी वेडिंग प्लॅनरशी संपर्क साधावा.",
-        "रिसॉर्ट लॉबीमध्ये पाहुण्यांच्या मदतीसाठी 'मृदुल आणि श्रेया स्वागत कक्ष' 24/7 कार्यरत असेल.",
+        "2 आणि 3 फेब्रुवारी रोजी पाहुण्यांच्या निवासाची व्यवस्था करण्यात आली आहे.",
+        "रिसॉर्ट लॉबीमध्ये पाहुण्यांच्या मदतीसाठी 'मृदुल आणि श्रेया स्वागत कक्ष' सामान, खोली मदत व विमानतळ/रेल्वे स्थानक प्रवास समन्वयासाठी 24/7 कार्यरत असेल.",
       ],
     },
     {
@@ -124,7 +123,6 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       badge: "मद्यपान विरहित",
       bullets: [
         "कृपया नोंद घ्यावी की सर्व विवाह सोहळे मद्यपान विरहित आहेत.",
-        "कार्यक्रमांमध्ये उत्कृष्ट मॉकटेल्स, ताज्या फळांचे रस, शहाळ्याचे पाणी आणि चहा/कॉफी उपलब्ध असेल.",
       ],
     },
     {
@@ -133,7 +131,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "भोजन व्यवस्था व आवड-निवड",
       badge: "शुद्ध शाकाहारी",
       bullets: [
-        "सर्व कार्यक्रमांत शुद्ध शाकाहारी, भारतीय व कोकणी खाद्यसंस्कृतीचा समृद्ध आस्वाद असेल.",
+        "सर्व कार्यक्रमांत शुद्ध शाकाहारी, भारतीय खाद्यसंस्कृतीचा समृद्ध आस्वाद असेल.",
         "काही विशिष्ट पथ्य किंवा ॲलर्जी असल्यास कृपया RSVP मध्ये नमूद करावे.",
       ],
     },

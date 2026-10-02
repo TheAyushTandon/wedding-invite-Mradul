@@ -72,8 +72,18 @@ export function WishesSection() {
 
     setIsSubmitting(true);
 
-    // Mock sending to private database
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    try {
+      await fetch("/api/wishes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          wish: wishText,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (err) {
+      console.error("[Submit Wish Error]", err);
+    }
 
     setLastSubmittedWish(wishText);
     setCustomWish("");

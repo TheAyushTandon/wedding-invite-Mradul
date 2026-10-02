@@ -25,8 +25,9 @@ export interface Venue {
   image: string;
 }
 
-export interface Airport {
+export interface CommuteOption {
   id: string;
+  type?: "air" | "train";
   code: string;
   name: string;
   description: string;
@@ -38,6 +39,9 @@ export interface Airport {
   badge: string;
   preferred?: boolean;
 }
+
+export type Airport = CommuteOption;
+export type RailwayStation = CommuteOption;
 
 export interface Hotel {
   id: string;

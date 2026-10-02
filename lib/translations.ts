@@ -75,7 +75,10 @@ export interface TranslationSchema {
   travelEyebrow: string;
   travelHeading: string;
   travelQuote: string;
+  byAirTab: string;
+  byTrainTab: string;
   airportTitle: string;
+  stationTitle: string;
   distanceLabel: string;
   travelTimeLabel: string;
   preferredTabLabel: string;
@@ -96,6 +99,9 @@ export interface TranslationSchema {
   groomNote: string;
   brideNote: string;
   familyUnionBlessing: string;
+  familyAndConnector?: string;
+  familyInvitationText?: string;
+  familySignOff?: string;
 
   // Stay / Accommodations
   stayEyebrow: string;
@@ -338,9 +344,12 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Travel
     travelEyebrow: "✦ TRAVEL & LOGISTICS ✦",
-    travelHeading: "Airports & Reaching Goa",
-    travelQuote: "Two airports connect to Goa. Dabolim (GOI) is closest and preferred for Taj Heritage.",
+    travelHeading: "Travel & Commute to Goa",
+    travelQuote: "Whether arriving by air or rail, seamless transit options connect you directly to Taj Heritage.",
+    byAirTab: "By Flight",
+    byTrainTab: "By Train",
     airportTitle: "Airports",
+    stationTitle: "Railway Stations",
     distanceLabel: "Distance",
     travelTimeLabel: "Travel Time",
     preferredTabLabel: "Preferred",
@@ -360,7 +369,10 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     brideSupporting: "Along with grandparents, siblings & extended family",
     groomNote: "With heartfelt warmth and joy, we welcome you to join us in blessing Mradul as he embarks on this sacred journey of companionship and love.",
     brideNote: "With immense love and gratitude, we invite you to share our happiness and shower your dearest blessings on Shreya as she begins her new chapter.",
-    familyUnionBlessing: "“We eagerly look forward to welcoming you to Goa and celebrating this sacred union with your loving presence and blessings.”",
+    familyUnionBlessing: "“With heartfelt warmth, love, and gratitude, we invite you to join us in Goa to celebrate this sacred union and bless Mradul & Shreya as they embark on this beautiful journey together.”",
+    familyAndConnector: "and",
+    familyInvitationText: "",
+    familySignOff: "With warm blessings, The Bhatnagar & Kulkarni Families",
 
     // Stay / Accommodations
     stayEyebrow: "✦ GUEST HOSPITALITY ✦",
@@ -598,9 +610,12 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Travel
     travelEyebrow: "✦ यात्रा एवं मार्ग ✦",
-    travelHeading: "गोवा आगमन एवं हवाई अड्डे",
-    travelQuote: "गोवा में दो हवाई अड्डे हैं। ताज हेरिटेज के लिए डाबोलिम (GOI) सबसे निकट एवं सुविधाजनक है।",
+    travelHeading: "गोवा आगमन एवं यात्रा विकल्प",
+    travelQuote: "हवाई मार्ग हो या रेल यात्रा, ताज हेरिटेज पहुंचने के लिए सुगम एवं सुविधाजनक साधन उपलब्ध हैं।",
+    byAirTab: "हवाई मार्ग",
+    byTrainTab: "रेल मार्ग",
     airportTitle: "हवाई अड्डे",
+    stationTitle: "रेलवे स्टेशन",
     distanceLabel: "दूरी",
     travelTimeLabel: "यात्रा समय",
     preferredTabLabel: "निकटतम",
@@ -620,7 +635,10 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     brideSupporting: "दादा-दादी, नाना-नानी, भाई-बहन एवं समस्त परिवारजन",
     groomNote: "हार्दिक स्नेह एवं उल्लास के साथ, हम आपको मृदुल के जीवन के इस नए और पावन अध्याय में अपना शुभाशीर्वाद देने हेतु सादर आमंत्रित करते हैं।",
     brideNote: "असीम प्रेम और कृतज्ञता के साथ, हम आपको श्रेया के वैवाहिक जीवन के शुभारंभ पर अपने मंगल आशीर्वाद प्रदान करने हेतु आमंत्रित करते हैं।",
-    familyUnionBlessing: "“हम गोवा में आपका सस्नेह स्वागत करने और आपकी मंगलमयी उपस्थिति व आशीर्वाद के साथ इस पवित्र परिणय उत्सव को मनाने के लिए अत्यंत उत्सुक हैं।”",
+    familyUnionBlessing: "“असीम स्नेह, आदर एवं कृतज्ञता के साथ, दोनों परिवार आपको गोवा में आमंत्रित करते हैं कि आप इस पावन परिणयोत्सव में सम्मिलित होकर मृदुल एवं श्रेया को उनके वैवाहिक जीवन के शुभारंभ पर अपना शुभाशीर्वाद प्रदान करें।”",
+    familyAndConnector: "एवं",
+    familyInvitationText: "विवाह के इस पावन प्रसंग पर आपकी गरिमामयी उपस्थिति एवं शुभाशीर्वाद प्रार्थनीय है।",
+    familySignOff: "सस्नेह निमंत्रण — समस्त भटनागर एवं कुलकर्णी परिवार",
 
     // Stay / Accommodations
     stayEyebrow: "✦ अतिथि सत्कार ✦",
@@ -739,7 +757,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     notes: "महत्त्वाच्या सूचना",
     menu: "भोजन मेनू",
     gallery: "छायाचित्रे",
-    wishWall: "शुभेच्छा",
+    wishWall: "शुभेच्छा संदेश",
     faqs: "नेहमी विचारले जाणारे प्रश्न",
     helpdesk: "मदत कक्ष",
     rsvp: "उपस्थिती नोंदणी (RSVP)",
@@ -769,7 +787,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     hours: "तास",
     minutes: "मिनिटे",
     seconds: "सेकंद",
-    festivitiesCount: "2 आणि 3 फेब्रुवारी 2026 • 4 भव्य सोहळे",
+    festivitiesCount: "2 आणि 3 फेब्रुवारी 2026",
     addToCalendar: "कॅलेंडरमध्ये जोडा",
 
     // Schedule
@@ -784,7 +802,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
         day: 1,
         time: "2:00 PM",
         title: "हळदीचा समारंभ",
-        description: "पिवळे परिधान, झेंडूच्या फुलांचा वर्षाव, पारंपरिक उटणे, ढोल-ताशांचा गजर आणि मंगल आशीर्वाद.",
+        description: "पिवळे परिधान, झेंडूच्या फुलांचा वर्षाव, पारंपरिक हळद आणि मंगल आशीर्वाद.",
         location: "पूल लॉन्स • ताज हेरिटेज",
       },
       {
@@ -808,7 +826,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
         day: 2,
         time: "5:00 PM",
         title: "शुभविवाह (सप्तपदी फेरे)",
-        description: "सूर्यास्ताच्या रम्य वेळी समुद्रकिनाऱ्यावर पवित्र अग्नीच्या साक्षीत वैदिक विवाह सोहळा.",
+        description: "सूर्यास्ताच्या रम्य वेळी समुद्रकिनाऱ्यावर पवित्र अग्नीच्या साक्षीने वैदिक विवाह सोहळा.",
         location: "सनसेट लॉन्स • ताज हेरिटेज",
       },
       {
@@ -858,9 +876,12 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Travel
     travelEyebrow: "✦ प्रवास व मार्ग ✦",
-    travelHeading: "गोवा आगमन व विमानतळ",
-    travelQuote: "गोव्यात दोन विमानतळे आहेत. ताज हेरिटेजसाठी दाबोलीम (GOI) हे सर्वात जवळचे व सोयीचे आहे.",
+    travelHeading: "गोवा आगमन व प्रवास पर्याय",
+    travelQuote: "विमानाने असो वा रेल्वेने, ताज हेरिटेजपर्यंत पोहोचण्यासाठी सुलभ आणि सोयीस्कर प्रवासाचे पर्याय उपलब्ध आहेत.",
+    byAirTab: "विमान प्रवास",
+    byTrainTab: "रेल्वे प्रवास",
     airportTitle: "विमानतळ",
+    stationTitle: "रेल्वे स्थानके",
     distanceLabel: "अंतर",
     travelTimeLabel: "प्रवासाचा वेळ",
     preferredTabLabel: "मुख्य",
@@ -872,15 +893,18 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     familiesEyebrow: "✦ सस्नेह निमंत्रण ✦",
     familiesHeading: "कुटुंब परिचय",
     familiesQuote: "परंपरा आणि प्रेमाच्या धाग्याने एकत्र येणारी दोन कुटुंबे.",
-    groomSide: "वर पक्ष (वर कुटुंब)",
-    brideSide: "वधू पक्ष (वधू कुटुंब)",
-    groomParents: "सौ. रुबी आणि श्री. मोहित भटनागर",
-    brideParents: "सौ. अपूर्वा आणि श्री. घनश्याम कुलकर्णी",
-    groomSupporting: "आजी-आजोबा, भावंडे व समस्त परिवारजन",
-    brideSupporting: "आजी-आजोबा, भावंडे व समस्त परिवारजन",
-    groomNote: "मृदुलच्या आयुष्यातील या नवीन आणि पवित्र प्रवासाच्या प्रारंभास आपले शुभाशीर्वाद लाभावेत, यासाठी आपले सस्नेह निमंत्रण.",
-    brideNote: "श्रेयाच्या विवाह सोहळ्यास आपली उपस्थिती आणि प्रेमळ आशीर्वाद लाभावेत, हीच आमची नम्र विनंती.",
-    familyUnionBlessing: "“आम्ही गोव्यात आपले मनःपूर्वक स्वागत करण्यासाठी आणि आपल्या प्रेमळ उपस्थिती व आशीर्वादाने हा मंगल सोहळा साजरा करण्यासाठी उत्सुक आहोत.”",
+    groomSide: "वर पक्ष",
+    brideSide: "वधू पक्ष",
+    groomParents: "चि. मृदूल,",
+    brideParents: "चि.सौ.कां. श्रेया",
+    groomSupporting: "सौ. रुबी आणि श्री मोहित भटनागर यांचे ज्येष्ठ सुपुत्र",
+    brideSupporting: "श्रीमती अपूर्वा आणि स्व. घनःशााम कुलकर्णी यांची ज्येष्ठ सुकन्या",
+    groomNote: "",
+    brideNote: "",
+    familyAndConnector: "आणि",
+    familyInvitationText: "या उभयतांच्या आयुष्यातील विवाह सोहळ्याच्या मंगल प्रसंगी आपली उपस्थिती आणि आशीर्वाद प्रार्थनीय आहे.",
+    familyUnionBlessing: "“आम्ही गोव्यात आपले मनःपूर्वक स्वागत करण्यासाठी आणि आपल्या उपस्थिती व आशीर्वादाने हा मंगल सोहळा साजरा करण्यासाठी उत्सुक आहोत.”",
+    familySignOff: "आपले स्नेहांकित समस्त भटनागर आणि कुलकर्णी परिवार यांतर्फे सस्नेह निमंत्रण.",
 
     // Stay / Accommodations
     stayEyebrow: "✦ अतिथी सत्कार ✦",
@@ -912,7 +936,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Wishes
     wishesEyebrow: "✦ सदिच्छा व आशीर्वाद ✦",
-    wishesHeading: "शुभेच्छा संदेश भिंत",
+    wishesHeading: "शुभेच्छा संदेश",
     wishesQuote: "आमच्या या नव्या सुरुवातीसाठी आपल्या प्रेमळ शुभेच्छा आणि कल्पना व्यक्त करा.",
 
     // FAQs

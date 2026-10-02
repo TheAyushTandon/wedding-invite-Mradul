@@ -9,6 +9,11 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
         "Dabolim Airport (GOI) is the closest and preferred airport (~28 km / 40–45 mins from Taj Heritage). Manohar International Airport in Mopa (GOX) is also available (~48 km / 75 mins). Pre-paid airport taxis, GoaMiles, and coordinated wedding shuttles are available from both airports.",
     },
     {
+      question: "Which railway station should I arrive at if traveling by train?",
+      answer:
+        "Karmali Railway Station (KRMI) is the closest station (~18 km / 30–35 mins from Taj Heritage), with halts for Vande Bharat and Tejas Express. Madgaon Junction (MAO) is Goa's primary railway hub (~35 km / 50–55 mins) connecting long-distance express trains from across India. Pre-paid taxis and GoaMiles are available at both stations.",
+    },
+    {
       question: "What are the check-in and check-out timings?",
       answer:
         "Check-in is at 2:00 PM on February 2nd and check-out is at 11:00 AM on February 4th. If you arrive early, our Wedding Welcome Lounge is open from 10:00 AM with luggage safe-keeping and refreshments while rooms are readied.",
@@ -36,6 +41,11 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
         "डाबोलिम हवाई अड्डा (GOI) ताज हेरिटेज के लिए सबसे निकट एवं सुविधाजनक है (~28 km / लगभग 40–45 मिनट)। मोपा स्थित मनोहर अंतरराष्ट्रीय हवाई अड्डा (GOX) भी विकल्प है (~48 km / लगभग 75 मिनट)। दोनों हवाई अड्डों से प्री-पेड टैक्सी एवं हॉस्पिटैलिटी शटल उपलब्ध रहेगी।",
     },
     {
+      question: "ट्रेन द्वारा आगमन पर कौन सा रेलवे स्टेशन निकटतम है?",
+      answer:
+        "ताज हेरिटेज के लिए करमाली रेलवे स्टेशन (KRMI) सबसे निकट है (~18 km / 30–35 मिनट), जहां वंदे भारत और तेजस एक्सप्रेस जैसी ट्रेनें रुकती हैं। मडगांव जंक्शन (MAO) गोवा का मुख्य रेलवे हब है (~35 km / 50–55 मिनट) जहां देश भर से लंबी दूरी की ट्रेनें आती हैं। दोनों स्टेशनों पर प्री-पेड टैक्सी एवं GoaMiles उपलब्ध हैं।",
+    },
+    {
       question: "होटल में चेक-इन और चेक-आउट का समय क्या है?",
       answer:
         "चेक-इन 2 फरवरी को दोपहर 2:00 PM से और चेक-आउट 4 फरवरी को सुबह 11:00 AM तक है। यदि आप समय से पूर्व पहुंचते हैं, तो कमरा तैयार होने तक सुबह 10:00 AM से हमारे वेलकम लाउंज में विश्राम एवं अल्पाहार की व्यवस्था है।",
@@ -61,6 +71,11 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
       question: "गोव्यात येण्यासाठी कोणते विमानतळ सोयीचे आहे?",
       answer:
         "दाबोलीम विमानतळ (GOI) ताज हेरिटेजसाठी सर्वात जवळचे व सोयीचे आहे (~28 km / सुमारे 40–45 मिनिटे). मोपा येथील मनोहर आंतरराष्ट्रीय विमानतळ (GOX) हा देखील पर्याय उपलब्ध आहे (~48 km / सुमारे 75 मिनिटे). दोन्ही विमानतळांवरून टॅक्सी आणि स्वागत शटलची सोय असेल.",
+    },
+    {
+      question: "रेल्वेने प्रवास केल्यास कोणते रेल्वे स्थानक सर्वात जवळ आहे?",
+      answer:
+        "ताज हेरिटेजसाठी करमाळी रेल्वे स्थानक (KRMI) सर्वात जवळ आहे (~18 km / 30–35 मिनिटे), जिथे वंदे भारत आणि तेजस एक्सप्रेस थांबतात. मडगाव जंक्शन (MAO) हे मुख्य रेल्वे केंद्र आहे (~35 km / 50–55 मिनिटे) जे देशभरातील गाड्यांना जोडते. दोन्ही स्थानकांवर टॅक्सी व GoaMiles सहज उपलब्ध आहेत.",
     },
     {
       question: "हॉटेल चेक-इन आणि चेक-आउटची वेळ कोणती आहे?",

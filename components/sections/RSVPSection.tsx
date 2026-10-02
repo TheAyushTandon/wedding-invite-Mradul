@@ -11,7 +11,7 @@ import { useLanguage } from "@/components/shared/LanguageContext";
 import {
   User, Phone, Mail, Check, ChevronRight, ChevronLeft,
   Music, Send, CheckCircle2, XCircle,
-  AlertTriangle, WineOff
+  AlertTriangle, WineOff, Loader2
 } from "lucide-react";
 
 import { Language, TranslationSchema } from "@/lib/translations";
@@ -79,6 +79,7 @@ export function RSVPSection() {
   const [step, setStep] = useState<Step>("attendance");
   const [attendance, setAttendance] = useState<"accept" | "decline" | null>(null);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { fire } = useConfetti();
   const { t, lang } = useLanguage();
 
@@ -162,15 +163,49 @@ export function RSVPSection() {
   };
 
   const handleSubmit = async () => {
-    await fire({ x: 0.5, y: 0.3 });
-    setTimeout(async () => await fire({ x: 0.5, y: 0.7 }), 400);
-    setStep("done");
+    setIsSubmitting(true);
+    try {
+      const data = getValues();
+      await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          attendance: "accept",
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (err) {
+      console.error("[RSVP Submit Error]", err);
+    } finally {
+      setIsSubmitting(false);
+      await fire({ x: 0.5, y: 0.3 });
+      setTimeout(async () => await fire({ x: 0.5, y: 0.7 }), 400);
+      setStep("done");
+    }
   };
 
   const handleSubmitDecline = async () => {
     const isValid = await trigger(["fullName", "phone"]);
     if (isValid) {
-      setStep("done");
+      setIsSubmitting(true);
+      try {
+        const data = getValues();
+        await fetch("/api/rsvp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...data,
+            attendance: "decline",
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.error("[RSVP Decline Error]", err);
+      } finally {
+        setIsSubmitting(false);
+        setStep("done");
+      }
     }
   };
 
@@ -284,6 +319,7 @@ export function RSVPSection() {
                 register={form.register}
                 onSubmit={handleSubmit}
                 onBack={goBack}
+                isSubmitting={isSubmitting}
                 t={t}
                 lang={lang}
               />
@@ -296,6 +332,7 @@ export function RSVPSection() {
                 form={form}
                 onSubmit={handleSubmitDecline}
                 onBack={goBack}
+                isSubmitting={isSubmitting}
                 errors={errors}
                 t={t}
               />
@@ -608,6 +645,7 @@ function StepDiningExtras({
   register,
   onSubmit,
   onBack,
+  isSubmitting,
   t,
   lang,
 }: {
@@ -617,6 +655,7 @@ function StepDiningExtras({
   register: UseFormRegister<RSVPData>;
   onSubmit: () => void;
   onBack: () => void;
+  isSubmitting?: boolean;
   t: TranslationSchema;
   lang: Language;
 }) {
@@ -781,9 +820,14 @@ function StepDiningExtras({
         <button
           type="button"
           onClick={onSubmit}
-          className="btn-primary flex-1 py-3"
+          disabled={isSubmitting}
+          className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <Send size={14} />
+          {isSubmitting ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Send size={14} />
+          )}
           {t.submitRsvp}
         </button>
       </div>
@@ -795,12 +839,14 @@ function StepDeclineDetails({
   form,
   onSubmit,
   onBack,
+  isSubmitting,
   errors,
   t,
 }: {
   form: UseFormReturn<RSVPData>;
   onSubmit: () => void;
   onBack: () => void;
+  isSubmitting?: boolean;
   errors: FieldErrors<RSVPData>;
   t: TranslationSchema;
 }) {
@@ -957,9 +1003,14 @@ function StepDeclineDetails({
         <button
           type="button"
           onClick={onSubmit}
-          className="btn-primary flex-1 py-3"
+          disabled={isSubmitting}
+          className="btn-primary flex-1 py-3 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
         >
-          <Send size={14} />
+          {isSubmitting ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <Send size={14} />
+          )}
           {t.confirmDeclineSubmitBtn}
         </button>
       </div>

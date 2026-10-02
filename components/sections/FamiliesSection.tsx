@@ -1,20 +1,28 @@
 "use client";
+import React from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { FAMILIES_BY_LANG } from "@/data/families";
-import { HairlineDivider } from "@/components/shared/HairlineDivider";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
 export function FamiliesSection() {
   const { t, lang } = useLanguage();
-  const families = (lang && FAMILIES_BY_LANG && FAMILIES_BY_LANG[lang]) || FAMILIES_BY_LANG?.en || [];
+  const families =
+    (lang && FAMILIES_BY_LANG && FAMILIES_BY_LANG[lang]) ||
+    FAMILIES_BY_LANG?.en ||
+    [];
 
   return (
     <section
       id="families"
       className="section-bg"
-      style={{ minHeight: "100svh", display: "flex", alignItems: "center", justifyContent: "center" }}
+      style={{
+        minHeight: "100svh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
       <Image
         src="/assets/shared/all-page.jpeg"
@@ -36,103 +44,155 @@ export function FamiliesSection() {
           className="mb-3 sm:mb-4"
         />
 
-        <div className="w-full flex flex-col gap-2.5 sm:gap-3.5 mb-2">
+        {/* Individual Family Cards */}
+        <div className="w-full flex flex-col gap-2.5 sm:gap-3 mb-3">
           {families.map((family, i) => {
             const isGroom = family.side === "groom";
             return (
-              <motion.div
-                key={`${lang}-${family.side}`}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="w-full flex flex-col items-center text-center p-3 sm:p-4 rounded-2xl bg-white/50 backdrop-blur-md border border-[#8C4B27]/18 shadow-sm"
-              >
-                {/* Side Pill */}
-                <div className="inline-flex items-center px-2.5 py-0.5 rounded-full mb-1 sm:mb-1.5" style={{ background: "rgba(140,75,39,0.08)", border: "1px solid rgba(140,75,39,0.22)" }}>
-                  <span
+              <React.Fragment key={`${lang}-${family.side}`}>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: i * 0.1 }}
+                  className="w-full flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl bg-white/55 backdrop-blur-md border border-[#8C4B27]/18 shadow-sm"
+                >
+                  {/* Side Pill */}
+                  <div
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full mb-1.5"
                     style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "0.62rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      color: "#8C4B27",
+                      background: "rgba(140,75,39,0.08)",
+                      border: "1px solid rgba(140,75,39,0.22)",
                     }}
                   >
-                    {isGroom ? t.groomSide : t.brideSide}
-                  </span>
-                </div>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.62rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "#8C4B27",
+                      }}
+                    >
+                      {isGroom ? t.groomSide : t.brideSide}
+                    </span>
+                  </div>
 
-                {/* Parents Names in Regal Display Serif */}
-                <h3
-                  className="heading-calligraphy"
-                  style={{
-                    fontSize: "clamp(1.25rem, 5vw, 1.45rem)",
-                    lineHeight: 1.25,
-                    color: "#1E0F0C",
-                    fontWeight: 700,
-                    marginBottom: "0.2rem",
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  {isGroom ? t.groomParents : t.brideParents}
-                </h3>
+                  {/* Groom/Bride or Parents Names */}
+                  <h3
+                    className="heading-calligraphy"
+                    style={{
+                      fontSize: "clamp(1.25rem, 5vw, 1.45rem)",
+                      lineHeight: 1.25,
+                      color: "#1E0F0C",
+                      fontWeight: 700,
+                      marginBottom: "0.25rem",
+                      letterSpacing: "0.01em",
+                    }}
+                  >
+                    {isGroom ? t.groomParents : t.brideParents}
+                  </h3>
 
-                {/* Extended Family Note */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "0.65rem",
-                    color: "#8C4B27",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    fontWeight: 700,
-                    marginBottom: "0.35rem",
-                  }}
-                >
-                  {family.supporting}
-                </p>
+                  {/* Supporting / Relation Note */}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: lang === "mr" ? "0.85rem" : "0.65rem",
+                      color: "#8C4B27",
+                      letterSpacing: lang === "mr" ? "0.02em" : "0.12em",
+                      textTransform: lang === "mr" ? "none" : "uppercase",
+                      fontWeight: lang === "mr" ? 600 : 700,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {isGroom ? t.groomSupporting : t.brideSupporting}
+                  </p>
+                </motion.div>
 
-                {/* Warm Family Message */}
-                <p
-                  className="font-serif-wd"
-                  style={{
-                    fontSize: "0.85rem",
-                    color: "#381B14",
-                    lineHeight: 1.45,
-                    fontStyle: "italic",
-                    maxWidth: "360px",
-                  }}
-                >
-                  {family.note}
-                </p>
-              </motion.div>
+                {/* "आणि" Connector between Groom and Bride in Marathi */}
+                {i === 0 && t.familyAndConnector && (
+                  <div className="flex items-center justify-center -my-1 z-10">
+                    <span
+                      className="font-serif-wd"
+                      style={{
+                        fontSize: "0.92rem",
+                        fontWeight: 700,
+                        color: "#8C4B27",
+                        background: "#FAF7F2",
+                        border: "1px solid rgba(140,75,39,0.25)",
+                        padding: "0.15rem 1rem",
+                        borderRadius: "9999px",
+                        boxShadow: "0 2px 6px rgba(140,75,39,0.10)",
+                      }}
+                    >
+                      ✦ {t.familyAndConnector} ✦
+                    </span>
+                  </div>
+                )}
+              </React.Fragment>
             );
           })}
         </div>
 
-        {/* Traditional Auspicious Blessing Note */}
+        {/* Combined Unified Family Message, Invitation & Blessing */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: 0.2 }}
-          className="text-center max-w-[390px] mx-auto mt-2 px-4 py-2 rounded-xl bg-white/75 backdrop-blur-sm border border-[#8C4B27]/15 shadow-sm"
+          className="text-center max-w-[420px] mx-auto px-4 py-3.5 rounded-2xl bg-white/80 backdrop-blur-sm border border-[#8C4B27]/18 shadow-sm flex flex-col gap-2"
         >
+          {t.familyInvitationText && (
+            <p
+              className="font-serif-wd"
+              style={{
+                fontSize: "0.92rem",
+                color: "#1F0D09",
+                lineHeight: 1.6,
+                fontWeight: 600,
+              }}
+            >
+              {t.familyInvitationText}
+            </p>
+          )}
+
           <p
             className="font-serif-wd"
             style={{
               fontSize: "0.88rem",
-              color: "#1F0D09",
-              lineHeight: 1.45,
+              color: "#2C140E",
+              lineHeight: 1.55,
               fontStyle: "italic",
-              fontWeight: 800,
-              textShadow: "0 1px 1px rgba(255,255,255,0.8)",
+              fontWeight: 500,
             }}
           >
             {t.familyUnionBlessing}
           </p>
+
+          {t.familySignOff && (
+            <>
+              <div
+                className="w-24 h-[1px] mx-auto my-0.5"
+                style={{
+                  background:
+                    "linear-gradient(to right, transparent, rgba(140,75,39,0.35), transparent)",
+                }}
+              />
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.78rem",
+                  color: "#8C4B27",
+                  fontWeight: 700,
+                  letterSpacing: "0.02em",
+                  lineHeight: 1.5,
+                }}
+              >
+                {t.familySignOff}
+              </p>
+            </>
+          )}
         </motion.div>
       </div>
     </section>
