@@ -2,15 +2,15 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mradul & Shreya Wedding — February 2 & 3, 2026 | Taj Heritage, Goa",
+  title: "Mradul & Shreya Wedding — February 2 & 3, 2027 | Taj Heritage, Goa",
   description:
     "You are cordially invited to the royal wedding celebration of Mradul & Shreya. Join us across two breathtaking days at Taj Heritage, Vainguinim Beach, Goa.",
   keywords:
-    "Mradul Shreya Wedding, Taj Heritage Goa Wedding, Indian Wedding Invitation, Goa Wedding 2026",
+    "Mradul Shreya Wedding, Taj Heritage Goa Wedding, Indian Wedding Invitation, Goa Wedding 2027",
   openGraph: {
     title: "Mradul & Shreya Wedding — Taj Heritage, Goa",
     description:
-      "Join us for the royal wedding of Mradul & Shreya on February 2 & 3, 2026 at Taj Heritage, Goa.",
+      "Join us for the royal wedding of Mradul & Shreya on February 2 & 3, 2027 at Taj Heritage, Goa.",
     type: "website",
   },
 };

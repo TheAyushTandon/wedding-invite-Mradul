@@ -65,10 +65,10 @@ export function Footer() {
 
   const shareText =
     lang === "hi"
-      ? `मृदुल एवं श्रेया के शुभ विवाह समारोह में सादर आमंत्रित हैं — 2 एवं 3 फरवरी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
+      ? `मृदुल एवं श्रेया के शुभ विवाह समारोह में सादर आमंत्रित हैं — 2 एवं 3 फरवरी 2027, ताज हेरिटेज, गोवा! ${shareUrl}`
       : lang === "mr"
-        ? `मृदुल आणि श्रेया यांच्या शुभविवाह सोहळ्यास सस्नेह निमंत्रण — 2 आणि 3 फेब्रुवारी 2026, ताज हेरिटेज, गोवा! ${shareUrl}`
-        : `Join us for the Royal Wedding Celebration of Mradul & Shreya — February 2 & 3, 2026 at Taj Heritage, Goa! ${shareUrl}`;
+        ? `मृदुल आणि श्रेया यांच्या शुभविवाह सोहळ्यास सस्नेह निमंत्रण — 2 आणि 3 फेब्रुवारी 2027, ताज हेरिटेज, गोवा! ${shareUrl}`
+        : `Join us for the Royal Wedding Celebration of Mradul & Shreya — February 2 & 3, 2027 at Taj Heritage, Goa! ${shareUrl}`;
 
   return (
     <footer

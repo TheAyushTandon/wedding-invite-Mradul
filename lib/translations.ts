@@ -231,7 +231,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     auspiciousBeginning: "ॐ श्री गणेशाय नमः",
     weddingCelebration: "WEDDING CELEBRATION",
     mradulAndShreya: "Mradul & Shreya",
-    dates: "February 2 & 3, 2026",
+    dates: "February 2 & 3, 2027",
     venueHero: "Taj Cidade de Goa Heritage • Goa",
     scrollHint: "Scroll to explore ↓",
 
@@ -251,7 +251,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     hours: "Hours",
     minutes: "Mins",
     seconds: "Secs",
-    festivitiesCount: "February 2 & 3, 2026 • 4 Grand Festivities",
+    festivitiesCount: "February 2 & 3, 2027 • 4 Grand Festivities",
     addToCalendar: "ADD TO CALENDAR",
 
     // Schedule
@@ -361,10 +361,10 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     familiesEyebrow: "✦ WITH LOVE & BLESSINGS ✦",
     familiesHeading: "The Families",
     familiesQuote: "Two families united by love, blessed by traditions.",
-    groomSide: "GROOM'S FAMILY",
-    brideSide: "BRIDE'S FAMILY",
-    groomParents: "Mrs. Ruby & Mr. Mohit Bhatnagar",
-    brideParents: "Mrs. Apurva & Mr. Ghansham Kulkarni",
+    groomSide: "Mradul",
+    brideSide: "Shreya",
+    groomParents: "Son of Mrs. Ruby & Mr. Mohit Bhatnagar",
+    brideParents: "Daughter of Mrs. Apurva & Mr. Ghansham Kulkarni",
     groomSupporting: "Along with grandparents, siblings & extended family",
     brideSupporting: "Along with grandparents, siblings & extended family",
     groomNote: "With heartfelt warmth and joy, we welcome you to join us in blessing Mradul as he embarks on this sacred journey of companionship and love.",
@@ -470,11 +470,11 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Footer
     footerQuote: "“With boundless love, joy, and gratitude, our families eagerly look forward to celebrating this sacred new beginning with you by our side in beautiful Goa.”",
-    footerDatesVenue: "February 2 & 3, 2026 • Taj Heritage, Goa",
+    footerDatesVenue: "February 2 & 3, 2027 • Taj Heritage, Goa",
     backToTop: "Back To Top",
     shareInvite: "Share Invitation",
     withLoveFamilies: "With Love • The Bhatnagar & Kulkarni Families",
-    copyrightText: "© 2026 Mradul & Shreya Wedding • Crafted with love for Goa",
+    copyrightText: "© 2027 Mradul & Shreya Wedding • Crafted with love for Goa",
 
     // Language
     langSelect: "Language",
@@ -501,7 +501,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     auspiciousBeginning: "ॐ श्री गणेशाय नमः",
     weddingCelebration: "शुभ विवाह समारोह",
     mradulAndShreya: "मृदुल एवं श्रेया",
-    dates: "2 एवं 3 फरवरी 2026",
+    dates: "2 एवं 3 फरवरी 2027",
     venueHero: "ताज सिदादे दे गोवा हेरिटेज • गोवा",
     scrollHint: "विवरण देखने हेतु नीचे स्क्रॉल करें ↓",
 
@@ -521,7 +521,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     hours: "घंटे",
     minutes: "मिनट",
     seconds: "सेकंड",
-    festivitiesCount: "2 एवं 3 फरवरी 2026 • 4 भव्य कार्यक्रम",
+    festivitiesCount: "2 एवं 3 फरवरी 2027 • 4 भव्य कार्यक्रम",
     addToCalendar: "कैलेंडर में जोड़ें",
 
     // Schedule
@@ -559,8 +559,8 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
         id: "pheras",
         day: 2,
         time: "5:00 PM",
-        title: "पावन फेरे एवं सप्तपदी",
-        description: "सूर्यास्त के समय समुद्र तट पर पवित्र अग्नि के समक्ष सात फेरे एवं जीवनभर का साथ।",
+        title: "पावन फेरे एवं जयमाला (सप्तपदी)",
+        description: "गोधूली वेला में समुद्र तट पर पवित्र अग्नि के समक्ष सात फेरे एवं जीवनभर का साथ।",
         location: "सनसेट लॉन्स • ताज हेरिटेज",
       },
       {
@@ -568,7 +568,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
         day: 2,
         time: "9:00 PM",
         title: "गाला डिनर एवं आफ्टरपार्टी",
-        description: "शाही भोज, स्वागत टोस्ट एवं सितारों की छांव में आनंदमय उत्सव।",
+        description: "नये युगल जोड़े के लिए शाही भोज एवं सितारों की छांव में आनंदमय उत्सव।",
         location: "ग्रैंड साला बैंक्वेट",
       },
     ],
@@ -627,12 +627,12 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     familiesEyebrow: "✦ सस्नेह निमंत्रण ✦",
     familiesHeading: "परिवार परिचय",
     familiesQuote: "परंपरा और प्रेम के पावन सूत्र में बंधते दो परिवार।",
-    groomSide: "वर पक्ष (वर परिवार)",
-    brideSide: "वधू पक्ष (वधू परिवार)",
-    groomParents: "श्रीमती रूबी एवं श्री मोहित भटनागर",
-    brideParents: "श्रीमती अपूर्वा एवं श्री घनश्याम कुलकर्णी",
-    groomSupporting: "दादा-दादी, नाना-नानी, भाई-बहन एवं समस्त परिवारजन",
-    brideSupporting: "दादा-दादी, नाना-नानी, भाई-बहन एवं समस्त परिवारजन",
+    groomSide: "मृदुल",
+    brideSide: "श्रेया",
+    groomParents: "सुपुत्र श्रीमती रूबी एवं श्री मोहित भटनागर \nपौत्र स्व. श्रीमती सरोज भटनागर एवं स्व.श्री सुरेशचंद्र भटनागर",
+    brideParents: "सुपुत्री श्रीमती अपूर्वा एवं स्व.श्री घन:श्याम कुलकर्णी \nपौत्री श्रीमती शैलजा कुलकर्णी एवं श्री पुरुषोत्तम कुलकर्णी",
+    groomSupporting: "ताई-ताऊ, मामा-मौसी, भाई-बहन एवं समस्त परिवारजन",
+    brideSupporting: "नाना-नानी, बुआ-फूफा, भाई-बहन एवं समस्त परिवारजन",
     groomNote: "हार्दिक स्नेह एवं उल्लास के साथ, हम आपको मृदुल के जीवन के इस नए और पावन अध्याय में अपना शुभाशीर्वाद देने हेतु सादर आमंत्रित करते हैं।",
     brideNote: "असीम प्रेम और कृतज्ञता के साथ, हम आपको श्रेया के वैवाहिक जीवन के शुभारंभ पर अपने मंगल आशीर्वाद प्रदान करने हेतु आमंत्रित करते हैं।",
     familyUnionBlessing: "“असीम स्नेह, आदर एवं कृतज्ञता के साथ, दोनों परिवार आपको गोवा में आमंत्रित करते हैं कि आप इस पावन परिणयोत्सव में सम्मिलित होकर मृदुल एवं श्रेया को उनके वैवाहिक जीवन के शुभारंभ पर अपना शुभाशीर्वाद प्रदान करें।”",
@@ -670,7 +670,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Wishes
     wishesEyebrow: "✦ मंगलकामनाएं ✦",
-    wishesHeading: "शुभकामना संदेश दीवार",
+    wishesHeading: "शुभकामना संदेश",
     wishesQuote: "वर-वधू के लिए अपने मनपसंद विचार और मंगलकामनाएं साझा करें।",
 
     // FAQs
@@ -736,11 +736,11 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Footer
     footerQuote: "“असीम स्नेह, उल्लास और कृतज्ञता के साथ, हमारे परिवार गोवा में इस पावन नए आरंभ पर आपका सप्रेम स्वागत करते हैं।”",
-    footerDatesVenue: "2 एवं 3 फरवरी 2026 • ताज हेरिटेज, गोवा",
+    footerDatesVenue: "2 एवं 3 फरवरी 2027 • ताज हेरिटेज, गोवा",
     backToTop: "शीर्ष पर जाएं",
     shareInvite: "निमंत्रण साझा करें",
     withLoveFamilies: "सस्नेह • भटनागर एवं कुलकर्णी परिवार",
-    copyrightText: "© 2026 मृदुल एवं श्रेया विवाह • गोवा",
+    copyrightText: "© 2027 मृदुल एवं श्रेया विवाह • गोवा",
 
     // Language
     langSelect: "भाषा",
@@ -767,7 +767,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     auspiciousBeginning: "॥ श्री गणेशाय नमः ॥",
     weddingCelebration: "शुभविवाह सोहळा",
     mradulAndShreya: "मृदुल आणि श्रेया",
-    dates: "2 आणि 3 फेब्रुवारी 2026",
+    dates: "2 आणि 3 फेब्रुवारी 2027",
     venueHero: "ताज सिदादे दे गोवा हेरिटेज • गोवा",
     scrollHint: "तपशील पाहण्यासाठी खाली स्क्रोल करा ↓",
 
@@ -787,7 +787,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     hours: "तास",
     minutes: "मिनिटे",
     seconds: "सेकंद",
-    festivitiesCount: "2 आणि 3 फेब्रुवारी 2026",
+    festivitiesCount: "2 आणि 3 फेब्रुवारी 2027",
     addToCalendar: "कॅलेंडरमध्ये जोडा",
 
     // Schedule
@@ -893,12 +893,12 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     familiesEyebrow: "✦ सस्नेह निमंत्रण ✦",
     familiesHeading: "कुटुंब परिचय",
     familiesQuote: "परंपरा आणि प्रेमाच्या धाग्याने एकत्र येणारी दोन कुटुंबे.",
-    groomSide: "वर पक्ष",
-    brideSide: "वधू पक्ष",
-    groomParents: "चि. मृदूल,",
-    brideParents: "चि.सौ.कां. श्रेया",
-    groomSupporting: "सौ. रुबी आणि श्री मोहित भटनागर यांचे ज्येष्ठ सुपुत्र",
-    brideSupporting: "श्रीमती अपूर्वा आणि स्व. घनःशााम कुलकर्णी यांची ज्येष्ठ सुकन्या",
+    groomSide: "चि. मृदुल",
+    brideSide: "चि.सौ.कां. श्रेया",
+    groomParents: "सौ. रुबी आणि श्री मोहित भटनागर यांचे ज्येष्ठ सुपुत्र \n स्व. श्रीमती सरोज भटनागर आणि स्व.श्री सुरेशचंद्र भटनागर यांचे नातू",
+    brideParents: "श्रीमती अपूर्वा आणि स्व.श्री घनःशााम कुलकर्णी यांची ज्येष्ठ सुकन्या \nश्रीमती शैलजा कुलकर्णी आणि श्री पुरुषोत्तम कुलकर्णी यांची नात",
+    groomSupporting: "काका-काकू, मावशी-मावसा, मामा-मामी, बहीण-भाऊ आणि समस्त परिवार",
+    brideSupporting: "आजोबा-आजी, आत्या-काका, मामा-मावशी, भाऊ-बहीण आणि समस्त परिवार",
     groomNote: "",
     brideNote: "",
     familyAndConnector: "आणि",
@@ -1002,11 +1002,11 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // Footer
     footerQuote: "“अथांग प्रेम, आनंद आणि कृतज्ञतेसह, आमचे कुटुंब गोव्यातील या मंगल सोहळ्यात आपले मनःपूर्वक स्वागत करते.”",
-    footerDatesVenue: "2 आणि 3 फेब्रुवारी 2026 • ताज हेरिटेज, गोवा",
+    footerDatesVenue: "2 आणि 3 फेब्रुवारी 2027 • ताज हेरिटेज, गोवा",
     backToTop: "वर जा",
     shareInvite: "निमंत्रण शेअर करा",
     withLoveFamilies: "सस्नेह • भटनागर आणि कुलकर्णी कुटुंब",
-    copyrightText: "© 2026 मृदुल आणि श्रेया विवाह • गोवा",
+    copyrightText: "© 2027 मृदुल आणि श्रेया विवाह • गोवा",
 
     // Language
     langSelect: "भाषा",
