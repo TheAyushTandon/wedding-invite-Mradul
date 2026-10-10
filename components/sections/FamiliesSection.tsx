@@ -59,20 +59,16 @@ export function FamiliesSection() {
                 >
                   {/* Side Pill */}
                   <div
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-full mb-1.5"
-                    style={{
-                      background: "rgba(140,75,39,0.08)",
-                      border: "1px solid rgba(140,75,39,0.22)",
-                    }}
+                    className="heading-calligraphy"
                   >
                     <span
                       style={{
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "0.62rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.18em",
+                        fontSize: "clamp(1.25rem, 5vw, 1.45rem)",
+                        fontWeight: 900,
+                        letterSpacing: "0.10em",
                         textTransform: "uppercase",
-                        color: "#8C4B27",
+                        color: "#1F0D09",
+                        whiteSpace: "pre-line",
                       }}
                     >
                       {isGroom ? t.groomSide : t.brideSide}
@@ -83,12 +79,14 @@ export function FamiliesSection() {
                   <h3
                     className="heading-calligraphy"
                     style={{
-                      fontSize: "clamp(1.25rem, 5vw, 1.45rem)",
-                      lineHeight: 1.25,
-                      color: "#1E0F0C",
-                      fontWeight: 700,
-                      marginBottom: "0.25rem",
-                      letterSpacing: "0.01em",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: lang === "mr" || lang === "hi" ? "0.85rem" : "0.65rem",
+                      color: "#8C4B27",
+                      letterSpacing: lang === "mr" || lang === "hi" ? "0.02em" : "0.12em",
+                      textTransform: lang === "mr" || lang === "hi" ? "none" : "uppercase",
+                      fontWeight: lang === "mr" || lang === "hi" ? 600 : 700,
+                      lineHeight: 1.4,
+                      whiteSpace: "pre-line",
                     }}
                   >
                     {isGroom ? t.groomParents : t.brideParents}

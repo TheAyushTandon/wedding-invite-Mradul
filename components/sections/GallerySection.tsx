@@ -137,7 +137,7 @@ export function GallerySection() {
                   >
                     <Image
                       src={it.src}
-                      alt={it.title}
+                      alt={it?.title}
                       fill
                       sizes="(max-width: 480px) 100vw, 420px"
                       className="object-cover"
