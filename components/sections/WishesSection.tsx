@@ -114,6 +114,11 @@ export function WishesSection() {
       };
       setWishes(prev => [newWish, ...prev].sort((a, b) => b.likes - a.likes));
       
+      // Fetch fresh wishes after a short delay to get the real row ID
+      setTimeout(() => {
+        fetchWishes();
+      }, 2500);
+      
     } catch (err) {
       console.error("[Submit Wish Error]", err);
     }
@@ -128,6 +133,8 @@ export function WishesSection() {
 
   const renderWishCard = (wish: Comment, isTop: boolean = false) => {
     const hasLiked = likedIds.has(wish.id);
+    const isTemporary = wish.id > 1000000000000; // Date.now() timestamp IDs
+
     return (
       <div
         key={wish.id}
@@ -159,12 +166,13 @@ export function WishesSection() {
           </div>
           <button
             onClick={() => handleLike(wish.id)}
-            disabled={hasLiked}
+            disabled={hasLiked || isTemporary}
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all"
             style={{
               background: hasLiked ? "#8C4B27" : "rgba(140,75,39,0.08)",
               border: `1px solid ${hasLiked ? "#8C4B27" : "rgba(140,75,39,0.2)"}`,
-              cursor: hasLiked ? "default" : "pointer"
+              cursor: hasLiked || isTemporary ? "default" : "pointer",
+              opacity: isTemporary ? 0.5 : 1
             }}
           >
             <Heart size={12} color={hasLiked ? "white" : "#8C4B27"} fill={hasLiked ? "white" : "transparent"} />
