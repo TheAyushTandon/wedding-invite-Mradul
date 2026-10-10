@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
     if (body.action === "like") {
       const result = await likeWish(body.id);
-      return NextResponse.json({ success: true, ...result });
+      return NextResponse.json(result);
     }
 
     // Default: submit new wish
