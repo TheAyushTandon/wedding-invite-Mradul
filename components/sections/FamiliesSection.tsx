@@ -98,11 +98,11 @@ export function FamiliesSection() {
                   <p
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: lang === "mr" ? "0.85rem" : "0.65rem",
+                      fontSize: lang === "mr" || lang === "hi" ? "0.85rem" : "0.65rem",
                       color: "#8C4B27",
-                      letterSpacing: lang === "mr" ? "0.02em" : "0.12em",
-                      textTransform: lang === "mr" ? "none" : "uppercase",
-                      fontWeight: lang === "mr" ? 600 : 700,
+                      letterSpacing: lang === "mr" || lang === "hi" ? "0.02em" : "0.12em",
+                      textTransform: lang === "mr" || lang === "hi" ? "none" : "uppercase",
+                      fontWeight: lang === "mr" || lang === "hi" ? 600 : 700,
                       lineHeight: 1.4,
                     }}
                   >
