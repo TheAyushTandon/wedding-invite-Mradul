@@ -137,7 +137,7 @@ export function GallerySection() {
                   >
                     <Image
                       src={it.src}
-                      alt={it?.title}
+                      alt={it?.title || ""}
                       fill
                       sizes="(max-width: 480px) 100vw, 420px"
                       className="object-cover"
@@ -322,7 +322,7 @@ export function GallerySection() {
                   >
                     <Image
                       src={item.src}
-                      alt={item.title}
+                      alt={item.title || ""}
                       fill
                       sizes="80px"
                       className="object-cover"
@@ -356,7 +356,7 @@ export function GallerySection() {
               <div className="relative w-full h-[420px]">
                 <Image
                   src={GALLERY[lightboxIdx].src}
-                  alt={GALLERY[lightboxIdx].title}
+                  alt={GALLERY[lightboxIdx].title || ""}
                   fill
                   className="object-cover"
                 />

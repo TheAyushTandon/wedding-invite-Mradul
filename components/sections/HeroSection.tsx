@@ -50,6 +50,8 @@ export function HeroSection() {
         alt="Mradul and Shreya"
         fill
         priority
+        sizes="100vw"
+        quality={85}
         className="section-bg-img"
         style={{ objectPosition: "center 20%" }}
       />
