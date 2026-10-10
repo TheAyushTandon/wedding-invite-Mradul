@@ -134,3 +134,27 @@ export async function processWish(data: WishSubmission) {
     sheetNote: result.error,
   };
 }
+
+export async function getWishes() {
+  const webhookUrl = process.env.GOOGLE_SCRIPT_URL || process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  if (!webhookUrl) return [];
+
+  try {
+    const res = await fetch(webhookUrl, { next: { revalidate: 15 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (err) {
+    console.error("[Fetch Wishes Error]", err);
+    return [];
+  }
+}
+
+export async function likeWish(id: number) {
+  const result = await forwardToGoogleSheet({
+    type: "like",
+    id,
+  });
+  return result;
+}
+
