@@ -140,7 +140,7 @@ export async function getWishes() {
   if (!webhookUrl) return [];
 
   try {
-    const res = await fetch(webhookUrl, { next: { revalidate: 15 } });
+    const res = await fetch(webhookUrl, { cache: "no-store" });
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data : [];

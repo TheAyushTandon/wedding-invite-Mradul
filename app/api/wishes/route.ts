@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { processWish, WishSubmission, getWishes, likeWish } from "@/lib/sheetBackend";
+ 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET() {
   try {

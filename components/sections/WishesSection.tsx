@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/shared/SectionHeader";
+import { WISH_PRESETS } from "@/data/wishes";
 import {
   Send,
   CheckCircle2,
@@ -10,6 +11,12 @@ import {
   Loader2,
   Heart,
   User,
+  Coffee,
+  CupSoda,
+  Camera,
+  UtensilsCrossed,
+  Gift,
+  Sparkles,
 } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
@@ -21,6 +28,29 @@ interface Comment {
   timestamp: string;
 }
 
+function renderPresetIcon(iconName?: string, isSelected?: boolean) {
+  const iconColor = isSelected ? "#FFFFFF" : "#8C4B27";
+  const size = 15;
+  switch (iconName) {
+    case "Coffee":
+      return <Coffee size={size} color={iconColor} className="flex-shrink-0" />;
+    case "CupSoda":
+      return <CupSoda size={size} color={iconColor} className="flex-shrink-0" />;
+    case "Camera":
+      return <Camera size={size} color={iconColor} className="flex-shrink-0" />;
+    case "UtensilsCrossed":
+      return <UtensilsCrossed size={size} color={iconColor} className="flex-shrink-0" />;
+    case "Gift":
+      return <Gift size={size} color={iconColor} className="flex-shrink-0" />;
+    default:
+      return <Sparkles size={size} color={iconColor} className="flex-shrink-0" />;
+  }
+}
+
+function getWishSignature(w: { name?: string; wish: string }): string {
+  return `${(w.name || "").trim().toLowerCase()}:::${w.wish.trim().toLowerCase()}`;
+}
+
 export function WishesSection() {
   const [name, setName] = useState("");
   const [customWish, setCustomWish] = useState("");
@@ -29,17 +59,20 @@ export function WishesSection() {
   const [wishes, setWishes] = useState<Comment[]>([]);
   const [loadingWishes, setLoadingWishes] = useState(true);
   const [showAllModal, setShowAllModal] = useState(false);
-  const [likedIds, setLikedIds] = useState<Set<number>>(new Set());
+  const [likedKeys, setLikedKeys] = useState<Set<string>>(new Set());
   
   const { t } = useLanguage();
 
   useEffect(() => {
     fetchWishes();
-    // Load liked ids from local storage
+    // Load liked keys (both IDs and signatures) from local storage
     const savedLikes = localStorage.getItem("likedWishes");
     if (savedLikes) {
       try {
-        setLikedIds(new Set(JSON.parse(savedLikes)));
+        const parsed = JSON.parse(savedLikes);
+        if (Array.isArray(parsed)) {
+          setLikedKeys(new Set(parsed.map(String)));
+        }
       } catch (e) {}
     }
   }, []);
@@ -49,8 +82,32 @@ export function WishesSection() {
       const res = await fetch("/api/wishes");
       if (res.ok) {
         const json = await res.json();
-        if (json.success && json.data) {
+        if (json.success && Array.isArray(json.data)) {
           setWishes(json.data);
+
+          // Reconcile and link persistent likes across refresh
+          setLikedKeys(prevKeys => {
+            const updated = new Set(prevKeys);
+            let changed = false;
+            json.data.forEach((w: Comment) => {
+              const sig = getWishSignature(w);
+              // If previously liked by signature or ID, ensure both are locked in
+              if (updated.has(sig) || updated.has(String(w.id))) {
+                if (!updated.has(sig)) {
+                  updated.add(sig);
+                  changed = true;
+                }
+                if (!updated.has(String(w.id))) {
+                  updated.add(String(w.id));
+                  changed = true;
+                }
+              }
+            });
+            if (changed) {
+              localStorage.setItem("likedWishes", JSON.stringify(Array.from(updated)));
+            }
+            return updated;
+          });
         }
       }
     } catch (err) {
@@ -60,29 +117,34 @@ export function WishesSection() {
     }
   };
 
-  const handleLike = async (id: number) => {
-    if (likedIds.has(id)) return;
+  const handleLike = async (wish: Comment) => {
+    const sig = getWishSignature(wish);
+    const idKey = String(wish.id);
+    if (likedKeys.has(idKey) || likedKeys.has(sig)) return;
 
     // Optimistic update
-    setWishes(prev => prev.map(w => w.id === id ? { ...w, likes: w.likes + 1 } : w));
-    const newLikedIds = new Set(likedIds);
-    newLikedIds.add(id);
-    setLikedIds(newLikedIds);
-    localStorage.setItem("likedWishes", JSON.stringify(Array.from(newLikedIds)));
+    setWishes(prev => prev.map(w => w.id === wish.id ? { ...w, likes: w.likes + 1 } : w));
+    
+    const newLikedKeys = new Set(likedKeys);
+    newLikedKeys.add(idKey);
+    newLikedKeys.add(sig);
+    setLikedKeys(newLikedKeys);
+    localStorage.setItem("likedWishes", JSON.stringify(Array.from(newLikedKeys)));
 
     try {
       await fetch("/api/wishes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "like", id }),
+        body: JSON.stringify({ action: "like", id: wish.id }),
       });
     } catch (err) {
       console.error("Failed to like wish", err);
-      // Revert optimistic update
-      setWishes(prev => prev.map(w => w.id === id ? { ...w, likes: w.likes - 1 } : w));
-      newLikedIds.delete(id);
-      setLikedIds(newLikedIds);
-      localStorage.setItem("likedWishes", JSON.stringify(Array.from(newLikedIds)));
+      // Revert optimistic update on hard error
+      setWishes(prev => prev.map(w => w.id === wish.id ? { ...w, likes: Math.max(0, w.likes - 1) } : w));
+      newLikedKeys.delete(idKey);
+      newLikedKeys.delete(sig);
+      setLikedKeys(newLikedKeys);
+      localStorage.setItem("likedWishes", JSON.stringify(Array.from(newLikedKeys)));
     }
   };
 
@@ -114,10 +176,10 @@ export function WishesSection() {
       };
       setWishes(prev => [newWish, ...prev].sort((a, b) => b.likes - a.likes));
       
-      // Fetch fresh wishes after a short delay to get the real row ID
+      // Fetch fresh wishes immediately
       setTimeout(() => {
         fetchWishes();
-      }, 2500);
+      }, 1500);
       
     } catch (err) {
       console.error("[Submit Wish Error]", err);
@@ -132,8 +194,8 @@ export function WishesSection() {
   const topWishes = wishes.slice(0, 3);
 
   const renderWishCard = (wish: Comment, isTop: boolean = false) => {
-    const hasLiked = likedIds.has(wish.id);
-    const isTemporary = wish.id > 1000000000000; // Date.now() timestamp IDs
+    const sig = getWishSignature(wish);
+    const hasLiked = likedKeys.has(String(wish.id)) || likedKeys.has(sig);
 
     return (
       <div
@@ -165,14 +227,13 @@ export function WishesSection() {
             </div>
           </div>
           <button
-            onClick={() => handleLike(wish.id)}
-            disabled={hasLiked || isTemporary}
+            onClick={() => handleLike(wish)}
+            disabled={hasLiked}
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-full transition-all"
             style={{
               background: hasLiked ? "#8C4B27" : "rgba(140,75,39,0.08)",
               border: `1px solid ${hasLiked ? "#8C4B27" : "rgba(140,75,39,0.2)"}`,
-              cursor: hasLiked || isTemporary ? "default" : "pointer",
-              opacity: isTemporary ? 0.5 : 1
+              cursor: hasLiked ? "default" : "pointer",
             }}
           >
             <Heart size={12} color={hasLiked ? "white" : "#8C4B27"} fill={hasLiked ? "white" : "transparent"} />
@@ -208,9 +269,12 @@ export function WishesSection() {
             border: "1px solid rgba(140,75,39,0.2)",
             boxShadow: "0 8px 32px rgba(140,75,39,0.08)"
           }}>
-            <h3 className="font-serif-wd text-lg font-bold text-[#5B2A1E] mb-4 text-center">
+            <h3 className="font-serif-wd text-lg font-bold text-[#5B2A1E] mb-1 text-center">
               Leave a Message for the Couple
             </h3>
+            <p className="font-sans text-xs text-[#8C4B27]/80 text-center mb-4">
+              Drop your blessings, ideas, or quirky suggestions below
+            </p>
             
             <div className="flex flex-col gap-3">
               <input
@@ -220,13 +284,65 @@ export function WishesSection() {
                 disabled={isSubmitting}
                 className="w-full px-4 py-2.5 rounded-xl outline-none transition-all"
                 style={{
-                  background: "rgba(255,255,255,0.8)",
-                  border: "1.5px solid rgba(140,75,39,0.15)",
+                  background: "rgba(255,255,255,0.85)",
+                  border: "1.5px solid rgba(140,75,39,0.18)",
                   fontFamily: "var(--font-sans)",
                   fontSize: "0.9rem",
                   color: "#1E0F0C",
                 }}
               />
+
+              {/* Ideas & Suggestions Pills */}
+              <div className="flex flex-col gap-1.5 my-1">
+                <span className="font-sans text-[0.72rem] font-bold uppercase tracking-wider text-[#8C4B27]">
+                  Tap an idea or suggestion to fill:
+                </span>
+                <div className="flex flex-col gap-2">
+                  {WISH_PRESETS.map((preset, idx) => {
+                    const isSelected = customWish === preset.text;
+                    return (
+                      <motion.button
+                        key={idx}
+                        type="button"
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={() => {
+                          if (isSelected) {
+                            setCustomWish("");
+                          } else {
+                            setCustomWish(preset.text);
+                          }
+                        }}
+                        className="w-full text-left p-2.5 sm:px-3.5 sm:py-2.5 rounded-full flex items-center gap-2.5 transition-all duration-200"
+                        style={{
+                          background: isSelected ? "#8C4B27" : "rgba(255, 255, 255, 0.75)",
+                          backdropFilter: "blur(8px)",
+                          WebkitBackdropFilter: "blur(8px)",
+                          border: isSelected ? "1.5px solid #8C4B27" : "1px solid rgba(140, 75, 39, 0.2)",
+                          boxShadow: isSelected
+                            ? "0 4px 14px rgba(140, 75, 39, 0.22)"
+                            : "0 2px 6px rgba(140, 75, 39, 0.04)",
+                          color: isSelected ? "#FFFFFF" : "#1E0F0C",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <div
+                          className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full"
+                          style={{
+                            background: isSelected ? "rgba(255,255,255,0.2)" : "rgba(140,75,39,0.08)",
+                          }}
+                        >
+                          {renderPresetIcon(preset.icon, isSelected)}
+                        </div>
+                        <span className="font-sans text-xs sm:text-[0.82rem] leading-snug flex-1 font-medium">
+                          {preset.text}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <textarea
                 value={customWish}
                 onChange={(e) => setCustomWish(e.target.value)}
@@ -235,8 +351,8 @@ export function WishesSection() {
                 rows={3}
                 className="w-full px-4 py-3 rounded-xl outline-none transition-all resize-none"
                 style={{
-                  background: "rgba(255,255,255,0.8)",
-                  border: "1.5px solid rgba(140,75,39,0.15)",
+                  background: "rgba(255,255,255,0.85)",
+                  border: "1.5px solid rgba(140,75,39,0.18)",
                   fontFamily: "var(--font-sans)",
                   fontSize: "0.9rem",
                   color: "#1E0F0C",
