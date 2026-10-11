@@ -310,7 +310,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     attireList: [
       {
         event: "Haldi",
-        day: "Day 1 • Haldi Ceremony (10:00 AM)",
+        day: "Day 1 • Haldi Ceremony (2:00 PM)",
         dressCode: "Sunshine Yellows & Vibrant Marigolds",
         colors: ["Golden Marigold", "Bright Sunflower", "Warm Saffron", "Sunset Amber"],
         description:
@@ -318,7 +318,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
       },
       {
         event: "Sangeet",
-        day: "Day 1 • Sangeet Night (7:00 PM)",
+        day: "Day 1 • Sangeet Night (8:30 PM)",
         dressCode: "Indo-Western & Western Glam",
         colors: ["Emerald Green", "Sapphire Blue", "Ruby Wine", "Midnight Black"],
         description:
@@ -363,8 +363,8 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     familiesQuote: "Two families united by love, blessed by traditions.",
     groomSide: "Mradul",
     brideSide: "Shreya",
-    groomParents: "Son of Mrs. Ruby & Mr. Mohit Bhatnagar",
-    brideParents: "Daughter of Mrs. Apurva & Mr. Ghansham Kulkarni",
+    groomParents: "S/o of Mrs. Ruby & Mr. Mohit Bhatnagar \n G/s of Late Mrs Saroj Bhatanagar & Late Mr SureshChandra Bhatnagar ",
+    brideParents: "D/o of Mrs. Apurva & Late Mr. Ghansham Kulkarni \n  G/d of Mrs Shailaja Kulkarni & Mr Purushottam Kulkarni",
     groomSupporting: "Along with grandparents, siblings & extended family",
     brideSupporting: "Along with grandparents, siblings & extended family",
     groomNote: "With heartfelt warmth and joy, we welcome you to join us in blessing Mradul as he embarks on this sacred journey of companionship and love.",
@@ -491,7 +491,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     notes: "ज़रूरी सूचना",
     menu: "खान-पान",
     gallery: "तस्वीरें",
-    wishWall: "शुभकामनाएं",
+    wishWall: "मेहमानों की दिल की बात",
     faqs: "अक्सर पूछे जाने वाले सवाल",
     helpdesk: "हेल्पडेस्क",
     rsvp: "उपस्थिति (RSVP)",
@@ -500,7 +500,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     // Hero
     auspiciousBeginning: "ॐ श्री गणेशाय नमः",
     weddingCelebration: "शुभ विवाह समारोह",
-    mradulAndShreya: "मृदुल एवं श्रेया",
+    mradulAndShreya: "मृदुल संग श्रेया",
     dates: "2 एवं 3 फरवरी 2027",
     venueHero: "ताज सिदादे दे गोवा हेरिटेज • गोवा",
     scrollHint: "विवरण देखने हेतु नीचे स्क्रॉल करें ↓",
@@ -559,16 +559,16 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
         id: "pheras",
         day: 2,
         time: "5:00 PM",
-        title: "पावन फेरे एवं जयमाला (सप्तपदी)",
-        description: "गोधूली वेला में समुद्र तट पर पवित्र अग्नि के समक्ष सात फेरे एवं जीवनभर का साथ।",
+        title: "जयमाला एवं पावन फेरे (सप्तपदी)",
+        description: "गोधूली बेला में समुद्र तट पर पवित्र अग्नि के  समक्ष सात फेरे एवं आजीवन मित्रता, अटूट प्रेम और समर्पण का वचन",
         location: "सनसेट लॉन्स • ताज हेरिटेज",
       },
       {
         id: "gala",
         day: 2,
         time: "9:00 PM",
-        title: "गाला डिनर एवं आफ्टरपार्टी",
-        description: "नये युगल जोड़े के लिए शाही भोज एवं सितारों की छांव में आनंदमय उत्सव।",
+        title: "भव्य रात्रिभोज एवं ऑफ़्टरपार्टी",
+        description: "नए युगल जोड़े के लिए स्वागत टोस्ट, शाही भोज एवं चाँद तारों की छाँव में आनंदमय उत्सव ।",
         location: "ग्रैंड साला बैंक्वेट",
       },
     ],
@@ -580,14 +580,14 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     attireList: [
       {
         event: "हल्दी",
-        day: "दिन 1 • हल्दी समारोह (सुबह 10:00 बजे)",
+        day: "दिन 1 • हल्दी समारोह (दोपहर 2:00 बजे)",
         dressCode: "पीले एवं नारंगी उत्सव परिधान",
         colors: ["गेंदा पीला", "सूर्यमुखी", "केसरिया", "नारंगी"],
         description: "हल्दी के पावन अवसर पर पीले, केसरिया एवं नारंगी रंगों के आरामदायक परिधान पहनें।",
       },
       {
         event: "संगीत",
-        day: "दिन 1 • संगीत संध्या (शाम 7:00 बजे)",
+        day: "दिन 1 • संगीत संध्या (शाम 8:00 बजे)",
         dressCode: "इंडो-वेस्टर्न एवं वेस्टर्न ग्लैम",
         colors: ["पन्ना हरा", "नीलम नीला", "रूबी लाल", "क्लासिक ब्लैक"],
         description: "स्टाइलिश सूट, टक्सीडो, इवनिंग गाउन, डिज़ाइनर साड़ियां एवं चमकीले इंडो-वेस्टर्न परिधान।",
@@ -846,7 +846,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     attireList: [
       {
         event: "हळद",
-        day: "दिवस 1 • हळद समारंभ (सकाळी 10:00)",
+        day: "दिवस 1 • हळद समारंभ (दुपारी 2:00)",
         dressCode: "पिवळे आणि केशरी उत्सव पोशाख",
         colors: ["झेंडू पिवळा", "सूर्यमुखी", "केशरी", "नारंगी"],
         description: "हळदीच्या प्रसंगी गडद पिवळ्या, केशरी आणि नारंगी रंगांचे आरामदायक पारंपरिक कपडे.",
@@ -897,7 +897,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     brideSide: "चि.सौ.कां. श्रेया",
     groomParents: "सौ. रुबी आणि श्री मोहित भटनागर यांचे ज्येष्ठ सुपुत्र \n स्व. श्रीमती सरोज भटनागर आणि स्व.श्री सुरेशचंद्र भटनागर यांचे नातू",
     brideParents: "श्रीमती अपूर्वा आणि स्व.श्री घनःशााम कुलकर्णी यांची ज्येष्ठ सुकन्या \nश्रीमती शैलजा कुलकर्णी आणि श्री पुरुषोत्तम कुलकर्णी यांची नात",
-    groomSupporting: "काका-काकू, मावशी-मावसा, मामा-मामी, बहीण-भाऊ आणि समस्त परिवार",
+    groomSupporting: "काका-काकू, मामा-मावशी, बहीण-भाऊ आणि समस्त परिवार",
     brideSupporting: "आजोबा-आजी, आत्या-काका, मामा-मावशी, भाऊ-बहीण आणि समस्त परिवार",
     groomNote: "",
     brideNote: "",
