@@ -8,19 +8,21 @@ import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { ServiceWorkerRegister } from "@/components/shared/ServiceWorkerRegister";
 import { LanguageProvider, useLanguage } from "@/components/shared/LanguageContext";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { CountdownSection } from "@/components/sections/CountdownSection";
-import { ScheduleSection } from "@/components/sections/ScheduleSection";
-import { AttireSection } from "@/components/sections/AttireSection";
-import { TravelSection } from "@/components/sections/TravelSection";
-import { FamiliesSection } from "@/components/sections/FamiliesSection";
-import { ImportantNotesSection } from "@/components/sections/ImportantNotesSection";
-import { GallerySection } from "@/components/sections/GallerySection";
-import { WishesSection } from "@/components/sections/WishesSection";
-import { FAQSection } from "@/components/sections/FAQSection";
-import { HelpdeskSection } from "@/components/sections/HelpdeskSection";
-import { RSVPSection } from "@/components/sections/RSVPSection";
-import { Footer } from "@/components/sections/Footer";
 import { WEDDING } from "@/data/wedding";
+import dynamic from "next/dynamic";
+
+const CountdownSection = dynamic(() => import("@/components/sections/CountdownSection").then(mod => mod.CountdownSection));
+const ScheduleSection = dynamic(() => import("@/components/sections/ScheduleSection").then(mod => mod.ScheduleSection));
+const AttireSection = dynamic(() => import("@/components/sections/AttireSection").then(mod => mod.AttireSection));
+const TravelSection = dynamic(() => import("@/components/sections/TravelSection").then(mod => mod.TravelSection));
+const FamiliesSection = dynamic(() => import("@/components/sections/FamiliesSection").then(mod => mod.FamiliesSection));
+const ImportantNotesSection = dynamic(() => import("@/components/sections/ImportantNotesSection").then(mod => mod.ImportantNotesSection));
+const GallerySection = dynamic(() => import("@/components/sections/GallerySection").then(mod => mod.GallerySection));
+const WishesSection = dynamic(() => import("@/components/sections/WishesSection").then(mod => mod.WishesSection));
+const FAQSection = dynamic(() => import("@/components/sections/FAQSection").then(mod => mod.FAQSection));
+const HelpdeskSection = dynamic(() => import("@/components/sections/HelpdeskSection").then(mod => mod.HelpdeskSection));
+const RSVPSection = dynamic(() => import("@/components/sections/RSVPSection").then(mod => mod.RSVPSection));
+const Footer = dynamic(() => import("@/components/sections/Footer").then(mod => mod.Footer));
 
 function WeddingContent() {
   const [showOpening, setShowOpening] = useState(true);
@@ -78,9 +80,9 @@ function WeddingContent() {
           <WishesSection />
           <ImportantNotesSection />
           <TravelSection />
+          <RSVPSection />
           <GallerySection />
           <FAQSection />
-          <RSVPSection />
           <HelpdeskSection />
         </main>
 

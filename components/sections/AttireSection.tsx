@@ -166,15 +166,17 @@ export function AttireSection() {
           ))}
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${lang}-${activeTab}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="glass-card p-5 mb-4">
+        <div className="min-h-[680px] sm:min-h-[620px] md:min-h-[580px] w-full flex flex-col">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${lang}-${activeTab}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="flex-1 flex flex-col"
+            >
+              <div className="glass-card p-5 mb-4 flex-none">
               {/* Event label */}
               <div className="flex items-center justify-between gap-2 mb-1.5">
                 <p
@@ -260,6 +262,7 @@ export function AttireSection() {
             </div>
           </motion.div>
         </AnimatePresence>
+        </div>
       </div>
     </section>
   );
