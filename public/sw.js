@@ -1,4 +1,4 @@
-const CACHE_NAME = "wedding-invite-v3";
+const CACHE_NAME = "wedding-invite-v4";
 const STATIC_ASSETS = [
   "/",
   "/favicon.svg",
@@ -40,14 +40,20 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch Event - Stale-while-revalidate / Cache-first for assets
+// Fetch Event
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+
+  const url = new URL(event.request.url);
+
+  // Never intercept Next.js chunks, hot reloads, or API requests
+  if (url.pathname.startsWith("/_next/") || url.pathname.startsWith("/api/")) {
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached and refresh in background
         fetch(event.request)
           .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
@@ -72,8 +78,11 @@ self.addEventListener("fetch", (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // Offline fallback
-          return caches.match("/");
+          // Only fallback to root HTML on page navigations, NEVER for JS scripts or CSS
+          if (event.request.mode === "navigate") {
+            return caches.match("/");
+          }
+          return new Response("", { status: 408, statusText: "Offline" });
         });
     })
   );

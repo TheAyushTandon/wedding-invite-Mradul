@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { GALLERY, GalleryItem } from "@/data/gallery";
+import { GALLERY } from "@/data/gallery";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { useLanguage } from "@/components/shared/LanguageContext";
 
@@ -18,9 +19,10 @@ function CircleBtn({
   label: string;
   small?: boolean;
 }) {
-  const size = small ? 24 : 34;
+  const size = small ? 24 : 36;
   return (
     <motion.button
+      type="button"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={(e) => {
@@ -30,13 +32,13 @@ function CircleBtn({
       aria-label={label}
       style={{
         position: "absolute",
-        [dir === "prev" ? "left" : "right"]: small ? 4 : 8,
+        [dir === "prev" ? "left" : "right"]: small ? 6 : 10,
         top: "50%",
         transform: "translateY(-50%)",
-        background: small ? "rgba(250,247,242,0.92)" : "rgba(30,15,10,0.55)",
+        background: "rgba(30,15,10,0.6)",
         backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
-        border: small ? "1px solid rgba(140,75,39,0.25)" : "1px solid rgba(255,255,255,0.25)",
+        border: "1px solid rgba(255,255,255,0.25)",
         borderRadius: "50%",
         width: size,
         height: size,
@@ -45,8 +47,8 @@ function CircleBtn({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: small ? "#8C4B27" : "#FFFFFF",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
+        color: "#FFFFFF",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
         transition: "all 0.2s ease",
       }}
     >
@@ -65,24 +67,88 @@ export function GallerySection() {
   const { t } = useLanguage();
   const n = GALLERY.length;
 
-  // Responsive slots with animated flex ratios: 1 : 7 : 1
-  const slots = [
-    ...(cur > 0 ? [{ idx: cur - 1, flex: 1, side: true }] : []),
-    { idx: cur, flex: 7, side: false },
-    ...(cur < n - 1 ? [{ idx: cur + 1, flex: 1, side: true }] : []),
-  ];
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+  });
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCur(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  const closeLightbox = useCallback(() => {
+    if (lightboxIdx !== null) {
+      emblaApi?.scrollTo(lightboxIdx);
+    }
+    setLightboxIdx(null);
+  }, [lightboxIdx, emblaApi]);
+
+  // Pointer drag vs click detection for opening lightbox
+  const pointerDownPos = useRef<{ x: number; y: number } | null>(null);
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerDownPos.current = { x: e.clientX, y: e.clientY };
+  };
+  const handleSlideClick = (idx: number, e: React.MouseEvent) => {
+    if (!pointerDownPos.current) {
+      setLightboxIdx(idx);
+      return;
+    }
+    const dist = Math.hypot(
+      e.clientX - pointerDownPos.current.x,
+      e.clientY - pointerDownPos.current.y
+    );
+    if (dist < 8) {
+      setLightboxIdx(idx);
+    }
+    pointerDownPos.current = null;
+  };
+
+  // Touch swipe support for Lightbox
+  const touchStartX = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX.current - touchEndX;
+    if (Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        setLightboxIdx((prev) => (prev !== null ? (prev + 1) % n : null));
+      } else {
+        setLightboxIdx((prev) => (prev !== null ? (prev - 1 + n) : null));
+      }
+    }
+    touchStartX.current = null;
+  };
 
   // Keyboard navigation for Lightbox
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (lightboxIdx === null) return;
-      if (e.key === "Escape") setLightboxIdx(null);
+      if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowLeft") setLightboxIdx((prev) => (prev !== null ? (prev - 1 + n) % n : null));
       if (e.key === "ArrowRight") setLightboxIdx((prev) => (prev !== null ? (prev + 1) % n : null));
     };
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [lightboxIdx, n]);
+  }, [lightboxIdx, n, closeLightbox]);
 
   return (
     <section
@@ -109,118 +175,110 @@ export function GallerySection() {
         </div>
 
         <div className="w-full max-w-[440px] mx-auto px-3 sm:px-4 flex flex-col gap-4 sm:gap-5">
-          {/* 1. HERO EXPANDING CAROUSEL */}
-          <div className="relative" style={{ height: "clamp(350px, 47svh, 450px)" }}>
-            <div className="flex h-full gap-2">
-              {slots.map(({ idx, flex, side }) => {
-                const it = GALLERY[idx];
-                return (
+          {/* 1. PHOTO SHOWCASE CAROUSEL */}
+          <div className="relative w-full" style={{ height: "clamp(350px, 47svh, 450px)" }}>
+            <div className="embla h-full w-full rounded-2xl overflow-hidden" ref={emblaRef}>
+              <div className="embla__container h-full">
+                {GALLERY.map((it, idx) => (
                   <div
-                    key={`hero-${idx}`}
-                    onClick={() => {
-                      if (side) {
-                        setCur(idx);
-                      } else {
-                        setLightboxIdx(idx);
-                      }
-                    }}
-                    style={{
-                      flex,
-                      overflow: "hidden",
-                      borderRadius: 16,
-                      position: "relative",
-                      cursor: side ? "pointer" : "zoom-in",
-                      transition: "flex 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      border: "1.5px solid rgba(140,75,39,0.22)",
-                      boxShadow: !side ? "0 8px 24px rgba(61,37,34,0.18)" : "none",
-                    }}
+                    key={it.id || idx}
+                    className="embla__slide relative h-full w-full select-none cursor-pointer"
+                    style={{ flex: "0 0 100%" }}
+                    onPointerDown={handlePointerDown}
+                    onClick={(e) => handleSlideClick(idx, e)}
                   >
-                    <Image
-                      src={it.src}
-                      alt={it?.title || ""}
-                      fill
-                      sizes="(max-width: 480px) 100vw, 420px"
-                      className="object-cover"
-                      style={{
-                        transform: !side ? "scale(1.02)" : "scale(1)",
-                        transition: "transform 0.4s ease",
-                      }}
-                    />
-
-                    {/* Gradient scrim overlay */}
                     <div
+                      className="relative w-full h-full overflow-hidden rounded-2xl"
                       style={{
-                        position: "absolute",
-                        inset: 0,
-                        background:
-                          "linear-gradient(to top, rgba(15,10,8,0.85) 0%, rgba(15,10,8,0.25) 50%, transparent 100%)",
+                        border: "1.5px solid rgba(140,75,39,0.22)",
+                        boxShadow: "0 8px 24px rgba(61,37,34,0.18)",
                       }}
-                    />
+                    >
+                      <Image
+                        src={it.src}
+                        alt={it?.title || `Cherished Memory ${idx + 1}`}
+                        fill
+                        sizes="(max-width: 480px) 100vw, 440px"
+                        className="object-cover"
+                        priority={idx === 0}
+                        draggable={false}
+                      />
 
-                    {/* Captions only on main expanded card */}
-                    {!side && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute bottom-0 left-0 right-0 p-4 pb-8 flex flex-col items-start text-left"
-                      >
-                        <span
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            fontSize: "0.72rem",
-                            fontWeight: 700,
-                            letterSpacing: "0.14em",
-                            textTransform: "uppercase",
-                            color: "#FAF7F2",
-                            background: "rgba(140,75,39,0.92)",
-                            padding: "0.25rem 0.75rem",
-                            borderRadius: "9999px",
-                            marginBottom: "0.4rem",
-                            boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                          }}
-                        >
-                          {it.category}
-                        </span>
-                        <div
-                          className="font-serif-wd"
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: "1.45rem",
-                            fontWeight: 700,
-                            lineHeight: 1.2,
-                            textShadow: "0 2px 6px rgba(0,0,0,0.8)",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            width: "100%",
-                          }}
-                        >
-                          {it.title}
-                        </div>
-                        <div
-                          style={{
-                            color: "rgba(255,255,255,0.92)",
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "1.05rem",
-                            fontStyle: "italic",
-                            marginTop: 2,
-                            textShadow: "0 1px 4px rgba(0,0,0,0.8)",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            width: "100%",
-                          }}
-                        >
-                          {it.subtitle}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Expand icon on main image */}
-                    {!side && (
+                      {/* Gradient scrim overlay */}
                       <div
-                        className="absolute top-3 right-3 p-1.5 rounded-full"
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(15,10,8,0.85) 0%, rgba(15,10,8,0.2) 50%, transparent 100%)",
+                          pointerEvents: "none",
+                        }}
+                      />
+
+                      {/* Captions if available */}
+                      {(it.category || it.title || it.subtitle) && (
+                        <div className="absolute bottom-0 left-0 right-0 p-4 pb-8 flex flex-col items-start text-left pointer-events-none">
+                          {it.category && (
+                            <span
+                              style={{
+                                fontFamily: "var(--font-sans)",
+                                fontSize: "0.72rem",
+                                fontWeight: 700,
+                                letterSpacing: "0.14em",
+                                textTransform: "uppercase",
+                                color: "#FAF7F2",
+                                background: "rgba(140,75,39,0.92)",
+                                padding: "0.25rem 0.75rem",
+                                borderRadius: "9999px",
+                                marginBottom: "0.4rem",
+                                boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                              }}
+                            >
+                              {it.category}
+                            </span>
+                          )}
+                          {it.title && (
+                            <div
+                              className="font-serif-wd"
+                              style={{
+                                color: "#FFFFFF",
+                                fontSize: "1.45rem",
+                                fontWeight: 700,
+                                lineHeight: 1.2,
+                                textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                width: "100%",
+                              }}
+                            >
+                              {it.title}
+                            </div>
+                          )}
+                          {it.subtitle && (
+                            <div
+                              style={{
+                                color: "rgba(255,255,255,0.92)",
+                                fontFamily: "var(--font-serif)",
+                                fontSize: "1.05rem",
+                                fontStyle: "italic",
+                                marginTop: 2,
+                                textShadow: "0 1px 4px rgba(0,0,0,0.8)",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                width: "100%",
+                              }}
+                            >
+                              {it.subtitle}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Expand icon on image */}
+                      <div
+                        className="absolute top-3 right-3 p-1.5 rounded-full pointer-events-none"
                         style={{
                           background: "rgba(0,0,0,0.4)",
                           backdropFilter: "blur(4px)",
@@ -229,25 +287,21 @@ export function GallerySection() {
                       >
                         <Maximize2 size={13} />
                       </div>
-                    )}
+                    </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
             {/* Navigation buttons */}
-            {cur > 0 && (
-              <CircleBtn onClick={() => setCur((c) => c - 1)} dir="prev" label="Previous photo" />
-            )}
-            {cur < n - 1 && (
-              <CircleBtn onClick={() => setCur((c) => c + 1)} dir="next" label="Next photo" />
-            )}
+            <CircleBtn onClick={scrollPrev} dir="prev" label="Previous photo" />
+            <CircleBtn onClick={scrollNext} dir="next" label="Next photo" />
 
             {/* Pagination Indicators */}
             <div
               style={{
                 position: "absolute",
-                bottom: 8,
+                bottom: 10,
                 left: "50%",
                 transform: "translateX(-50%)",
                 display: "flex",
@@ -256,16 +310,24 @@ export function GallerySection() {
               }}
             >
               {GALLERY.map((_, i) => (
-                <div
+                <button
                   key={`dot-${i}`}
-                  onClick={() => setCur(i)}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    emblaApi?.scrollTo(i);
+                  }}
+                  aria-label={`Go to photo ${i + 1}`}
                   style={{
                     width: i === cur ? 22 : 6,
                     height: 5,
                     borderRadius: 3,
-                    background: i === cur ? "#8C4B27" : "rgba(140,75,39,0.35)",
+                    background: i === cur ? "#FFFFFF" : "rgba(255,255,255,0.45)",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.4)",
                     cursor: "pointer",
                     transition: "all 0.3s ease",
+                    border: "none",
+                    padding: 0,
                   }}
                 />
               ))}
@@ -308,7 +370,8 @@ export function GallerySection() {
                 return (
                   <button
                     key={`thumb-${item.id}`}
-                    onClick={() => setCur(idx)}
+                    type="button"
+                    onClick={() => emblaApi?.scrollTo(idx)}
                     className="relative flex-1 overflow-hidden rounded-xl transition-all duration-300"
                     style={{
                       height: "64px",
@@ -318,11 +381,11 @@ export function GallerySection() {
                       cursor: "pointer",
                       padding: 0,
                     }}
-                    aria-label={`View ${item.title}`}
+                    aria-label={`View photo ${idx + 1}`}
                   >
                     <Image
                       src={item.src}
-                      alt={item.title || ""}
+                      alt={item?.title || `Thumbnail ${idx + 1}`}
                       fill
                       sizes="80px"
                       className="object-cover"
@@ -344,59 +407,74 @@ export function GallerySection() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] flex items-center justify-center p-4"
             style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(10px)" }}
-            onClick={() => setLightboxIdx(null)}
+            onClick={closeLightbox}
           >
             <motion.div
               initial={{ scale: 0.92 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.92 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-[420px] rounded-2xl overflow-hidden shadow-2xl border border-[#D4AF37]/30 bg-[#1A1412]"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full max-w-[420px] rounded-2xl overflow-hidden shadow-2xl border border-[#D4AF37]/30 bg-[#1A1412] touch-pan-y"
             >
               <div className="relative w-full h-[420px]">
                 <Image
                   src={GALLERY[lightboxIdx].src}
-                  alt={GALLERY[lightboxIdx].title || ""}
+                  alt={GALLERY[lightboxIdx]?.title || `Photo ${lightboxIdx + 1}`}
                   fill
                   className="object-cover"
                 />
               </div>
 
-              <div className="p-4 text-center bg-[#1A1412] text-white">
-                <span
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#D4AF37",
-                    display: "inline-block",
-                    marginBottom: "0.3rem",
-                  }}
-                >
-                  {GALLERY[lightboxIdx].category}
-                </span>
-                <h4
-                  className="font-serif-wd"
-                  style={{ fontSize: "1.45rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.25rem" }}
-                >
-                  {GALLERY[lightboxIdx].title}
-                </h4>
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "1.05rem",
-                    color: "rgba(255,255,255,0.9)",
-                    fontStyle: "italic",
-                  }}
-                >
-                  {GALLERY[lightboxIdx].subtitle}
-                </p>
-              </div>
+              {(GALLERY[lightboxIdx]?.category || GALLERY[lightboxIdx]?.title || GALLERY[lightboxIdx]?.subtitle) ? (
+                <div className="p-4 text-center bg-[#1A1412] text-white">
+                  {GALLERY[lightboxIdx]?.category && (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-sans)",
+                        fontSize: "0.72rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.14em",
+                        textTransform: "uppercase",
+                        color: "#D4AF37",
+                        display: "inline-block",
+                        marginBottom: "0.3rem",
+                      }}
+                    >
+                      {GALLERY[lightboxIdx].category}
+                    </span>
+                  )}
+                  {GALLERY[lightboxIdx]?.title && (
+                    <h4
+                      className="font-serif-wd"
+                      style={{ fontSize: "1.45rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.25rem" }}
+                    >
+                      {GALLERY[lightboxIdx].title}
+                    </h4>
+                  )}
+                  {GALLERY[lightboxIdx]?.subtitle && (
+                    <p
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "1.05rem",
+                        color: "rgba(255,255,255,0.9)",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {GALLERY[lightboxIdx].subtitle}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="py-3 px-4 text-center bg-[#1A1412] text-white/80 text-sm font-serif-wd italic">
+                  {lightboxIdx + 1} / {n}
+                </div>
+              )}
 
               {/* Lightbox Nav */}
               <button
+                type="button"
                 onClick={() => setLightboxIdx((prev) => (prev !== null ? (prev - 1 + n) % n : null))}
                 style={{
                   position: "absolute",
@@ -419,6 +497,7 @@ export function GallerySection() {
                 <ChevronLeft size={20} />
               </button>
               <button
+                type="button"
                 onClick={() => setLightboxIdx((prev) => (prev !== null ? (prev + 1) % n : null))}
                 style={{
                   position: "absolute",
@@ -443,7 +522,8 @@ export function GallerySection() {
 
               {/* Close */}
               <button
-                onClick={() => setLightboxIdx(null)}
+                type="button"
+                onClick={closeLightbox}
                 style={{
                   position: "absolute",
                   top: "0.75rem",
