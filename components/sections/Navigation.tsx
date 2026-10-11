@@ -92,7 +92,7 @@ export function Navigation() {
           style={{
             fontSize: "1.05rem",
             color: "#1E0F0C",
-            letterSpacing: "0.06em",
+            letterSpacing: "0.05em",
           }}
         >
           {t.mradulAndShreya}
@@ -218,7 +218,7 @@ export function Navigation() {
               <div className="px-5">
                 <p
                   className="font-serif font-bold"
-                  style={{ fontSize: "1.5rem", color: "#1E0F0C", marginBottom: "0.25rem", letterSpacing: "0.02em" }}
+                  style={{ fontSize: "1.3rem", color: "#1E0F0C", marginBottom: "0.25rem", letterSpacing: "0.02em" }}
                 >
                   {t.mradulAndShreya}
                 </p>

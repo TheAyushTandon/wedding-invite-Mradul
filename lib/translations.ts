@@ -232,7 +232,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     weddingCelebration: "WEDDING CELEBRATION",
     mradulAndShreya: "Mradul & Shreya",
     dates: "February 2 & 3, 2027",
-    venueHero: "Taj Cidade de Goa Heritage • Goa",
+    venueHero: "Taj Heritage • Goa",
     scrollHint: "Scroll to explore ↓",
 
     // Opening
@@ -502,7 +502,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     weddingCelebration: "शुभ विवाह समारोह",
     mradulAndShreya: "मृदुल संग श्रेया",
     dates: "2 एवं 3 फरवरी 2027",
-    venueHero: "ताज सिदादे दे गोवा हेरिटेज • गोवा",
+    venueHero: "ताज हेरिटेज • गोवा",
     scrollHint: "विवरण देखने हेतु नीचे स्क्रॉल करें ↓",
 
     // Opening
@@ -768,7 +768,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
     weddingCelebration: "शुभविवाह सोहळा",
     mradulAndShreya: "मृदुल आणि श्रेया",
     dates: "2 आणि 3 फेब्रुवारी 2027",
-    venueHero: "ताज सिदादे दे गोवा हेरिटेज • गोवा",
+    venueHero: "ताज हेरिटेज • गोवा",
     scrollHint: "तपशील पाहण्यासाठी खाली स्क्रोल करा ↓",
 
     // Opening
