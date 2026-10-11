@@ -11,6 +11,7 @@ export interface RSVPSubmission {
   events?: string[];
   dietary?: string[];
   otherDietary?: string;
+  questionsOrDietary?: string;
   songRequest?: string;
   blessings?: string;
   timestamp?: string;
@@ -32,11 +33,11 @@ async function ensureDirectory() {
   }
 }
 
-async function saveLocalBackup(filename: string, record: unknown) {
+async function saveLocalBackup(filename: string, record: object) {
   try {
     await ensureDirectory();
     const filePath = path.join(SUBMISSIONS_DIR, filename);
-    let existing: unknown[] = [];
+    let existing: Record<string, unknown>[] = [];
     try {
       const data = await fs.readFile(filePath, "utf-8");
       existing = JSON.parse(data);
@@ -44,7 +45,25 @@ async function saveLocalBackup(filename: string, record: unknown) {
     } catch {
       existing = [];
     }
-    existing.push(record);
+
+    const rec = record as Record<string, unknown>;
+    // Upsert by phone number if available to avoid duplicate entries
+    const phoneToMatch = rec.phone ? String(rec.phone).replace(/\D/g, "") : "";
+    let updated = false;
+    if (phoneToMatch) {
+      for (let i = 0; i < existing.length; i++) {
+        const itemPhone = existing[i].phone ? String(existing[i].phone).replace(/\D/g, "") : "";
+        if (itemPhone && itemPhone === phoneToMatch) {
+          existing[i] = { ...existing[i], ...rec };
+          updated = true;
+          break;
+        }
+      }
+    }
+    if (!updated) {
+      existing.push(rec);
+    }
+
     await fs.writeFile(filePath, JSON.stringify(existing, null, 2), "utf-8");
   } catch (err) {
     console.error(`[Local Backup Error] Failed to write to ${filename}:`, err);
@@ -89,13 +108,17 @@ async function forwardToGoogleSheet(payload: Record<string, unknown>): Promise<{
 
 export async function processRSVP(data: RSVPSubmission) {
   const timestamp = data.timestamp || new Date().toISOString();
+  const feedback = data.questionsOrDietary || data.otherDietary || "";
   const enriched: RSVPSubmission = {
     ...data,
+    questionsOrDietary: feedback,
+    otherDietary: feedback,
+    dietary: feedback ? [feedback] : (data.dietary || []),
     timestamp,
   };
 
   // 1. Always save a local copy as durable backup
-  await saveLocalBackup("rsvp.json", enriched);
+  await saveLocalBackup("rsvp.json", enriched as unknown as Record<string, unknown>);
 
   // 2. Forward to Page 1 of Google Sheet (type: 'rsvp')
   const result = await forwardToGoogleSheet({

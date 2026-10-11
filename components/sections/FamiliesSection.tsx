@@ -13,6 +13,8 @@ export function FamiliesSection() {
     FAMILIES_BY_LANG?.en ||
     [];
 
+  const isDevanagari = lang === "hi" || lang === "mr";
+
   return (
     <section
       id="families"
@@ -36,36 +38,35 @@ export function FamiliesSection() {
         style={{ background: "rgba(250,247,242,0.40)" }}
       />
 
-      <div className="section-content section-pad w-full py-6 sm:py-8 flex flex-col justify-center max-w-[440px] mx-auto">
+      <div className="section-content section-pad w-full py-12 sm:py-16 md:py-20 flex flex-col justify-center max-w-[560px] sm:max-w-[620px] mx-auto">
         <SectionHeader
           eyebrow={t.familiesEyebrow}
           heading={t.familiesHeading}
           quote={t.familiesQuote}
-          className="mb-3 sm:mb-4"
+          className="mb-6 sm:mb-8"
         />
 
         {/* Individual Family Cards */}
-        <div className="w-full flex flex-col gap-2.5 sm:gap-3 mb-3">
+        <div className="w-full flex flex-col gap-4 sm:gap-5 mb-4 sm:mb-6">
           {families.map((family, i) => {
             const isGroom = family.side === "groom";
             return (
               <React.Fragment key={`${lang}-${family.side}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.1 }}
-                  className="w-full flex flex-col items-center text-center p-3.5 sm:p-4 rounded-2xl bg-white/55 backdrop-blur-md border border-[#8C4B27]/18 shadow-sm"
+                  transition={{ duration: 0.5, delay: i * 0.12 }}
+                  className="w-full flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/75 backdrop-blur-md border border-[#8C4B27]/20 shadow-[0_8px_30px_rgba(60,30,20,0.06)] hover:shadow-[0_12px_40px_rgba(60,30,20,0.09)] transition-shadow duration-300"
                 >
-                  {/* Side Pill */}
-                  <div
-                    className="heading-calligraphy"
-                  >
+                  {/* Couple Name */}
+                  <div className="heading-calligraphy mb-2 sm:mb-2.5">
                     <span
                       style={{
-                        fontSize: "clamp(1.25rem, 5vw, 1.45rem)",
+                        fontFamily: isDevanagari ? "var(--font-devanagari-heading), serif" : "var(--font-serif), serif",
+                        fontSize: "clamp(1.55rem, 5.5vw, 2.05rem)",
                         fontWeight: 900,
-                        letterSpacing: "0.10em",
+                        letterSpacing: isDevanagari ? "0.04em" : "0.14em",
                         textTransform: "uppercase",
                         color: "#1F0D09",
                         whiteSpace: "pre-line",
@@ -75,53 +76,63 @@ export function FamiliesSection() {
                     </span>
                   </div>
 
-                  {/* Groom/Bride or Parents Names */}
+                  {/* Elegant Divider Flourish */}
+                  <div className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 opacity-50">
+                    <div className="w-7 h-[1px] bg-[#8C4B27]" />
+                    <span className="text-[10px] text-[#8C4B27]">✦</span>
+                    <div className="w-7 h-[1px] bg-[#8C4B27]" />
+                  </div>
+
+                  {/* Parents & Grandparents Lineage */}
                   <h3
-                    className="heading-calligraphy"
+                    className="heading-calligraphy mb-3.5 sm:mb-4"
                     style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: lang === "mr" || lang === "hi" ? "0.85rem" : "0.65rem",
-                      color: "#8C4B27",
-                      letterSpacing: lang === "mr" || lang === "hi" ? "0.02em" : "0.12em",
-                      textTransform: lang === "mr" || lang === "hi" ? "none" : "uppercase",
-                      fontWeight: lang === "mr" || lang === "hi" ? 600 : 700,
-                      lineHeight: 1.4,
+                      fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)",
+                      fontSize: isDevanagari ? "0.95rem" : "0.82rem",
+                      color: "#4A2016",
+                      letterSpacing: isDevanagari ? "0.02em" : "0.08em",
+                      textTransform: isDevanagari ? "none" : "uppercase",
+                      fontWeight: isDevanagari ? 600 : 700,
+                      lineHeight: 1.75,
                       whiteSpace: "pre-line",
                     }}
                   >
                     {isGroom ? t.groomParents : t.brideParents}
                   </h3>
 
-                  {/* Supporting / Relation Note */}
-                  <p
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: lang === "mr" || lang === "hi" ? "0.85rem" : "0.65rem",
-                      color: "#8C4B27",
-                      letterSpacing: lang === "mr" || lang === "hi" ? "0.02em" : "0.12em",
-                      textTransform: lang === "mr" || lang === "hi" ? "none" : "uppercase",
-                      fontWeight: lang === "mr" || lang === "hi" ? 600 : 700,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {isGroom ? t.groomSupporting : t.brideSupporting}
-                  </p>
+                  {/* Supporting / Extended Family */}
+                  <div className="w-full pt-3 sm:pt-3.5 border-t border-[#8C4B27]/12">
+                    <p
+                      style={{
+                        fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-sans)",
+                        fontSize: isDevanagari ? "0.88rem" : "0.75rem",
+                        color: "#7A3D22",
+                        letterSpacing: isDevanagari ? "0.02em" : "0.08em",
+                        textTransform: isDevanagari ? "none" : "uppercase",
+                        fontWeight: 600,
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      {isGroom ? t.groomSupporting : t.brideSupporting}
+                    </p>
+                  </div>
                 </motion.div>
 
-                {/* "आणि" Connector between Groom and Bride in Marathi */}
+                {/* "and" / "एवं" / "आणि" Connector between Groom and Bride */}
                 {i === 0 && t.familyAndConnector && (
-                  <div className="flex items-center justify-center -my-1 z-10">
+                  <div className="flex items-center justify-center my-1 sm:my-2 z-10">
                     <span
                       className="font-serif-wd"
                       style={{
-                        fontSize: "0.92rem",
+                        fontSize: isDevanagari ? "0.95rem" : "0.86rem",
                         fontWeight: 700,
+                        letterSpacing: "0.08em",
                         color: "#8C4B27",
                         background: "#FAF7F2",
-                        border: "1px solid rgba(140,75,39,0.25)",
-                        padding: "0.15rem 1rem",
+                        border: "1px solid rgba(140,75,39,0.28)",
+                        padding: "0.35rem 1.4rem",
                         borderRadius: "9999px",
-                        boxShadow: "0 2px 6px rgba(140,75,39,0.10)",
+                        boxShadow: "0 3px 10px rgba(140,75,39,0.10)",
                       }}
                     >
                       ✦ {t.familyAndConnector} ✦
@@ -135,19 +146,19 @@ export function FamiliesSection() {
 
         {/* Combined Unified Family Message, Invitation & Blessing */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: 0.2 }}
-          className="text-center max-w-[420px] mx-auto px-4 py-3.5 rounded-2xl bg-white/80 backdrop-blur-sm border border-[#8C4B27]/18 shadow-sm flex flex-col gap-2"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center w-full max-w-[560px] sm:max-w-[620px] mx-auto p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/80 backdrop-blur-md border border-[#8C4B27]/22 shadow-[0_8px_30px_rgba(60,30,20,0.06)] flex flex-col gap-3.5 sm:gap-4 mt-2 sm:mt-3"
         >
           {t.familyInvitationText && (
             <p
               className="font-serif-wd"
               style={{
-                fontSize: "0.92rem",
+                fontSize: isDevanagari ? "1.02rem" : "0.98rem",
                 color: "#1F0D09",
-                lineHeight: 1.6,
+                lineHeight: 1.7,
                 fontWeight: 600,
               }}
             >
@@ -158,9 +169,9 @@ export function FamiliesSection() {
           <p
             className="font-serif-wd"
             style={{
-              fontSize: "0.88rem",
+              fontSize: isDevanagari ? "0.98rem" : "1.02rem",
               color: "#2C140E",
-              lineHeight: 1.55,
+              lineHeight: 1.75,
               fontStyle: "italic",
               fontWeight: 500,
             }}
@@ -171,7 +182,7 @@ export function FamiliesSection() {
           {t.familySignOff && (
             <>
               <div
-                className="w-24 h-[1px] mx-auto my-0.5"
+                className="w-28 sm:w-36 h-[1px] mx-auto my-1"
                 style={{
                   background:
                     "linear-gradient(to right, transparent, rgba(140,75,39,0.35), transparent)",
@@ -179,12 +190,12 @@ export function FamiliesSection() {
               />
               <p
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: "0.78rem",
+                  fontFamily: isDevanagari ? "var(--font-devanagari-body)" : "var(--font-sans)",
+                  fontSize: isDevanagari ? "0.92rem" : "0.86rem",
                   color: "#8C4B27",
                   fontWeight: 700,
-                  letterSpacing: "0.02em",
-                  lineHeight: 1.5,
+                  letterSpacing: isDevanagari ? "0.02em" : "0.06em",
+                  lineHeight: 1.6,
                 }}
               >
                 {t.familySignOff}

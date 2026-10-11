@@ -65,6 +65,7 @@ const schema = z.object({
   events: z.array(z.string()).optional(),
   dietary: z.array(z.string()).optional(),
   otherDietary: z.string().optional(),
+  questionsOrDietary: z.string().optional(),
   songRequest: z.string().optional(),
   blessings: z.string().optional(),
 });
@@ -81,7 +82,7 @@ export function RSVPSection() {
   const [showDeclineModal, setShowDeclineModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { fire } = useConfetti();
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
 
   const form = useForm<RSVPData>({
     resolver: zodResolver(schema),
@@ -93,16 +94,16 @@ export function RSVPSection() {
       email: "",
       attendance: "accept",
       events: ["haldi", "sangeet", "baraat", "pheras", "gala"],
-      dietary: ["Vegetarian"],
+      dietary: [],
       guestCount: 2,
       otherDietary: "",
+      questionsOrDietary: "",
       songRequest: "",
       blessings: "",
     },
   });
 
   const { watch, setValue, getValues, trigger, formState: { errors } } = form;
-  const selectedDietary = watch("dietary") || [];
 
   const goNext = () => {
     const current = ACCEPTING_STEPS.indexOf(step);
@@ -124,6 +125,20 @@ export function RSVPSection() {
   const handleDetailsNext = async () => {
     const isValid = await trigger(["fullName", "phone", "email"]);
     if (isValid) {
+      const currentData = getValues();
+      // Pre-extract & save Step 2 details immediately so guest info is recorded even if user drops off on Step 3
+      fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...currentData,
+          attendance: "accept",
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch((err) => {
+        console.warn("[RSVP Step 2 pre-save error]", err);
+      });
+
       goNext();
     }
   };
@@ -152,25 +167,19 @@ export function RSVPSection() {
     setStep("details");
   };
 
-  const toggleDietary = (item: string) => {
-    const current = getValues("dietary") || [];
-    if (item === "No Restrictions") {
-      setValue("dietary", ["No Restrictions"]);
-      return;
-    }
-    const filtered = current.filter((d) => d !== "No Restrictions");
-    setValue("dietary", filtered.includes(item) ? filtered.filter((d) => d !== item) : [...filtered, item]);
-  };
-
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
       const data = getValues();
+      const feedback = data.questionsOrDietary || data.otherDietary || "";
       await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
+          questionsOrDietary: feedback,
+          otherDietary: feedback,
+          dietary: feedback ? [feedback] : [],
           attendance: "accept",
           timestamp: new Date().toISOString(),
         }),
@@ -313,15 +322,11 @@ export function RSVPSection() {
             {step === "diningExtras" && (
               <StepDiningExtras
                 key="diningExtras"
-                selected={selectedDietary}
-                onToggle={toggleDietary}
-                showOther={selectedDietary.includes("Other")}
                 register={form.register}
                 onSubmit={handleSubmit}
                 onBack={goBack}
                 isSubmitting={isSubmitting}
                 t={t}
-                lang={lang}
               />
             )}
 
@@ -639,28 +644,18 @@ function StepDetails({
 }
 
 function StepDiningExtras({
-  selected,
-  onToggle,
-  showOther,
   register,
   onSubmit,
   onBack,
   isSubmitting,
   t,
-  lang,
 }: {
-  selected: string[];
-  onToggle: (d: string) => void;
-  showOther: boolean;
   register: UseFormRegister<RSVPData>;
   onSubmit: () => void;
   onBack: () => void;
   isSubmitting?: boolean;
   t: TranslationSchema;
-  lang: Language;
 }) {
-  const options = DIETARY_OPTIONS_BY_LANG[lang] || DIETARY_OPTIONS_BY_LANG.en;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -691,74 +686,7 @@ function StepDiningExtras({
         </p>
       </div>
 
-      {/* Dietary preferences */}
-      <div>
-        <label
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "0.82rem",
-            fontWeight: 700,
-            letterSpacing: "0.04em",
-            textTransform: "uppercase",
-            color: "#180A07",
-            display: "block",
-            marginBottom: "0.6rem",
-            lineHeight: 1.4,
-          }}
-        >
-          {t.dietaryHeading}
-        </label>
-
-        <div className="flex flex-wrap gap-2">
-          {options.map((opt) => (
-            <motion.button
-              key={opt.id}
-              type="button"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              onClick={() => onToggle(opt.id)}
-              className={`chip ${selected.includes(opt.id) ? "selected" : ""}`}
-              style={{
-                padding: "0.5rem 0.9rem",
-                borderRadius: "9999px",
-                border: `1.5px solid ${selected.includes(opt.id) ? "#8C4B27" : "rgba(140,75,39,0.30)"}`,
-                background: selected.includes(opt.id) ? "#8C4B27" : "rgba(255,255,255,0.92)",
-                color: selected.includes(opt.id) ? "white" : "#180A07",
-                fontFamily: "var(--font-sans)",
-                fontSize: "0.82rem",
-                fontWeight: 700,
-                cursor: "pointer",
-                boxShadow: "0 1px 4px rgba(140,75,39,0.06)",
-              }}
-            >
-              {selected.includes(opt.id) && <Check size={12} className="inline mr-1" strokeWidth={2.5} />}
-              {opt.label}
-            </motion.button>
-          ))}
-        </div>
-
-        {showOther && (
-          <input
-            {...register("otherDietary")}
-            placeholder={t.dietaryPlaceholder}
-            className="mt-2.5 w-full"
-            style={{
-              padding: "0.75rem 1rem",
-              borderRadius: "0.75rem",
-              border: "1.5px solid rgba(140,75,39,0.25)",
-              background: "rgba(255,255,255,0.92)",
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.95rem",
-              color: "#180A07",
-              outline: "none",
-            }}
-          />
-        )}
-      </div>
-
-      <div style={{ height: "1px", background: "rgba(140,75,39,0.15)", margin: "0.15rem 0" }} />
-
-      {/* Song Request */}
+      {/* 1. Song Request */}
       <FieldWrap label={t.songRequestLabel} error={undefined}>
         <div
           className="flex items-center gap-2 px-3.5 py-3 rounded-xl"
@@ -784,12 +712,34 @@ function StepDiningExtras({
         </div>
       </FieldWrap>
 
-      {/* Blessings / Warm message */}
+      {/* 2. Blessings / Warm message */}
       <FieldWrap label={t.blessingLabel} error={undefined}>
         <textarea
           {...register("blessings")}
           rows={3}
           placeholder={t.blessingPlaceholder}
+          style={{
+            width: "100%",
+            padding: "0.75rem 1rem",
+            borderRadius: "0.75rem",
+            border: "1.5px solid rgba(140,75,39,0.25)",
+            background: "rgba(255,255,255,0.92)",
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.95rem",
+            color: "#180A07",
+            outline: "none",
+            resize: "none",
+            lineHeight: 1.5,
+          }}
+        />
+      </FieldWrap>
+
+      {/* 3. Feedback box (Questions, Dietary needs, or Accessibility requests) */}
+      <FieldWrap label={t.dietaryHeading} error={undefined}>
+        <textarea
+          {...register("questionsOrDietary")}
+          rows={3}
+          placeholder={t.dietaryPlaceholder}
           style={{
             width: "100%",
             padding: "0.75rem 1rem",

@@ -22,6 +22,44 @@ This wedding website is designed to automatically sync all submissions into **a 
 3. Paste the following complete script:
 
 ```javascript
+function doGet(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var wishesSheet = ss.getSheetByName("Wishes");
+    if (!wishesSheet) {
+      return ContentService.createTextOutput(JSON.stringify([])).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var data = wishesSheet.getDataRange().getValues();
+    if (data.length <= 1) {
+      return ContentService.createTextOutput(JSON.stringify([])).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var results = [];
+    for (var i = 1; i < data.length; i++) {
+      var row = data[i];
+      if (!row[1]) continue; 
+      
+      results.push({
+        id: i + 1,
+        timestamp: row[0] || "",
+        wish: row[1] || "",
+        name: row[2] || "Anonymous Guest",
+        likes: Number(row[3]) || 0
+      });
+    }
+    
+    results.sort(function(a, b) {
+      if (b.likes !== a.likes) return b.likes - a.likes;
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+    
+    return ContentService.createTextOutput(JSON.stringify(results)).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
 function doPost(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -32,7 +70,6 @@ function doPost(e) {
     if (type === "rsvp") {
       var rsvpSheet = ss.getSheetByName("RSVP");
       if (!rsvpSheet) {
-        // Check if Sheet1 is default and empty, rename it or create new
         var defaultSheet = ss.getSheetByName("Sheet1");
         if (defaultSheet && defaultSheet.getLastRow() === 0) {
           rsvpSheet = defaultSheet;
@@ -42,30 +79,24 @@ function doPost(e) {
         }
 
         var headers = [
-          "Timestamp",
-          "Full Name",
-          "Country Code",
-          "Phone Number",
-          "Email",
-          "Attendance",
-          "Total Guests",
-          "Events Attending",
-          "Dietary Preferences",
-          "Other Dietary Notes",
-          "Song Request",
-          "Blessings / Note"
+          "Timestamp", "Full Name", "Country Code", "Phone Number", "Email",
+          "Attendance", "Total Guests", "Events Attending",
+          "Questions / Dietary / Accessibility Notes",
+          "Song Request", "Blessings / Note"
         ];
         rsvpSheet.appendRow(headers);
-        var headerRange = rsvpSheet.getRange(1, 1, 1, headers.length);
-        headerRange.setFontWeight("bold")
-                   .setBackground("#F3ECE3")
-                   .setFontColor("#5B1423");
+        rsvpSheet.getRange(1, 1, 1, headers.length)
+                 .setFontWeight("bold")
+                 .setBackground("#F3ECE3")
+                 .setFontColor("#5B1423");
         rsvpSheet.setFrozenRows(1);
       }
 
       var events = Array.isArray(data.events) ? data.events.join(", ") : (data.events || "");
-      var dietary = Array.isArray(data.dietary) ? data.dietary.join(", ") : (data.dietary || "");
-      var timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+      var feedback = data.questionsOrDietary || data.otherDietary || (Array.isArray(data.dietary) ? data.dietary.join(", ") : (data.dietary || ""));
+      var timestamp = data.timestamp 
+        ? new Date(data.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
+        : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
       var row = [
         timestamp,
@@ -76,48 +107,77 @@ function doPost(e) {
         data.attendance === "accept" ? "Attending" : "Regretfully Declining",
         data.attendance === "accept" ? (data.guestCount || 1) : 0,
         events,
-        dietary,
-        data.otherDietary || "",
+        feedback,
         data.songRequest || "",
         data.blessings || ""
       ];
 
-      rsvpSheet.appendRow(row);
-      return ContentService.createTextOutput(JSON.stringify({ status: "success", tab: "RSVP" }))
+      // Upsert: check if a row with this phone number already exists to update it without duplicates
+      var phoneToMatch = data.phone ? String(data.phone).replace(/\D/g, "") : "";
+      var updated = false;
+      if (phoneToMatch) {
+        var lastRow = rsvpSheet.getLastRow();
+        if (lastRow > 1) {
+          var phoneValues = rsvpSheet.getRange(2, 4, lastRow - 1, 1).getValues();
+          for (var r = 0; r < phoneValues.length; r++) {
+            var cellPhone = String(phoneValues[r][0]).replace(/\D/g, "");
+            if (cellPhone && cellPhone === phoneToMatch) {
+              rsvpSheet.getRange(r + 2, 1, 1, row.length).setValues([row]);
+              updated = true;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!updated) {
+        rsvpSheet.appendRow(row);
+      }
+
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", tab: "RSVP", updated: updated }))
         .setMimeType(ContentService.MimeType.JSON);
 
     } else if (type === "wish") {
       var wishesSheet = ss.getSheetByName("Wishes");
       if (!wishesSheet) {
         wishesSheet = ss.insertSheet("Wishes");
-        var wishHeaders = [
-          "Timestamp",
-          "Wish / Blessing",
-          "Guest Name"
-        ];
+        var wishHeaders = ["Timestamp", "Wish / Blessing", "Guest Name", "Likes"];
         wishesSheet.appendRow(wishHeaders);
-        var wishHeaderRange = wishesSheet.getRange(1, 1, 1, wishHeaders.length);
-        wishHeaderRange.setFontWeight("bold")
-                       .setBackground("#F3ECE3")
-                       .setFontColor("#5B1423");
+        wishesSheet.getRange(1, 1, 1, wishHeaders.length)
+                   .setFontWeight("bold")
+                   .setBackground("#F3ECE3")
+                   .setFontColor("#5B1423");
         wishesSheet.setFrozenRows(1);
       }
 
-      var wishTimestamp = data.timestamp ? new Date(data.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+      var wishTimestamp = data.timestamp 
+        ? new Date(data.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) 
+        : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
       var wishRow = [
         wishTimestamp,
         data.wish || "",
-        data.name || "Anonymous Guest"
+        data.name || "Anonymous Guest",
+        0
       ];
 
       wishesSheet.appendRow(wishRow);
       return ContentService.createTextOutput(JSON.stringify({ status: "success", tab: "Wishes" }))
         .setMimeType(ContentService.MimeType.JSON);
+        
+    } else if (type === "like") {
+      var wishesSheet = ss.getSheetByName("Wishes");
+      if (wishesSheet && data.id) {
+        var rowId = parseInt(data.id, 10);
+        var currentLikes = wishesSheet.getRange(rowId, 4).getValue() || 0;
+        wishesSheet.getRange(rowId, 4).setValue(Number(currentLikes) + 1);
+        return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
     }
 
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "Unknown type" }))
       .setMimeType(ContentService.MimeType.JSON);
-
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);

@@ -175,11 +175,39 @@ export function HeroSection() {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={scrollToRSVP}
-          className="btn-primary w-full shadow-[0_8px_30px_rgba(140,75,39,0.55),0_0_0_1px_rgba(212,175,55,0.5)] tracking-[0.18em]"
-          style={{ maxWidth: "320px", marginBottom: "1.25rem" }}
+          className={`btn-primary w-full shadow-[0_8px_30px_rgba(140,75,39,0.55),0_0_0_1px_rgba(212,175,55,0.5)] transition-all ${
+            isDevanagari
+              ? "text-[0.98rem] sm:text-[1.08rem] tracking-[0.02em] font-semibold py-3.5 px-6"
+              : "text-xs tracking-[0.18em] py-3.5 px-6 font-semibold"
+          }`}
+          style={{
+            maxWidth: isDevanagari ? "360px" : "320px",
+            marginBottom: "1.25rem",
+            fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)",
+          }}
         >
-          <CalendarDays size={16} />
-          {t.rsvpNow}
+          <CalendarDays size={isDevanagari ? 18 : 16} className="flex-shrink-0" />
+          <span className="inline-flex items-center gap-1.5 justify-center">
+            {isDevanagari ? (
+              lang === "hi" ? (
+                <>
+                  <span>उपस्थिति दर्ज करें</span>
+                  <span className="font-bold text-[1.12em] tracking-wider text-[#FDE047] sm:text-[#FFE8A3]">
+                    (RSVP)
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span>उपस्थिती कळवा</span>
+                  <span className="font-bold text-[1.12em] tracking-wider text-[#FDE047] sm:text-[#FFE8A3]">
+                    (RSVP)
+                  </span>
+                </>
+              )
+            ) : (
+              t.rsvpNow
+            )}
+          </span>
         </motion.button>
 
         {/* In-flow bottom clearance */}

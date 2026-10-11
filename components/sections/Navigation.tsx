@@ -11,6 +11,7 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { lang, setLang, t } = useLanguage();
+  const isDevanagari = lang === "hi" || lang === "mr";
 
   const NAV_ITEMS = [
     { href: "#families", label: t.families },
@@ -326,9 +327,30 @@ export function Navigation() {
                 {/* RSVP CTA */}
                 <button
                   onClick={() => scrollTo("#rsvp")}
-                  className="btn-primary w-full mt-5"
+                  className={`btn-primary w-full mt-5 ${
+                    isDevanagari
+                      ? "text-[0.98rem] tracking-[0.02em] py-3.5 font-semibold"
+                      : "text-xs tracking-[0.14em] py-3"
+                  }`}
+                  style={{
+                    fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)",
+                  }}
                 >
-                  {t.rsvpNow}
+                  {isDevanagari ? (
+                    lang === "hi" ? (
+                      <span className="inline-flex items-center gap-1.5 justify-center">
+                        <span>उपस्थिति दर्ज करें</span>
+                        <span className="font-bold text-[1.12em] tracking-wider text-[#FDE047]">(RSVP)</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 justify-center">
+                        <span>उपस्थिती कळवा</span>
+                        <span className="font-bold text-[1.12em] tracking-wider text-[#FDE047]">(RSVP)</span>
+                      </span>
+                    )
+                  ) : (
+                    t.rsvpNow
+                  )}
                 </button>
               </div>
             </motion.nav>
