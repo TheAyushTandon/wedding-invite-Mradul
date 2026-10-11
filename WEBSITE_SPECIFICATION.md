@@ -255,7 +255,7 @@ Day Switcher Tabs — two underline-style text tabs:
 #### DAY 1 CONTENT (default view):
 
 Event 1:
-  Time: 11:00 AM
+  Time: 2:00 PM
   Title: The Haldi Ceremony
   Description: "Sunshine yellows, marigold floral showers, organic ubtan, lively dhol rhythms, and joyful blessings."
   Location (with pin icon): Oceanfront Palm Lawn • Taj Heritage
@@ -263,7 +263,7 @@ Event 1:
 Thin hairline divider between events.
 
 Event 2:
-  Time: 07:30 PM
+  Time: 08:30 PM
   Title: The Sangeet Night
   Description: "Glitz & glamour! High-energy dance performances, live musical acts, craft cocktails, and a Bollywood DJ dance floor."
   Location (with pin icon): The Grand Heritage Ballroom
@@ -271,7 +271,7 @@ Event 2:
 #### DAY 2 CONTENT (shown when Day 2 tab selected):
 
 Event 1:
-  Time: 04:30 PM
+  Time: 05:00 PM
   Title: The Baraat & Royal Pheras
   Description: "Grand Baraat procession at 4:30 PM followed by sacred sunset Vedic vows and pheras around the holy fire by the Arabian Sea."
   Location (with pin icon): Beachfront Sunset Mandap
@@ -279,7 +279,7 @@ Event 1:
 Thin hairline divider between events.
 
 Event 2:
-  Time: 08:30 PM
+  Time: 09:00 PM
   Title: The Gala Dinner & Afterparty
   Description: "Celebratory champagne toasts, lavish multi-cuisine royal banquet, live band serenades, and starlit dancing."
   Location (with pin icon): Mandovi Royal Terrace

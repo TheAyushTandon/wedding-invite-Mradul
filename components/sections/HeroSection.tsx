@@ -81,7 +81,8 @@ export function HeroSection() {
             fontWeight: 700,
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.92)",
-            marginBottom: "0.85rem",
+            marginBottom: "0.5rem",
+            marginTop: "0.5rem"
           }}
         >
           {t.weddingCelebration}
@@ -116,7 +117,6 @@ export function HeroSection() {
               >
                 &amp;
               </span>
-              <br className="block sm:hidden" />
               <span className="sm:ml-2">Shreya</span>
             </span>
           ) : (

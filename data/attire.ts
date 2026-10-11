@@ -11,7 +11,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
   en: [
     {
       event: "Haldi",
-      day: "Day 1 • Haldi Ceremony (10:00 AM)",
+      day: "Day 1 • Haldi Ceremony (2:00 PM)",
       dressCode: "Sunshine Yellows & Vibrant Marigolds",
       colors: ["Golden Marigold", "Bright Sunflower", "Warm Saffron", "Sunset Amber"],
       colorHex: ["#F59E0B", "#FACC15", "#F97316", "#EA580C"],
@@ -21,7 +21,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
     },
     {
       event: "Sangeet",
-      day: "Day 1 • Sangeet Night (7:00 PM)",
+      day: "Day 1 • Sangeet Night (8:30 PM)",
       dressCode: "Indo-Western & Western Glam",
       colors: ["Emerald Green", "Sapphire Blue", "Ruby Wine", "Midnight Black"],
       colorHex: ["#50C878", "#0F52BA", "#9B111E", "#1C1C1C"],
@@ -53,7 +53,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
   hi: [
     {
       event: "हल्दी",
-      day: "दिन 1 • हल्दी समारोह (सुबह 10:00 बजे)",
+      day: "दिन 1 • हल्दी समारोह (दोपहर 2:00 बजे)",
       dressCode: "पीले एवं नारंगी उत्सव परिधान",
       colors: ["गेंदा पीला", "सूर्यमुखी", "केसरिया", "नारंगी"],
       colorHex: ["#F59E0B", "#FACC15", "#F97316", "#EA580C"],
@@ -63,7 +63,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
     },
     {
       event: "संगीत",
-      day: "दिन 1 • संगीत संध्या (शाम 7:00 बजे)",
+      day: "दिन 1 • संगीत संध्या (शाम 8:30 बजे)",
       dressCode: "इंडो-वेस्टर्न एवं वेस्टर्न ग्लैम",
       colors: ["पन्ना हरा", "नीलम नीला", "रूबी लाल", "क्लासिक ब्लैक"],
       colorHex: ["#50C878", "#0F52BA", "#9B111E", "#1C1C1C"],
@@ -95,7 +95,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
   mr: [
     {
       event: "हळद",
-      day: "दिवस 1 • हळद समारंभ (सकाळी 10:00)",
+      day: "दिवस 1 • हळद समारंभ (दुपारी 2:00)",
       dressCode: "पिवळे आणि केशरी उत्सव पोशाख",
       colors: ["झेंडू पिवळा", "सूर्यमुखी", "केशरी", "नारंगी"],
       colorHex: ["#F59E0B", "#FACC15", "#F97316", "#EA580C"],
@@ -105,7 +105,7 @@ export const ATTIRE_BY_LANG: Record<Language, AttireOption[]> = {
     },
     {
       event: "संगीत",
-      day: "दिवस 1 • संगीत रजनी (संध्याकाळी 7:00)",
+      day: "दिवस 1 • संगीत रजनी (संध्याकाळी 8:30)",
       dressCode: "इंडो-वेस्टर्न आणि वेस्टर्न ग्लॅम",
       colors: ["पाचू हिरवा", "नीलम निळा", "माणिक लाल", "क्लासिक ब्लॅक"],
       colorHex: ["#50C878", "#0F52BA", "#9B111E", "#1C1C1C"],
