@@ -197,11 +197,13 @@ export function GallerySection() {
                       <Image
                         src={it.src}
                         alt={it?.title || `Cherished Memory ${idx + 1}`}
-                        fill
-                        sizes="(max-width: 480px) 100vw, 440px"
+                        fill={false}
                         className="object-cover"
                         priority={idx === 0}
                         draggable={false}
+                        objectFit="cover"
+                        objectPosition="relative"
+                        
                       />
 
                       {/* Gradient scrim overlay */}
