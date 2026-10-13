@@ -3,7 +3,6 @@ import photo2 from "./images/photo2.png";
 import photo3 from "./images/photo3.png";
 import photo4 from "./images/photo4.png";
 import photo5 from "./images/photo5.png";
-import photo6 from "./images/photo6.png";
 import photo7 from "./images/photo7.png";
 import photo8 from "./images/photo8.png";
 
@@ -34,8 +33,8 @@ export const GALLERY: GalleryItem[] = [
     src: photo4, 
   },
   {
-    id: "g6",
-    src: photo6, 
+    id: "g5",
+    src: photo5, 
   },
   {
     id: "g7",
