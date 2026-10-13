@@ -16,7 +16,7 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
     {
       question: "What are the check-in and check-out timings?",
       answer:
-        "Check-in is at 2:00 PM on February 2nd and check-out is at 11:00 AM on February 4th. If you arrive early, our Wedding Welcome Lounge is open from 10:00 AM with luggage safe-keeping and refreshments while rooms are readied.",
+        "Check-in is at 12:30 PM on February 2nd and check-out is at 11:00 AM on February 4th. If you arrive early, our Wedding Welcome Lounge is open from 10:00 AM with luggage safe-keeping and refreshments while rooms are readied.",
     },
     {
       question: "Is guest accommodation covered for the wedding?",
@@ -48,7 +48,7 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
     {
       question: "होटल में चेक-इन और चेक-आउट का समय क्या है?",
       answer:
-        "चेक-इन 2 फरवरी को दोपहर 2:00 PM से और चेक-आउट 4 फरवरी को सुबह 11:00 AM तक है। यदि आप समय से पूर्व पहुंचते हैं, तो कमरा तैयार होने तक सुबह 10:00 AM से हमारे वेलकम लाउंज में विश्राम एवं अल्पाहार की व्यवस्था है।",
+        "चेक-इन 2 फरवरी को दोपहर 12:30 PM से और चेक-आउट 4 फरवरी को सुबह 11:00 AM तक है। यदि आप समय से पूर्व पहुंचते हैं, तो कमरा तैयार होने तक सुबह 10:00 AM से हमारे वेलकम लाउंज में विश्राम एवं अल्पाहार की व्यवस्था है।",
     },
     {
       question: "क्या विवाह के दौरान अतिथियों के ठहरने की व्यवस्था है?",
@@ -80,7 +80,7 @@ export const FAQ_BY_LANG: Record<Language, FAQItem[]> = {
     {
       question: "हॉटेल चेक-इन आणि चेक-आउटची वेळ कोणती आहे?",
       answer:
-        "चेक-इन 2 फेब्रुवारी रोजी दुपारी 2:00 PM आणि चेक-आउट 4 फेब्रुवारी रोजी सकाळी 11:00 AM आहे. आपण लवकर पोहोचल्यास खोल्या तयार होईपर्यंत सकाळी 10:00 AM पासून स्वागत लाउंजमध्ये विश्रांतीची व्यवस्था आहे.",
+        "चेक-इन 2 फेब्रुवारी रोजी दुपारी 12:30 PM आणि चेक-आउट 4 फेब्रुवारी रोजी सकाळी 11:00 AM आहे. आपण लवकर पोहोचल्यास खोल्या तयार होईपर्यंत सकाळी 10:00 AM पासून स्वागत लाउंजमध्ये विश्रांतीची व्यवस्था आहे.",
     },
     {
       question: "विवाहासाठी पाहुण्यांच्या निवासाची सोय आहे का?",

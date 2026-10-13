@@ -465,7 +465,7 @@ Four information cards (shadcn-style glassmorphism cards), each with:
 - Bullet list of information
 
 Card 1 — Check-in & Check-out Timings [Clock icon] [Badge: "Resort Policy"]
-  - Check-in: 2:00 PM (Taj Heritage)
+  - Check-in: 12:30PM (Taj Heritage)
   - Check-out: 11:00 AM
   - Early arrival? Our Wedding Welcome Lounge & Refreshment Suite is open from 10:00 AM with luggage safe-keeping while rooms are readied.
 
