@@ -11,6 +11,14 @@ export const metadata: Metadata = {
     title: "Mradul & Shreya Wedding — Taj Heritage, Goa",
     description:
       "Join us for the royal wedding of Mradul & Shreya on February 2 & 3, 2027 at Taj Heritage, Goa.",
+      images: [
+        {
+          url: 'https://twostatessetsail.in/assets/shared/monogram-ms-crest.png',
+          width: 1200,
+          height: 630,
+          alt: 'Mradul & Shreya Wedding Monogram',
+        },
+      ],
     type: "website",
   },
 };

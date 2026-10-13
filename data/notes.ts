@@ -26,7 +26,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "Check-in & Check-out Timings",
       badge: "Resort Policy",
       bullets: [
-        "Check-in: 2:00 PM on February 2nd at Taj Heritage.",
+        "Check-in: 12:30 PM on February 2nd at Taj Heritage.",
         "Check-out: 11:00 AM on February 4th.",
         "Early arrivals can relax at our Wedding Hospitality Lounge while rooms are prepared.",
       ],
@@ -68,7 +68,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "चेक-इन एवं चेक-आउट समय",
       badge: "रिसॉर्ट नियम",
       bullets: [
-        "चेक-इन: 2 फरवरी को दोपहर 2:00 PM से ताज हेरिटेज में।",
+        "चेक-इन: 2 फरवरी को दोपहर 12:30 PM से ताज हेरिटेज में।",
         "चेक-आउट: 4 फरवरी को सुबह 11:00 AM तक।",
         "समय से पूर्व आगमन पर अतिथि हमारे वेलकम लाउंज में विश्राम कर सकते हैं।",
       ],
@@ -111,7 +111,7 @@ export const NOTES_BY_LANG: Record<Language, NoteItem[]> = {
       title: "चेक-इन व चेक-आउट वेळ",
       badge: "रिसॉर्टचे नियम",
       bullets: [
-        "चेक-इन: 2 फेब्रुवारी रोजी दुपारी 2:00 PM ताज हेरिटेज येथे.",
+        "चेक-इन: 2 फेब्रुवारी रोजी दुपारी 12:30 PM ताज हेरिटेज येथे.",
         "चेक-आउट: 4 फेब्रुवारी रोजी सकाळी 11:00 AM.",
         "लवकर पोहोचणाऱ्या पाहुण्यांसाठी स्वागत लाउंजमध्ये विश्रांतीची व्यवस्था आहे.",
       ],
