@@ -181,7 +181,7 @@ export function HeroSection() {
               : "text-xs tracking-[0.18em] py-3.5 px-6 font-semibold"
           }`}
           style={{
-            maxWidth: isDevanagari ? "360px" : "320px",
+            maxWidth: isDevanagari ? "260px" : "220px",
             marginBottom: "1.25rem",
             fontFamily: isDevanagari ? "var(--font-devanagari-sans)" : "var(--font-sans)",
           }}

@@ -181,17 +181,7 @@ export function Footer() {
       {/* Social / WhatsApp / Instagram */}
       <div className="flex justify-center gap-5 mt-8 mb-4">
         <a
-          href={`https://wa.me/?text=${encodeURIComponent(shareText)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3F2018] hover:text-[#8C4B27] transition-colors"
-          style={{ fontFamily: "var(--font-sans)" }}
-        >
-          <MessageCircle size={16} />
-          <span>{t.shareInvite}</span>
-        </a>
-        <a
-          href="https://www.instagram.com/explore/tags/mradulwedsshreya/"
+          href="https://www.instagram.com/explore/tags/TwoStatesSetSail/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3F2018] hover:text-[#8C4B27] transition-colors"

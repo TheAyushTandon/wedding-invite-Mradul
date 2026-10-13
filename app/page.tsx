@@ -18,7 +18,6 @@ const TravelSection = dynamic(() => import("@/components/sections/TravelSection"
 const FamiliesSection = dynamic(() => import("@/components/sections/FamiliesSection").then(mod => mod.FamiliesSection));
 const ImportantNotesSection = dynamic(() => import("@/components/sections/ImportantNotesSection").then(mod => mod.ImportantNotesSection));
 const GallerySection = dynamic(() => import("@/components/sections/GallerySection").then(mod => mod.GallerySection));
-const WishesSection = dynamic(() => import("@/components/sections/WishesSection").then(mod => mod.WishesSection));
 const FAQSection = dynamic(() => import("@/components/sections/FAQSection").then(mod => mod.FAQSection));
 const HelpdeskSection = dynamic(() => import("@/components/sections/HelpdeskSection").then(mod => mod.HelpdeskSection));
 const RSVPSection = dynamic(() => import("@/components/sections/RSVPSection").then(mod => mod.RSVPSection));
@@ -77,7 +76,6 @@ function WeddingContent() {
           <CountdownSection />
           <ScheduleSection />
           <AttireSection />
-          <WishesSection />
           <ImportantNotesSection />
           <TravelSection />
           <RSVPSection />

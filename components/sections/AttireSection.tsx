@@ -208,7 +208,10 @@ export function AttireSection() {
               </h3>
 
               {/* Color swatches */}
-              <div className="flex gap-2.5 mb-4 flex-wrap">
+              <div 
+                className="grid mb-4 gap-4 w-full"
+                style={{ gridTemplateColumns: "repeat(auto-fill, minmax(60px, 1fr))" }}
+              >
                 {current.colorHex.map((hex, i) => (
                   <div key={i} className="flex flex-col items-center gap-1">
                     <div
