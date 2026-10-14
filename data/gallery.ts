@@ -1,10 +1,9 @@
 import { StaticImageData } from "next/image";
-import photo2 from "./images/photo2.png";
-import photo3 from "./images/photo3.png";
-import photo4 from "./images/photo4.png";
 import photo5 from "./images/photo5.png";
 import photo7 from "./images/photo7.png";
-import photo8 from "./images/photo8.png";
+import g1 from "./images/Image_f1.jpeg";
+import g2 from "./images/Image_f2.jpeg";
+import g3 from "./images/Image_f3.jpeg";
 
 export interface GalleryItem {
   id: string;
@@ -18,26 +17,22 @@ export interface GalleryItem {
 export const GALLERY: GalleryItem[] = [
   {
     id: "g8",
-    src: photo8, 
+    src: g1, 
   },
   {
     id: "g2",
-    src: photo2, 
+    src: g2, 
   },
   {
     id: "g3",
-    src: photo3, 
+    src: g3, 
   },
   {
     id: "g4",
-    src: photo4, 
-  },
-  {
-    id: "g5",
     src: photo5, 
   },
   {
-    id: "g7",
+    id: "g5",
     src: photo7, 
   },
 ];
