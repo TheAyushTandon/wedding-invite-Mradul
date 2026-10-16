@@ -421,7 +421,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // RSVP
     rsvpEyebrow: "✦ KINDLY RESPOND ✦",
-    rsvpHeading: "Will You Join Us?",
+    rsvpHeading: "RSVP",
     rsvpQuote: "Please let us know your presence as soon as possible.",
     stepLabel: "STEP",
     stepOf: "OF",
@@ -687,7 +687,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // RSVP
     rsvpEyebrow: "✦ अपनी उपस्थिति बताएं ✦",
-    rsvpHeading: "क्या आप पधारेंगे?",
+    rsvpHeading: "उपस्थिति (RSVP)",
     rsvpQuote: "कृपया यथाशीघ्र अपनी उपस्थिति सुनिश्चित करें।",
     stepLabel: "चरण",
     stepOf: "का",
@@ -953,7 +953,7 @@ export const TRANSLATIONS: Record<Language, TranslationSchema> = {
 
     // RSVP
     rsvpEyebrow: "✦ आपली उपस्थिती कळवा ✦",
-    rsvpHeading: "आपण उपस्थित राहणार का?",
+    rsvpHeading: "उपस्थिती (RSVP)",
     rsvpQuote: "कृपया लवकरात लवकर आपली उपस्थिती निश्चित करावी.",
     stepLabel: "टप्पा",
     stepOf: "पैकी",
